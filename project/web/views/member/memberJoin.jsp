@@ -594,7 +594,7 @@
     <!-- 노토산스kr 폰트 가져오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
-<body ><!-- 마우스 우클릭해서 새로고침 못하게 마우스 우클릭 막기-->
+<body oncontextmenu="return false"><!-- 마우스 우클릭해서 새로고침 못하게 마우스 우클릭 막기-->
 	<%@include file="../common/menubar.jsp"%>
 
    
@@ -813,9 +813,9 @@
                             <label for="">
                                 혜윰에서 제공하는 정보수신메일을 받으시겠습니까?
                             </label>&nbsp;
-                            <input type="radio" name="mailServiceArgree" id="mailServiceArgreeY" value="yes" checked>
+                            <input type="radio" name="mailServiceArgree" id="mailServiceArgreeY" value="Y" checked>
                             <label for="mailServiceArgreeY">예</label>
-                            <input type="radio" name="mailServiceArgree" id="mailServiceArgreeN" value="no">
+                            <input type="radio" name="mailServiceArgree" id="mailServiceArgreeN" value="N">
                             <label for="mailServiceArgreeN">아니오</label>
                         </td>
                     </tr>
@@ -1021,7 +1021,6 @@
                 var regEx = /^[^@^ ]{1,}$/;
                 if(!regEx.test($(this).val())||$(this).val()==''){
                     $('#resultEmail').html('<abbr class="RegExplainHover" title="이메일 아이디에 공백이나 @가 들어갔는지 확인해보세요">이메일 입력 안될때</abbr>').css(styleFalse)
-                    $(this).focus();
                 }else{
                     $('#resultEmail').prop('value', '');
                 }
@@ -1055,12 +1054,10 @@
                     $('#resultEmail').html('확인되었습니다.').css(styleTrue);
                 }else{
                     $('#resultEmail').html('전부 입력해주세요').css(styleFalse);
-                    $(this).focus();
                 }
                 if($('#siteName').children('option:selected').val() != 'choice'
                     &&$('#siteName').children('option:selected').val() != 'direct'
                     &&$('#email').val()!=''){
-                        alert('asdf');
                         $('#resultEmail').html('확인되었습니다.').css(styleTrue);
                 }
             })
@@ -1328,7 +1325,11 @@
 			$('#resultEmailCheck').text('');
 			checkSuccess='';
 			completeCheck=-1;
-			clearInterval(intervalE);
+
+			//처음엔 인터벌이 존재하지 않으므로
+			if(typeof(intervalE)!='undefined'){
+				clearInterval(intervalE);				
+			}
 		}
 		
 		//이메일 입력란이 바뀌었을 경우 자동으로 인증 초기화
@@ -1409,6 +1410,7 @@
     			||$('#sample4_extraAddress').val().length==0
              	){
             	 alert('주소를 전부 입력해 주세요');
+            	 return;
              }
              
              if($('#siteName').val()=='choice'){

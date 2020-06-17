@@ -80,7 +80,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = "INSERT INTO MEMBER VALUES((SELECT MAX(MEMBER_NO)+1 FROM MEMBER), NULL, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT)";
+		String query = "INSERT INTO MEMBER VALUES((SELECT MAX(MEMBER_NO)+1 FROM MEMBER), NULL, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -90,6 +90,7 @@ public class MemberDao {
 			pstmt.setString(4, m.getPhone());
 			pstmt.setString(5, m.getEmail());
 			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getMailServie());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -50,7 +50,7 @@ public class MemberJoinServlet extends HttpServlet {
 //		System.out.println(email);
 //		System.out.println(phone);
 //		System.out.println(address);
-//		System.out.println(informMail);
+		System.out.println(informMail);
 //		System.out.println(pName);
 //		System.out.println(pWeight);
 //		System.out.println(pKind);
@@ -63,6 +63,7 @@ public class MemberJoinServlet extends HttpServlet {
 		m.setEmail(email);
 		m.setPhone(phone);
 		m.setAddress(address);
+		m.setMailServie(informMail);
 		//정보메일수신 동의여부는 나중에 db결정하고 보내든가 말든가 하자
 		
 		int result = new MemberService().insertMember(m);

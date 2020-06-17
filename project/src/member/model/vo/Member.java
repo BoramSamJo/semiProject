@@ -18,7 +18,7 @@ public class Member implements Serializable{
 	private String enrollDate;
 	private String modifyDate;
 	private String status;
-	
+	private String mailServie;
 	
 	public Member() {
 	}
@@ -36,6 +36,23 @@ public class Member implements Serializable{
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	public Member(int mNo, int insCode, String mId, String mPwd, String mName, String phone, String email,
+			String address, String enrollDate, String modifyDate, String status, String mailServie) {
+		this.mNo = mNo;
+		this.insCode = insCode;
+		this.mId = mId;
+		this.mPwd = mPwd;
+		this.mName = mName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.mailServie = mailServie;
+	}
+
 	public Member(String mId, String mName, String email) {
 		this.mId = mId;
 		this.mName = mName;
@@ -115,14 +132,22 @@ public class Member implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getMailServie() {
+		return mailServie;
+	}
+	public void setMailServie(String mailServie) {
+		this.mailServie = mailServie;
+	}
 	
 	
 	@Override
 	public String toString() {
 		return "Member [mNo=" + mNo + ", insCode=" + insCode + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName
 				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", enrollDate=" + enrollDate
-				+ ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ ", modifyDate=" + modifyDate + ", status=" + status + ", mailServie=" + mailServie + "]";
 	}
+	
+	
 	
 	
 	
