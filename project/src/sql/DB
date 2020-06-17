@@ -1,0 +1,28 @@
+create table reservation(
+    plusDate varchar2(20),
+    plusTime varchar2(20),
+/* 다른테이블에서 불러올 값 */
+    userName varchar2(10),
+    phone varchar2(20),
+    address varchar2(20),
+    pName varchar2(10),
+    pWeight varchar2(10),
+    pKindMain varchar2(10),
+    pKindServe varchar2(15)
+);
+
+drop table reservation;
+insert into reservation values('2020년06월16일','오전9:00','칠성','사이다','복숭아','키위','10.5','dog','페트');
+INSERT INTO reservation VALUES('2020년05월16일','오후3:30','호준','여보슈','저기','나르','10.5','dog','나르');
+
+create table member(
+    userId varchar2(20),
+    phone varchar2(20),
+    address varchar2(20)
+);
+
+insert into member values('가','나','다');
+insert into member values('a','a','a');
+
+select * from member;
+SELECT * FROM MEMBER WHERE USERID='a';
