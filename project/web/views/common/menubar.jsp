@@ -359,10 +359,10 @@ header * {
             #loginT tr:nth-of-type(4){text-align: left;}
 
             #userIdLogIn{
-                height: 25px;
+                height: 35px;
             }
             #password{
-                height: 25px;
+                height: 35px;
             }
 
             /* 로그인 버튼 설정 */
@@ -412,7 +412,11 @@ header * {
                 cursor: pointer; 
                 line-height: 22px; 
                 padding-left: 25px; 
-                background: url('../../img/notCheck1.png') left/30px no-repeat; 
+                background: url('<%=request.getContextPath()%>/img/notCheck1.png') left/30px no-repeat; 
+            }
+            
+            #reactMenu a{
+            	color:#242424;
             }
             
         /* ------------------------로그인 css 끝-------------------------- */
@@ -465,12 +469,12 @@ header * {
 		<!-- 0. 모달 로그인 팝업 -->
 		<div id="navSmallLink">
 			<%if(loginUser==null){ %>
-			<a id="moveToLogIn" class="TextmoveTo">로그인</a> <a class="TextmoveTo">회원가입</a>
+			<a id="moveToLogIn" class="TextmoveTo">로그인</a> <a class="TextmoveTo" href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
 			<%}else{ %>
 			<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-			<a class="TextmoveTo" id="moveToMyPage">마이페이지</a>
+			<a class="TextmoveTo" id="moveToMyPage" href="#">마이페이지</a>
 			<%} %>
-			<a class="TextmoveTo">오시는길</a>
+			<a class="TextmoveTo" href="<%=request.getContextPath() %>/index.jsp">오시는길</a>
 		</div>
 		<div class="modal" id="myModal">
 			<!-- 1) 로그인단 + 우측 이미지 -->
@@ -483,7 +487,7 @@ header * {
 					<form id="loginForm">
 						<table id="loginT">
 							<tr>
-								<td><img src="../../LOGO/LOGO3.png" width="300"
+								<td><img src="<%=request.getContextPath()%>/LOGO/LOGO3.png" width="300"
 									height="100" alt=""></td>
 							</tr>
 							<tr>
@@ -514,9 +518,9 @@ header * {
 							<tr>
 								<td>
 									<div id="smallInform" align='center'>
-										<a href="#" id="#">아이디 찾기 |</a> <a href="#" id="#"><b>비밀번호
+										<a href="<%=request.getContextPath()%>/views/member/mySearch.jsp" id="#">아이디 찾기 |</a> <a href="<%=request.getContextPath()%>/views/member/mySearch.jsp" id="#"><b>비밀번호
 												찾기</b></a><span style="font-size: 10px; font-weight: lighter;">
-											|</span> <a href="semi_Join.html">회원가입</a>
+											|</span> <a href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
 									</div>
 								</td>
 							</tr>
@@ -532,7 +536,7 @@ header * {
 		</div>
 		<!--상단바-->
 		<ul id='navMenu'>
-			<img id="navLogo" src="../../LOGO/LOGO1.png" width="130" alt="로고이미지"
+			<img id="navLogo" src="<%=request.getContextPath()%>/LOGO/LOGO1.png" width="130" alt="로고이미지"
 				id='bigwindow_logo'>
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
@@ -556,27 +560,27 @@ header * {
 					<li><a href='#'>FAQ</a></li>
 					<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 				</ul></li>
-			<li><a href="#" id='fifth' class="colorcss">For Member</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp" id='fifth' class="colorcss">For Member</a></li>
 		</ul>
 
 
 		<!-- 반응형 메뉴 -->
 		<div id='reactMenu'>
-			<img id="serveLogo" src="../../LOGO/LOGO1.png" width="120"
+			<img id="serveLogo" src="<%=request.getContextPath() %>/LOGO/LOGO1.png" width="120"
 				alt="로고이미지" id='bigwindow_logo'>
 			<div id="serveMenuBtn">
-				<img src="../../img/noun_List_25956.png" width="90" height="90">
+				<img src="<%=request.getContextPath()%>/img/noun_List_25956.png" width="90" height="90">
 			</div>
 			<ul id="serveMenu">
 				<div id="serveSmallLink">
 					<%if(loginUser==null){ %>
 					<a id="moveToLogIn2" class="TextmoveTo">로그인</a> <a
-						class="TextmoveTo">회원가입</a>
+						class="TextmoveTo" href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
 					<a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
 					<%} %>
-					<a class="TextmoveTo">오시는길</a>
+					<a class="TextmoveTo" href="<%=request.getContextPath() %>/index.jsp">오시는길</a>
 				</div>
 
 				<li id="serve1"><a href="#">장례서비스 </a>
@@ -605,7 +609,7 @@ header * {
 						<li><a href='#'>FAQ</a></li>
 						<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 					</ul></li>
-				<li><a href="#">For Member</a>
+				<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp">For Member</a>
 					<hr></li>
 			</ul>
 		</div>
@@ -691,13 +695,13 @@ header * {
                     function(){
                         if(layer.css('display')!='none'){
                             btn.css('font-weight', 'bolder').css('padding-right', '40px');
-                            btn.children().prop('src', '../../img/noun_Close_52944.png').css({'width':'50', 'height':'50','padding-left':'20px', 'padding-top':'20px'});
+                            btn.children().prop('src', '<%=request.getContextPath()%>/img/noun_Close_52944.png').css({'width':'50', 'height':'50','padding-left':'20px', 'padding-top':'20px'});
                             //아코디언이 펴져서 스크롤 바 생기는걸로 박스가 가려지는걸 커버하기 위해 위치 조정
                             // $("#serveMenuBtn").css('right', -($('html').width()-$('#serveMenuBtn').width()-70));
                             // alert('asdf');
                         }else{
                             btn.css('font-weight', '500').css('padding-right', '40px');
-                            btn.children().prop('src', '../../img/noun_List_25956.png').css({'width':'90', 'height':'90','padding-left':'0px', 'padding-top':'0px'});
+                            btn.children().prop('src', '<%=request.getContextPath()%>/img/noun_List_25956.png').css({'width':'90', 'height':'90','padding-left':'0px', 'padding-top':'0px'});
                             // $("#serveMenuBtn").css('right', -($('html').width()-$('#serveMenuBtn').width()-60));
                         }
                         layer.addClass('show');
@@ -785,17 +789,17 @@ header * {
         moveToLogIn.onclick = function(){
             modal.style.display = "block";
 
-            var heightLogIn = $('body>header').height()+50;
+            var heightLogIn = $('body>header').height();
             var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
             
             $('#logIn').css({'top':heightLogIn, 'left':widthLogIn});
 
         };
+        
         moveToLogIn2.onclick = function(){
-            // $('#serveMenu').css('display', 'none');
             modal.style.display = "block";
 
-            var heightLogIn = $('#reactMenu').height()+50;
+            var heightLogIn = $('#reactMenu').height();
             var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
             
             $('#logIn').css({'top':heightLogIn, 'left':widthLogIn});
@@ -833,10 +837,10 @@ header * {
         $('input:checkbox').each(function(index, item){
             $(this).change(function(){
                 if($(this).prop('checked')==true){
-                    ($(this).next().css('background-image', "url('../../checkboxImage/활성화체크박스검정에베이지.png')"));
+                    ($(this).next().css('background-image', "url('<%=request.getContextPath()%>/checkboxImage/innerbeigeOuterblack.png')"));
                 	$('input:hidden').val('true');
                 }else if($(this).prop('checked')==false){
-                    $(this).next().css('background-image', "url('../../img/notCheck1.png')")
+                    $(this).next().css('background-image', "url('<%=request.getContextPath()%>/img/notCheck1.png')")
                     $('input:hidden').val('false');
                 }
             });

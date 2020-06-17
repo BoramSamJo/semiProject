@@ -203,6 +203,36 @@
             vertical-align: top;
             border-bottom: 1px solid black;
         }
+        .TableCSS1 th:nth-of-type(1) {
+        	width:100px;
+        }
+        .TableCSS1 td:nth-of-type(1) {
+        	width:100px;
+        }
+        .TableCSS1 th:nth-of-type(2) {
+        	width:100px;
+        }
+        .TableCSS1 td:nth-of-type(2) {
+        	width:100px;
+        }
+         .TableCSS1 th:nth-of-type(4) {
+        	width:250px;
+        }
+        .TableCSS1 td:nth-of-type(4) {
+        	width:250px;
+        }
+        .TableCSS1 th:nth-of-type(3), .TableCSS1 td:nth-of-type(5) {
+        	width:110px;
+        }
+        .TableCSS1 td:nth-of-type(3), .TableCSS1 td:nth-of-type(5) {
+        	width:110px;
+        }
+        .TableCSS1 td:nth-of-type(6), .TableCSS1 th:nth-of-type(7){
+        	width:100px;
+        }
+        .TableCSS1 td:nth-of-type(6), .TableCSS1 td:nth-of-type(7) {
+        	width:100px;
+        }
         .off:hover{
             background: rgb(228, 227, 227);
         }
@@ -421,8 +451,7 @@
 
 
     <body>
-        <!--header시작-->
-        <header></header>
+        <%@include file="../common/menubar.jsp"%>
 
         <!--section시작-->
         <section id="notiSection">
@@ -443,9 +472,10 @@
 
               <!--QnA영역-->
               <div>
-                <table class="TableCSS1" id=QnATable cellspacing="0" cellpadding="0" border="0" >
+                <table class="TableCSS1" id=QnATable cellspacing="0" cellpadding="0" border="0px" >
                     <tr>
                         <th class="bar">번호</th>
+                        <th>공개</th>
                         <th>분류</th>
                         <th>제목</th>
                         <th>작성자</th>
@@ -454,13 +484,18 @@
                     </tr>
                    	<%if(qList.size()<1){ %>
                    	<tr>
-                   		<td colspan="6">조회할 QnA게시글이 없습니다</td>
+                   		<td colspan="7">조회할 QnA게시글이 없습니다</td>
                    	</tr>
                    	<%}else{%>
 	                    <%for(int i = 0; i < qList.size(); i++){ %>
 	                    	<%if(!qAList.isEmpty()){%>
 	                    	<tr onclick="getPwd(<%=qList.get(i).getqPwd() %>, this);" class="off" id='modaltest1'>
 		                        <td class='init'><%=qList.get(i).getRowNum() %></td>
+		                        <%if(qList.get(i).getqPwd().equals("0")){ %>
+		                        <td class='init'>[공개]</td>
+		                        <%}else{ %>
+		                        <td class='init'>[비공개]</td>
+		                        <%} %>
 		                        <td class='init'><%=qList.get(i).getqCName() %></td>
 		                        <td class='init'><%=qList.get(i).getqTitle() %></td>
 		                        <td class='init'><%=qList.get(i).getmName() %></td>
@@ -479,7 +514,7 @@
 		                    </tr>
 		                    <tr class="Q">
 		                    	<td></td>
-		                    	<td colspan="4" style="text-align:left"><%=qList.get(i).getqContent() %></td>
+		                    	<td colspan="5" style="text-align:left"><%=qList.get(i).getqContent() %></td>
 		                    	<td></td>
 		                    </tr>
 		                    	<%for(int j = 0; j < qAList.size(); j++){ %>
@@ -494,14 +529,19 @@
 				                    <%}else{ %>
 				                    <tr class="A">
 				                    	<td><img src="/project/img/answerImg3.png" width="35px"></td>
-			                    		<td colspan="4" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
+			                    		<td colspan="5" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
 				                    	<td></td>
 			                    	</tr>
 				                    <%}%>
 			                    <%} %>
 	                    	<%}else if(qAList.isEmpty()){%>
 	                    	<tr onclick="getPwd(<%=qList.get(i).getqPwd() %>, this);" class="off" id='modaltest1'>
-		                         <td class='init'><%=qList.get(i).getRowNum() %></td>
+		                        <td class='init'><%=qList.get(i).getRowNum() %></td>
+		                        <%if(qList.get(i).getqPwd().equals("0")){ %>
+		                        <td class='init'>[공개]</td>
+		                        <%}else{ %>
+		                        <td class='init'>[비공개]</td>
+		                        <%} %>
 		                        <td class='init'><%=qList.get(i).getqCName() %></td>
 		                        <td class='init'><%=qList.get(i).getqTitle() %></td>
 		                        <td class='init'><%=qList.get(i).getmName() %></td>
@@ -510,12 +550,12 @@
 		                    </tr>
 		                    <tr class="Q">
 		                    	<td></td>
-		                    	<td colspan="4" style="text-align:left"><%=qList.get(i).getqContent() %></td>
+		                    	<td colspan="5" style="text-align:left"><%=qList.get(i).getqContent() %></td>
 		                    	<td></td>
 		                    </tr>
 		                     <tr class="A">
 		                    	<td><img src="../../img/answerImg3.png" width="35px"></td>
-	                    		<td colspan="4" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
+	                    		<td colspan="5" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
 		                     	<td></td>
 	                    	</tr>
 	                    	<%}%>
@@ -566,6 +606,7 @@
             <%if(isSearch=="true"){ %>
             <button onclick="reloadForWhole();" id="writeQnaBtn">전체보기</button><br><br>
            <%} %>
+           
             <!--비밀번호 입력 모달창 띄우기-->
             <div id='pwdModal' class="modal">
                 <div class="modal-content" align='center'>
@@ -641,7 +682,7 @@
         		$(boardClicked).next().slideUp();
         		$(boardClicked).next().next().slideUp();
         		$(boardClicked).css('background', 'white');
-        		
+        		alert(pwd);
         		//클릭한 게시글 비번과 객체를 담음
         		originBoardPwd = pwd;
         		boardClicked = object;
@@ -656,7 +697,9 @@
                     $(boardClicked).css('background', 'lightgray');
 				}else{
 					var modal = document.getElementById('pwdModal');
-	        		modal.style.display = "block";			
+	        		modal.style.display = "block";
+	        		$('#boardPwd').val('');
+	        		$('#boardPwd').focus();
 				}
         	}
 
@@ -720,6 +763,9 @@
         	}
         	function notLogin(){
         		var doLogin = confirm('로그인해야만 작성가능합니다. 로그인 하시겠습니까?');
+        		if(doLogin==true){
+        			$('#moveToLogIn2').click();
+        		}
         	}
         
         </script>

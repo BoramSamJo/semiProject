@@ -36,7 +36,15 @@ public class Member implements Serializable{
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
-	
+	public Member(String mId, String mName, String email) {
+		this.mId = mId;
+		this.mName = mName;
+		this.email = email;
+	}
+	public Member(String mId, String mPwd) {
+		this.mId = mId;
+		this.mPwd = mPwd;
+	}
 	
 	public int getmNo() {
 		return mNo;

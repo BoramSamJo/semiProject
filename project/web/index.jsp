@@ -1009,12 +1009,12 @@
 		<div id="navSmallLink">
 			<%if(loginUser==null){ %>
 			<a id="moveToLogIn" class="TextmoveTo">로그인</a>
-			<a class="TextmoveTo">회원가입</a>
+			<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a>
 			<%}else{ %>
 			<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
 			<a class="TextmoveTo" id="moveToMyPage">마이페이지</a>
 			<%} %>
-			<a class="TextmoveTo">오시는길</a>
+			<a class="TextmoveTo" href="#">오시는길</a>
 		</div>
 		<div class="modal" id="myModal">
 			<!-- 1) 로그인단 + 우측 이미지 -->
@@ -1061,7 +1061,7 @@
 							<tr>
 								<td>
 									<div id="smallInform" align='center'>
-										<a href="#" id="#">아이디 찾기 |</a> <a href="#" id="#"><b>비밀번호
+										<a href="views/member/mySearch.jsp" id="#">아이디 찾기 |</a> <a href="views/member/mySearch.jsp" id="#"><b>비밀번호
 												찾기</b></a><span style="font-size: 10px; font-weight: lighter;">
 											|</span> <a href="semi_Join.html">회원가입</a>
 									</div>
@@ -1101,9 +1101,9 @@
 				<ul>
 					<li><a href='#'>공지사항</a></li>
 					<li><a href='#'>FAQ</a></li>
-					<li><a href='#'>QnA</a></li>
+					<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 				</ul></li>
-			<li><a href="#" id='fifth' class="colorcss">For Member</a></li>
+			<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp" id='fifth' class="colorcss">For Member</a></li>
 		</ul>
 
 
@@ -1118,7 +1118,7 @@
 				<div id="serveSmallLink">
 					<%if(loginUser==null){ %>
 					<a id="moveToLogIn2" class="TextmoveTo">로그인</a> 
-					<a class="TextmoveTo">회원가입</a> 
+					<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
 					<a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
@@ -1150,9 +1150,9 @@
 					<ul>
 						<li><a href='#'>공지사항</a></li>
 						<li><a href='#'>FAQ</a></li>
-						<li><a href='#'>QnA</a></li>
+						<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 					</ul></li>
-				<li><a href="#">For Member</a>
+				<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp">For Member</a>
 				<hr></li>
 			</ul>
 		</div>
@@ -1264,7 +1264,7 @@
                         <p>갑작스러운 작별에도
                             대처할 수 있도록<br> 
                             24시간 반려동물 장례전문가가<br> 대기중입니다</p>
-                            <button>상담 바로가기</button>
+                            <button onclick="location.href='QnAList.bo'">상담 바로가기</button>
                     </div>
                 </div>
                 <img src="img/dog-4494554_1920.jpg">
@@ -1325,8 +1325,8 @@
                     서울특별시 관악구 신림동 <br>대학18길 26
                     월드빌 501호
                 </p>
-                <button id="nM" onclick="toMap(this);"><b>네이버 Map 바로가기</b></button>
-                <button id="gM" onclick="toMap(this);"><b>구글 Map 바로가기</b></button>
+                <button id="nM" onclick="location.href='http://land.mahru.co.kr/naver'"><b>네이버 Map 바로가기</b></button>
+                <button id="gM" onclick="location.href='https://www.google.co.kr/maps/place/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B4%80%EC%95%85%EA%B5%AC+%EC%8B%A0%EB%A6%BC%EB%8F%99+%EB%8C%80%ED%95%9918%EA%B8%B8+26/@37.4647108,126.9347188,17z/data=!3m1!4b1!4m5!3m4!1s0x357c9fe16a0d8a0d:0x2ff104f7c7117906!8m2!3d37.4647108!4d126.9369075?hl=ko'"><b>구글 Map 바로가기</b></button>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.8310500738476!2d126.93471881516473!3d37.464710779817054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9fe16a0d8a0d%3A0x2ff104f7c7117906!2z7ISc7Jq47Yq567OE7IucIOq0gOyVheq1rCDsi6Drprzrj5kg64yA7ZWZMTjquLggMjY!5e0!3m2!1sko!2skr!4v1589025212441!5m2!1sko!2skr" 
                 width="40%" height="90%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
             </div>
@@ -1930,7 +1930,7 @@
         $('input:checkbox').each(function(index, item){
             $(this).change(function(){
                 if($(this).prop('checked')==true){
-                    ($(this).next().css('background-image', "url('checkboxImage/활성화체크박스검정에베이지.png')"));
+                    ($(this).next().css('background-image', "url('checkboxImage/innerbeigeOuterblack.png')"));
                     $('input:hidden').val('true');
                 }else if($(this).prop('checked')==false){
                     $(this).next().css('background-image', "url('img/notCheck1.png')")

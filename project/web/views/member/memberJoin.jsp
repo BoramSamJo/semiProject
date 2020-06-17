@@ -594,7 +594,7 @@
     <!-- 노토산스kr 폰트 가져오기 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
-<body oncontextmenu="return false"><!-- 마우스 우클릭해서 새로고침 못하게 마우스 우클릭 막기-->
+<body ><!-- 마우스 우클릭해서 새로고침 못하게 마우스 우클릭 막기-->
 	<%@include file="../common/menubar.jsp"%>
 
    

@@ -389,19 +389,18 @@ footer {
 	rel="stylesheet">
 </head>
 <body>
-	<!--header시작-->
-	<header></header>
+	<%@include file="../common/menubar.jsp"%>
 
 	<!--section시작-->
 	<section id="notiSection">
 		<!-- 고객센터 공통 상단 -->
 		<div id='Backarea'>
-			<img src="img/CS_icon4.png" id=headimg>
+			<img src="<%=request.getContextPath() %>/img/CS_icon4.png" id=headimg>
 			<h1 id="notiTitle1">HYE YUM CS CENTER</h1>
 			<h3 id="notiTitle2">혜윰 고객센터</h3>
 		</div>
 		<div id="smallTitles">
-			<img src="img/CS_icon3.png" id='img1'>
+			<img src="<%=request.getContextPath() %>/img/CS_icon3.png" id='img1'>
 			<h3 id="smallTitle">문의작성</h3>
 			<h5>고객센터 1577-7011</h5>
 		</div>
@@ -416,7 +415,7 @@ footer {
 						빠르게 개선하기 위해 담당자가 연락을 드릴 수 있습니다.</span>
 				</p>
 			</div>
-			<img src="img/CS_customer.png" id='img2'>
+			<img src="<%=request.getContextPath() %>/img/CS_customer.png" id='img2'>
 		</div>
 
 		<div id="wrapTable">
@@ -430,13 +429,13 @@ footer {
 
 					<table>
 						<tr>
-							<td class='tdCss'><img src="img/service.png">제목</td>
+							<td class='tdCss'><img src="<%=request.getContextPath() %>/img/service.png">제목</td>
 							<td><input type='text' placeholder="게시글 제목을 입력하세요"
 								id='title' name="title" required></td>
 						</tr>
 						<tr>
 							<td class='tdCss' name="public1" id="public"><img
-								src="img/service.png">공개설정</td>
+								src="<%=request.getContextPath() %>/img/service.png">공개설정</td>
 							<td><label for="publicR">공개</label><input type="radio"
 								name="isOpen" id="publicR" value="yes" class="radio">
 								<label for="privateR">비공개</label><input type="radio"
@@ -444,12 +443,12 @@ footer {
 							</td>
 						</tr>
 						<tr>
-							<td class='tdCss'><img src="img/service.png">비밀번호</td>
+							<td class='tdCss'><img src="<%=request.getContextPath() %>/img/service.png">비밀번호</td>
 							<td><input type="password" name="password" id="pass"
 								placeholder="비밀번호" required></td>
 						</tr>
 						<tr>
-							<td class="tdCss"><img src="img/service.png">카테고리 선택</td>
+							<td class="tdCss"><img src="<%=request.getContextPath() %>/img/service.png">카테고리 선택</td>
 							<td><select name="category" id="category" required>
 									<option selected value=''>카테고리를 선택해주세요</option>
 									<option value="reservation">예약문의</option>
