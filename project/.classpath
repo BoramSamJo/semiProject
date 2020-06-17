@@ -15,5 +15,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/semiProject/project/web/WEB-INF/lib/cos.jar"/>
 	<classpathentry kind="lib" path="C:/semiProject/project/web/WEB-INF/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="C:/semiProject/project/web/WEB-INF/lib/mail-1.5.0-b01.jar"/>
+	<classpathentry kind="lib" path="C:/semiProject/project/web/WEB-INF/lib/gson-2.8.5.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
