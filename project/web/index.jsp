@@ -9,5 +9,12 @@
 <body>
 안뇽??
 이것은 메인페이지..ㅋㅋ
+<div id = "noticeBoard" onclick="goNotice()">고객센터</div>
+	
+	<script>
+		function goNotice(){
+			location.href="<%=request.getContextPath()%>/list.bo"; 
+		}
+	</script>
 </body>
 </html>
