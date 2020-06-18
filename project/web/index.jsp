@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body> 
 안뇽??
 이것은 메인페이지..ㅋㅋ
 <div id = "noticeBoard" onclick="goNotice()">고객센터</div>
