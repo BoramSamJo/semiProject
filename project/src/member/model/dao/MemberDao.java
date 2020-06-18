@@ -82,7 +82,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = "INSERT INTO MEMBER VALUES((SELECT MAX(MEMBER_NO)+1 FROM MEMBER), NULL, ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, ?)";
+		String query = "INSERT INTO MEMBER VALUES((SELECT MAX(MEMBER_NO)+1 FROM MEMBER), ?, ?, ?, ?, ?, ?, DEFAULT, DEFAULT, DEFAULT, ?)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
