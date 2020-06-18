@@ -1012,7 +1012,7 @@
 			<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a>
 			<%}else{ %>
 			<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-			<a class="TextmoveTo" id="moveToMyPage">마이페이지</a>
+			<a class="TextmoveTo" id="moveToMyPage" href="<%=request.getContextPath()%>/first.ch">마이페이지</a>
 			<%} %>
 			<a class="TextmoveTo" href="#">오시는길</a>
 		</div>
@@ -1121,7 +1121,7 @@
 					<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-					<a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
+					<a id="moveToMyPage2" class="TextmoveTo" href="<%=request.getContextPath()%>/first.ch">마이페이지</a>
 					<%} %>
 					<a class="TextmoveTo">오시는길</a>
 				</div>
