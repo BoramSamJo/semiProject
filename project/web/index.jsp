@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<meta charset="UTF-8">  
+<title>Insert title here</title> 
+</head> 
 <body>
-안뇽??
+안뇽?? 
 이것은 메인페이지..ㅋㅋ
 </body>
 </html>
