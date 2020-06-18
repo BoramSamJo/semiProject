@@ -593,14 +593,14 @@ header * {
 						<li><a href="#">장례예약</a></li>
 					</ul></li>
 
-				<li id="serve2"><a href="#">보험서비스</a>
+				<li id="serve2"><a href="/view/insurance/insuranceMain.jsp">보험서비스</a>
 					<hr>
 					<ul>
-						<li><a href='#'>보험소개</a></li>
-						<li><a href='#'>보장내용</a></li>
+						<li><a href="/view/insurance/insuranceContent.jsp">보험소개</a></li>
+						<li><a href="/view/insurance/insuranceConfirm.jsp">보장내용</a></li>
 						<li><a href='#'>가입안내</a></li>
 					</ul></li>
-				<li><a href="#"><a>혜윰스케치북</a>
+				<li><a href="/views/board/sketchBoardList.jsp"><a>혜윰스케치북</a>
 						<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>

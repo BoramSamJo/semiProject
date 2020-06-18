@@ -170,7 +170,11 @@
             }
             #serveMenu{
                 margin: 0px;
+<<<<<<< dev_jm
                 padding: 0px;  
+=======
+                padding: 0px;
+>>>>>>> 6f5a5a9 보험, 추모 추가
                 background-color: white;
                 display: none;
             }
