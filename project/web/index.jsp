@@ -1084,10 +1084,10 @@
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
 				<ul>
-					<li><a href="#">장례절차</a></li>
-					<li><a href="#">장례용품</a></li>
-					<li><a href="#">장례비용</a></li>
-					<li><a href="#">LUCETTE</a></li>
+					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Order.jsp">장례절차</a></li>
+					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례용품</a></li>
+					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Price.jsp">장례비용</a></li>
+					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
 					<li><a href="#">장례예약</a></li>
 				</ul></li>
 			<li><a href="#" id='second' class="colorcss">보험서비스</a>
@@ -1129,10 +1129,10 @@
 				<li id="serve1"><a href="#">장례서비스 </a>
 					<hr>
 					<ul>
-						<li><a href="#">장례절차</a></li>
-						<li><a href="#">장례용품</a></li>
-						<li><a href="#">장례비용</a></li>
-						<li><a href="#">LUCETTE</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Order.jsp">장례절차</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례용품</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Price.jsp">장례비용</a></li>
+						<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
 						<li><a href="#">장례예약</a></li>
 					</ul></li>
 
