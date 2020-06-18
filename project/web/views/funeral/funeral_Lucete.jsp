@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 장례 가격 -->
-<title>funeral_Price</title>
-
+<!-- 루세떼(메모리얼 스톤) -->
+<title>Funeral_Lucete</title>
 <script src="http://code.jquery.com/jquery-latest.min.js">
 	최신
 </script>
@@ -28,6 +27,27 @@ body * {
 /* href 링크 밑줄 및 색깔 수정*/
 #a {
 	text-decoration: none;
+}
+
+/* 제목아래 underline*/
+#underline {
+	border-bottom: 15px solid white;
+	width: 800px;
+	height: 200px;
+	float: left;
+}
+
+#title {
+	font-size: 45px;
+	margin-left: 180px;
+}
+/*내용*/
+#content {
+	height: 200px;
+	font-size: 25px;
+	margin-left: 100px;
+	margin-top: 50px;
+	text-align: left;
 }
 
 /* 맨위 장례서비스 종류(장례 비용, 장례 절차, 장례 용품)*/
@@ -67,157 +87,132 @@ body * {
 	font-size: 20px;
 }
 
-#funeralPriceFirstText {
-	color: #b3a193;
-	padding: 30px;
-	font-size: 30px;
-	background-color: rgb(65, 64, 64);
-	background: -webkit-linear-gradient(top, rgb(65, 64, 64), #242424);
-	font-weight: 500;
-}
-
-/* 장례가격 타이틀 설정 */
-.funeralPriceTitle {
-	/* background-color: #242424;
-            background: -webkit-linear-gradient(top, #3d3d3d, #242424);
-            padding: 20px;
-            margin: 0px;
-            font-size: 25px;
-            color: #d2c4b9;
-            text-align: center; */
-	margin-top: 50px;
-}
-
-#funeral_service {
-	text-align: center;
-}
-
-/* 테이블 상단  */
-#thead {
-	background: -webkit-linear-gradient(top, #3d3d3d, #242424);
-	text-align: center;
-	color: #b3a193;
-	font-weight: 500;
-}
-
-/* 테이블 가운데로 고정 */
-#table {
-	margin: auto;
-	margin-bottom: 40px;
-}
-
-/* 테이블 안에 글자 속성 */
-#thead {
-	font-size: 30px;
-}
-
-#tbody {
-	font-size: 20px;
-	color: #242424
-}
-
-/* 참고사항 */
-#notes {
-	width: 800px;
-	margin: auto;
-	text-align: left;
-	font-size: 13px;
-	color: #242424;
-	font-weight: 500;
-	width: 610px;
-	line-height: 26px;
-	margin-bottom: 70px;
-	text-align: center;
-	/* background-color: #b3a193; */
-}
-
-#table {
-	width: 1100px;
-	border: 1px solid #242424;
-	/* 테이블간격없애기 */
-	border-collapse: collapse;
-}
-
-#table #tbody td:nth-of-type(1) {
-	background: -webkit-linear-gradient(top, #d3bdae, #b3a193);
-	font-weight: 500;
-}
-
-.choiceProduct #tbody tr:nth-of-type(1) td:nth-of-type(2) {
-	background: -webkit-linear-gradient(top, #d3bdae, #b3a193);
-	font-weight: 500;
-}
-
-#table tr, #table td, #table th {
-	border: 1px solid #242424;
-	padding: 10px;
-	font-size: 20px;
-	text-align: center;
-}
-
-[id^=imgview] {
-	width: auto;
-	float: right;
-	border: none;
+/* LUCETE 타이틀 설정 */
+#luceteTitle {
 	background-color: #242424;
-	color: #b3a193;
-	border-radius: 3px;
-	padding: 5px;
-}
-/*이미지 크기*/
-.img img {
-	width: 400px;
-	height: 340px;
-	border-top: 1px solid #242424;
-}
-/*이미지를 보여줄 div*/
-.img {
-	position: relative;
-	position: absolute;
-	top: 580px;
-	left: 200px;
-	margin-left: 30%;
-	display: none;
-	width: 400px;
-	height: 400px;
-	background: #242424;
-	color: #b3a193;
-	border: 1px solid #242424;
-	border-radius: 5px;
-	background-size: cover;
-	font-weight: 500;
-}
-
-#img4 {
-	width: 800px;
-}
-
-#img4 img {
-	width: 800px;
-}
-/*이미지 제목*/
-#img_title {
-	position: absolute;
-	top: 12px;
-	left: 0px;
-	text-align: center;
-	margin-left: 50px;
+	background: -webkit-linear-gradient(top, #3d3d3d, #242424);
+	padding: 20px;
+	margin: 0px;
 	font-size: 25px;
-	/* background-color: blue; */
-}
-/*이미지 닫기(x) 크기*/
-#close {
-	float: right;
-	margin-right: 20px;
-	font-size: 40px;
-	/* background-color: aliceblue; */
+	color: #d2c4b9;
 }
 
+/*스톤 background*/
+#bg_Lucete {
+	height: 590px;
+	position: relative;
+}
+
+#bg_Lucete img {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#bg_Lucete * {
+	font-family: 'Nanum Myeongjo', serif;
+	color: white;
+}
+
+#bg_Lucete p {
+	margin-top: 0px;
+}
+
+#bg_Lucete #content {
+	line-height: 50px;
+	position: absolute;
+	top: 200px;
+	z-index: 1;
+}
+
+#bg_Lucete #underline {
+	position: relative;
+	z-index: 100;
+}
+
+#bg_Lucete #title {
+	padding-top: 100px;
+	z-index: 100;
+}
+
+/*스톤 특징 background*/
+#bg_Lucete_Characteristics {
+	height: 890px;
+	background-image: url("../../img/LUCETE/2.PNG");
+	background-size: cover;
+}
+
+#bg_Lucete_Characteristics * {
+	font-family: 'Nanum Myeongjo', serif;
+	color: rgb(63, 62, 62);
+}
+
+#bg_Lucete_Characteristics #underline {
+	margin-top: 110px;
+	border-bottom: 15px solid rgb(63, 62, 62);
+}
+
+#bg_Lucete_Characteristics #content {
+	line-height: 50px;
+	z-index: 1;
+	margin-top: 100px;
+}
+
+/*스톤 장점 background*/
+#bg_Lucete_Advantage {
+	height: 690px;
+	background-image: url("../../img/LUCETE/4.png");
+	background-size: cover;
+}
+
+#bg_Lucete_Advantage * {
+	font-family: 'Nanum Myeongjo', serif;
+	color: white;
+}
+
+#bg_Lucete_Advantage #underline {
+	border-bottom: 15px solid white;
+}
+
+#bg_Lucete_Advantage #content {
+	line-height: 50px;
+	z-index: 1;
+	margin-top: 100px;
+}
+
+/*스톤 필요성 backgroud*/
+#bg_Lucete_Necessity {
+	height: 650px;
+	position: relative;
+	background-image: url("../../img/LUCETE/3.PNG");
+}
+
+#bg_Lucete_Necessity * {
+	font-family: 'Nanum Myeongjo', serif;
+	color: white;
+}
+
+#bg_Lucete_Necessity #content {
+	line-height: 50px;
+	z-index: 100;
+	margin-top: 100px;
+}
+
+#bg_Lucete_Necessity>img {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 1900px;
+	height: 690px;
+	z-index: 0;
+}
+
+/* footer css */
 /* 풋터 설정 */
 footer {
 	background-color: #242424;
+	z-index: 1;
 }
-
 /* 풋터 콘텐츠 설정 */
 #footerTable {
 	width: 1000px;
@@ -260,8 +255,7 @@ footer {
 	padding: 1.5px 4px 2px 4px;
 	font-size: 12px;
 	font-family: 'Noto Sans KR', sans-serif;
-}
-/* 메뉴바 스타일 - 임의 디자인(한국에자이 참고) 추후 변경예정 */
+} /* 메뉴바 스타일 - 임의 디자인(한국에자이 참고) 추후 변경예정 */
 /* 헤더 전체 설정 */
 header {
 	width: 100%;
@@ -646,12 +640,15 @@ input[type=checkbox]+label {
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 25px;
-	background: url('img/notCheck1.png') left/25px no-repeat;
+	background: url('../img/notCheck1.png') left/25px no-repeat;
 }
 /* ------------------------로그인 css 끝-------------------------- */
 </style>
+<!-- 나눔명조 폰트 가져오기 -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap"
+	rel="stylesheet">
 </head>
-
 <body>
 	<!-- <헤더(상단 메뉴바) 시작> -->
 	<!--헤더 시작-->
@@ -726,10 +723,11 @@ input[type=checkbox]+label {
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
 				<ul>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Order.jsp">장례절차</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Goods.jsp">장례용품</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Price.jsp">장례비용</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Lucete.jsp">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 				</ul></li>
 			<li><a href="#" id='second' class="colorcss">보험서비스</a>
 				<ul>
@@ -765,9 +763,11 @@ input[type=checkbox]+label {
 				<li id="serve1"><a href="#">장례서비스 </a>
 					<hr>
 					<ul>
-						<li><a href="#">장례절차</a></li>
-						<li><a href="#">장례용품</a></li>
-						<li><a href="#">장례비용</a></li>
+						<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 					</ul></li>
 
 				<li id="serve2"><a href="#">보험서비스</a>
@@ -794,257 +794,98 @@ input[type=checkbox]+label {
 	</header>
 
 	<!-- section 시작 -->
-
 	<section>
-		<div style="margin: auto;">
-			<div id="funeral_menu">
-				<div id="funeral_menu_Inner">
-					<div>
-						<a href="Funeral_Price.html" target="_self">장례 비용</a>
+		<div id="funeral_menu">
+			<div id="funeral_menu_Inner">
+				<div>
+						<a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'" target="_self">장례비용</a>
 					</div>
 					<div>
-						<a href="Funeral_Oder.html" target="_self">장례 절차</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'" target="_self">장례절차</a>
 					</div>
 					<div>
-						<a href="Funeral_Goods.html" target="_self">장례 용품</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'" target="_self">장례용품</a>
 					</div>
 					<div>
-						<a href="Funeral_Lucete.html" target="_self">LUCETE</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'" target="_self">LECETE</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/reservation.jsp'" target="_self">장례예약</a>
+					</div>
+			</div>
+		</div>
+		<div id="center">
+			<h1 id="luceteTitle" style="text-align: center;">혜 윰 LUCETE</h1>
+
+			<div id="bg_Lucete">
+				<div>
+					<div id="underline">
+						<div>
+							<p id="title" style="color: white;">혜 윰
+								LUCETE&nbsp;-&nbsp;메모리얼 스톤</p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div id="center" style="position: relative;">
-				<div style="text-align: center;">
-					<p id="funeralPriceFirstText" style="font-size: 30px;">
-						모든 장례는 철저히 개별 화장으로 진행되며<br> 100% 참관하실 수 있습니다
+				<div id="content" style="color: white;">
+					<p>
+						<b>LUCETE</b><br> 밝게 빛나라 : spanish(Latin)<br>
+						<br> 혜윰의 LUCETE는, 소중한 추억들이 가장 아름답게 간직 할 수 있는 방법입니다.<br>
+						아이와의 추억이 영원할 수 있도록 혜윰에서 준비했습니다.<br> 가장 순수하게, 가장 가치있게, 영원히 함께
+						빛 날 수 있습니다.
 					</p>
 				</div>
-				<!--자세히보기 클릭시 보여줄 이미지들-->
-				<div id="img1-1" class="img">
-					<label id="img_title">일반 수의</label> <label id="close">X</label> <img
-						src="../../img/장례용품 사진/수의1.png">
+				<img src="../../img/장례용품 사진/배경/Lucete(스톤).PNG" width="1900px" height="690"
+					alt="">
+			</div>
+			<div id="bg_Lucete_Characteristics">
+				<div style="height: 300px;">
+					<div id="underline">
+						<div style="margin-top: 120px;">
+							<p id="title" style="color: rgb(63, 62, 62);">혜 윰 LUCETE 특징</p>
+						</div>
+					</div>
 				</div>
-				<div id="img1-2" class="img">
-					<label id="img_title">고급 수의</label> <label id="close">X</label> <img
-						src="../../img/장례용품 사진/수의2.png">
-				</div>
-				<div id="img2" class="img">
-					<label id="img_title">관</label> <label id="close">X</label> <img
-						src="../../img/장례용품 사진/오동나무관2.png">
-				</div>
-				<div id="img3" class="img">
-					<label id="img_title">산골장</label> <label id="close">X</label> <img
-						src="../../img/장례비용 사진/산골장.PNG">
-				</div>
-				<div id="img4" class="img">
-					<label id="img_title">봉안당</label> <label id="close">X</label> <img
-						src="../../img/장례비용 사진/봉안당.PNG">
-				</div>
-				<div id="img5" class="img">
-					<label id="img_title">LUCETE(메모리얼 스톤)</label> <label id="close">X</label>
-					<img src="../../img/메모리얼스톤2.jpg">
-				</div>
-				<div id="funeral_service">
-					<!-- 장례 서비스 -->
-					<h1 class="funeralPriceTitle">장례 패키지</h1>
-					<table id="table">
-						<thead id="thead">
-							<tr>
-								<td>혜움 장례 형식</td>
-								<td>혜윰 장례 절차</td>
-								<td>혜윰 장례 가격</td>
-							</tr>
-						</thead>
-						<tbody id="tbody">
-							<tr>
-								<td>기본형</td>
-								<td>화장 + 염습(수의X) + 유골함</td>
-								<td>? 원</td>
-							</tr>
-							<tr>
-								<td>일반형</td>
-								<td>화정 + 염습(수의x) + 기능성유골함</td>
-								<td>300,000원</td>
-							</tr>
-							<tr>
-								<td>고급형</td>
-								<td>화장 + 염습(삼베수의) + 화장관(오동나무관) + 기능성유골함</td>
-								<td>600,000원</td>
-							</tr>
-							<tr>
-								<td>VIP형</td>
-								<td>화장 + 염습(삼베고급수의) + 화장관(오동나무관) + 납골당/수목장/메모리얼스톤 중 택1</td>
-								<td>1,200,000원</td>
-							</tr>
-						</tbody>
-					</table>
-
-					<!-- 장례용품 선택형 -->
-					<h1 class="funeralPriceTitle">선택형 장례상품</h1>
-					<table id="table" class="choiceProduct">
-						<thead id="thead">
-							<tr>
-								<td colspan="2">구분</td>
-								<td>가격</td>
-							</tr>
-						</thead>
-						<tbody id="tbody">
-							<tr>
-								<!-- <td style="border-right: none;">염습(일반수의 <button id="imgview1-1">자세히보기</button>
-                                        /고급삼베수의)</td>
-                                    <th style="border-left: none;"><button id="imgview1">자세히보기</button></th> -->
-								<td>일반수의
-									<button id="imgview1-1"
-										style="margin-left: 15px; margin-bottom: 5px;">예시</button>
-								</td>
-								<td>고급수의
-									<button id="imgview1-2"
-										style="margin-left: 20px; margin-bottom: 5px;">예시</button>
-								</td>
-								<td>70,000원/80,000원</td>
-							</tr>
-							<tr>
-								<!-- <td style="border-right: none;">오동나무관</td>
-                                    <th style="border-left: none;"><button id="imgview2" style="margin-left: 30px;">자세히보기</button></th> -->
-								<td colspan="2">오동나무관
-									<button id="imgview2" style="margin-left: 30px;">예시</button>
-								</td>
-								<td>70,000원</td>
-							</tr>
-							<tr>
-								<!-- <td style="border-right: none;">수목장(1년/2년)</td>
-                                    <th style="border-left: none;"><button id="imgview3" >자세히보기</button></th> -->
-								<td colspan="2">수목장(1년/2년)
-									<button id="imgview3" style="margin-left: 30px;">예시</button>
-								</td>
-								<td>350,000원/550,000원(계약후 연장시 1년 150,000원)</td>
-							</tr>
-							<tr>
-								<!-- <td style="border-right: none;">봉안당(1년)</td>
-                                    <th style="border-left: none;"><button id="imgview4">자세히보기</button></th> -->
-								<td colspan="2">봉안당(1년)
-									<button id="imgview4" style="margin-left: 30px;">예시</button>
-								</td>
-								<td>위치에따라 가격 변동(1층~4층 : 100,000원~400,000원)</td>
-							</tr>
-							<tr>
-								<!-- <td style="border-right: none;">메모리얼 스톤</td>
-                                    <th style="border-left: none;"><button id="imgview5">자세히보기</button></th> -->
-								<td colspan="2">LUCETE(메모리얼스톤)
-									<button id="imgview5" style="margin-left: 30px;">예시</button>
-								</td>
-								<td>200,000원</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<!-- 참고사항 -->
-				<div id="notes">
+				<div id="content" style="color: white;">
 					<p>
-						※ 5KG 기준이며, 5KG 초과 시 KG당 만원이 추가됩니다. (일반형은 10KG까지 고급형 VIP형은 20KG까지
-						기준) <br> ※ 25KG 이하만 가능합니다. (25KG 이상은 현재 추가 화장로 개설 중이므로 설치 후
-						서비스 가능합니다.)
+						1. 부패, 냄새 변형이 없는 유리화된 무기물입니다.<br> 2. 사리(참된 수행의 결과로 생겨나는 구슬모양의
+						유골) 후 미관상 아름답습니다.<br> 3. 반지, 목걸이 등 악세사리에 부착이 가능한 준보석입니다.
+					</p>
+				</div>
+			</div>
+			<div id="bg_Lucete_Advantage">
+				<div style="height: 200px;">
+					<div id="underline">
+						<div style="margin-top: 120px;">
+							<p id="title">혜 윰 LUCETE 장점</p>
+						</div>
+					</div>
+				</div>
+				<div id="content" style="color: white;">
+					<p>
+						1. LUCETE로 소중한 우리아이의 기억을 떠올려 사별에 따른 비탄의 심리치유가 가능한 효과가 있습니다.<br>
+						2. 납골당, 봉안당과 달리 직접 보관 하기 때문에 관리비용등을 줄일 수 있습니다.
+					</p>
+				</div>
+			</div>
+			<div id="bg_Lucete_Necessity">
+				<!-- <img src="image/LUCETE/3.PNG" alt=""> -->
+				<div style="height: 200px;">
+					<div id="underline">
+						<div style="margin-top: 120px;">
+							<p id="title" style="color: white;">혜 윰 LUCETE 필요성</p>
+						</div>
+					</div>
+				</div>
+				<div id="content" style="color: white;">
+					<p>
+						1. 화장 후 납골당, 봉안당의 유골의 부패, 해충서식, 시멘트화 현상으로 보관이 어려울 수 있습니다.<br>
+						2. 사회적 비용증가 및 화장 문화의 의미가 퇴색되었습니다.<br> 3. 애완동물주들에게 슬픔을 승화 시켜
+						줍니다.
 					</p>
 				</div>
 			</div>
 		</div>
 	</section>
-	<script>
-		// 일반 수의 보여주기 및 숨기기
-		$(function() {
-			$("#imgview1-1").click(function() {
-				$("#img1-1").show();
-				$('#img1-2 ,#img2, #img3, #img4, #img5').hide(); // 고급수의사진을 보고 있을때 일반수의사진 자세히보기 버튼을 클릭시 일반 수의 그림외는 다 숨긴다. 
-			});
-			$("#img1-1").click(function() {
-				$("#img1-1").hide();
-			});
-		});
-		$(function() {
-			$('#close').click(function() {
-				$('#img1-1').hide();
-			});
-		});
-		// 고급 수의 보여주기 및 숨기기
-		$(function() {
-			$("#imgview1-2").click(function() {
-				$("#img1-2").show();
-				$('#img1-1 ,#img2, #img3, #img4, #img5').hide();
-			});
-			$("#img1-2").click(function() {
-				$("#img1-2").hide();
-			});
-		});
-		$(function() {
-			$('#close').click(function() {
-				$('#img1-2').hide();
-			});
-		});
-		// 오동나무관 보여주기 및 숨기기
-		$(function() {
-			$("#imgview2").click(function() {
-				$("#img2").show();
-				$('#img1-1 ,#img1-2, #img3, #img4, #img5').hide();
-			});
-			$("#img2").click(function() {
-				$("#img2").hide();
-			});
-		});
-		$(function() {
-			$('#close').click(function() {
-				$('#img2').hide();
-			});
-		});
-		// 산골당 보여주기 및 숨기기
-		$(function() {
-			$("#imgview3").click(function() {
-				$("#img3").show();
-				$('#img1-1 ,#img1-2, #img2, #img4, #img5').hide();
-			});
-			$("#img3").click(function() {
-				$("#img3").hide();
-			});
-		});
-		$(function() {
-			$('#close').click(function() {
-				$('#img3').hide();
-			});
-		});
-		// 봉안당 보여주기 및 숨기기
-		$(function() {
-			$("#imgview4").click(function() {
-				$("#img4").show();
-				$('#img1-1 ,#img1-2, #img2, #img3, #img5').hide();
-			});
-			$("#img4").click(function() {
-				$("#img4").hide();
-			});
-		});
-		$(function() {
-			$('#close').click(function() {
-				$('#img4').hide();
-			});
-		});
-		// LUCETE 보여주기 및 숨기기
-		$(function() {
-			$("#imgview5").click(function() {
-				$("#img5").show();
-				$('#img1-1 ,#img1-2, #img2, #img3, #img4').hide();
-			});
-			$("#img5").click(function() {
-				$("#img5").hide();
-			});
-		});
-		$(function() {
-			$('#close').click(function() {
-				$('#img5').hide();
-			});
-		});
-	</script>
-
-	<!-- section 끝 -->
-
 	<!-- footer 시작-->
 	<footer>
 		<table id="footerTable">
@@ -1090,5 +931,4 @@ input[type=checkbox]+label {
 		</p>
 	</footer>
 </body>
-
 </html>

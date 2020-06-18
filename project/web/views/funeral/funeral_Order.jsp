@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 루세떼(메모리얼 스톤) -->
-<title>Funeral_Lucete</title>
+<!-- 장례 예약 -->
+<title>Funeral_Oder</title>
+
 <script src="http://code.jquery.com/jquery-latest.min.js">
 	최신
 </script>
@@ -29,25 +30,16 @@ body * {
 	text-decoration: none;
 }
 
-/* 제목아래 underline*/
-#underline {
-	border-bottom: 15px solid white;
-	width: 800px;
-	height: 200px;
-	float: left;
+#funeralProcessArea {
+	background-color: #d2c4b9;
 }
 
-#title {
-	font-size: 45px;
-	margin-left: 180px;
-}
-/*내용*/
-#content {
-	height: 200px;
-	font-size: 25px;
-	margin-left: 100px;
-	margin-top: 50px;
-	text-align: left;
+/* 절차별 타이틀 설정 */
+.processTitle {
+	font-family: 'Nanum Myeongjo', serif;
+	padding: 35px;
+	font-weight: 500;
+	border-bottom: 2px solid #242424;
 }
 
 /* 맨위 장례서비스 종류(장례 비용, 장례 절차, 장례 용품)*/
@@ -87,131 +79,183 @@ body * {
 	font-size: 20px;
 }
 
-/* LUCETE 타이틀 설정 */
-#luceteTitle {
+/* 장례절차 타이틀 설정 */
+#funeralProcessArea {
+	background-color: #d2c4b9;
+	padding-bottom: 50px;;
+}
+
+#funeralProcessTitle {
 	background-color: #242424;
 	background: -webkit-linear-gradient(top, #3d3d3d, #242424);
 	padding: 20px;
 	margin: 0px;
 	font-size: 25px;
 	color: #d2c4b9;
+	text-align: center;
 }
 
-/*스톤 background*/
-#bg_Lucete {
-	height: 590px;
+/* 메모리얼 스톤 장점 속성 */
+#stone_Advantage {
+	border-radius: 20px 20px 20px 20px;
+	width: 800px;
+	height: 300px;
+	margin: auto;
+	background: #b3a193;
+}
+
+/* table안에 들어갈 이미지 크기 -> 스크립트로 해주자*/
+#funeralProcessSection img {
+	width: 200px;
+	height: 200px;
+}
+
+/* 메모레일스톤 특징 표 글자 속성 */
+.why td {
+	font-size: 18px;
+	padding-left: 10px;
+	color: #242424;
+}
+
+.why th {
+	color: #242424;
+	background: #d2c4b9;
+}
+
+/* 테이블 간격 줄이기 */
+#funeralProcessTable {
+	margin: auto;
+	margin-top: 30px;
+}
+
+#funeralProcessTable img {
+	border-radius: 2px;
+}
+
+#funeralProcessTable td, #funeralProcessTable tr {
+	border: none;
+}
+
+#funeralProcessTable tr:nth-of-type(5) td:nth-of-type(2),
+	#funeralProcessTable tr:nth-of-type(9) td:nth-of-type(2),
+	#funeralProcessTable tr:nth-of-type(1) td:nth-of-type(2) {
+	border-bottom: 2px solid black;
+}
+
+#funeralProcessTable tr:nth-of-type(3) td:nth-of-type(2),
+	#funeralProcessTable tr:nth-of-type(7) td:nth-of-type(2) {
+	border-bottom: 2px solid #b3a193;
+}
+
+#funeralProcessTable tr:nth-of-type(1) td:nth-of-type(1) {
+	border-top-left-radius: 10px;
+}
+
+#funeralProcessTable tr:nth-of-type(1) td:nth-of-type(2) {
+	border-top-right-radius: 10px;
+}
+
+#funeralProcessTable tr:nth-of-type(9) td:nth-of-type(1) {
+	border-bottom-left-radius: 10px;
+}
+
+#funeralProcessTable tr:nth-of-type(10) td:nth-of-type(1) {
+	border-bottom-right-radius: 10px;
+}
+
+#funeralProcessTable p {
+	margin: 0px;
+}
+
+/* 테이블영역 각각 색상주기 */
+#funeralProcessTable {
+	color: #242424;
+	border-spacing: inherit;
+}
+
+#funeralProcessTable tr:nth-of-type(1), #funeralProcessTable tr:nth-of-type(2)
+	{
+	background-color: #b3a193;
+}
+
+#tel {
+	display: inline-block;
+	background-color: #383737;
+	color: #b3a193;
+	width: 45px;
+	text-align: center;
+}
+
+#funeralProcessTable tr:nth-of-type(3), #funeralProcessTable tr:nth-of-type(4)
+	{
+	background-color: #383737;
+	color: #b3a193;
+}
+
+#funeralProcessTable tr:nth-of-type(5), #funeralProcessTable tr:nth-of-type(6)
+	{
+	background-color: #b3a193;
+}
+
+#funeralProcessTable tr:nth-of-type(7), #funeralProcessTable tr:nth-of-type(8)
+	{
+	background-color: #383737;
+	color: #b3a193;
+}
+
+#funeralProcessTable tr:nth-of-type(9), #funeralProcessTable tr:nth-of-type(10)
+	{
+	background-color: #b3a193;
+}
+
+#funeralProcessTable tr {
+	height: 100px;
+	/* margin: 20px; */
+}
+
+#funeralProcessTable td, #funeralProcessTable td p, #funeralProcessTable th
+	{
+	padding: 20px;
+	line-height: 30px;
+}
+
+#area1 {
+	height: 150px;
+	text-align: center;
 	position: relative;
 }
 
-#bg_Lucete img {
-	position: absolute;
-	top: 0px;
-	left: 0px;
+#area2 {
+	border: 1px solid #242424;
+	width: 150px;
+	height: 150px;
+	display: inline-block;
 }
 
-#bg_Lucete * {
-	font-family: 'Nanum Myeongjo', serif;
-	color: white;
+#area3 {
+	height: 90px;
 }
 
-#bg_Lucete p {
-	margin-top: 0px;
+#area3 img {
+	width: 80px;
+	height: 80px;
+	text-align: center;
 }
 
-#bg_Lucete #content {
-	line-height: 50px;
-	position: absolute;
-	top: 200px;
-	z-index: 1;
-}
-
-#bg_Lucete #underline {
+#area4 {
 	position: relative;
-	z-index: 100;
+	width: 50px;
+	height: 50px;
+	border: 1px solid #242424;
+	top: -110px;
+	left: 125px;
+	border-radius: 50px;
+	vertical-align: middle;
 }
 
-#bg_Lucete #title {
-	padding-top: 100px;
-	z-index: 100;
-}
-
-/*스톤 특징 background*/
-#bg_Lucete_Characteristics {
-	height: 890px;
-	background-image: url("../../img/LUCETE/2.PNG");
-	background-size: cover;
-}
-
-#bg_Lucete_Characteristics * {
-	font-family: 'Nanum Myeongjo', serif;
-	color: rgb(63, 62, 62);
-}
-
-#bg_Lucete_Characteristics #underline {
-	margin-top: 110px;
-	border-bottom: 15px solid rgb(63, 62, 62);
-}
-
-#bg_Lucete_Characteristics #content {
-	line-height: 50px;
-	z-index: 1;
-	margin-top: 100px;
-}
-
-/*스톤 장점 background*/
-#bg_Lucete_Advantage {
-	height: 690px;
-	background-image: url("../../img/LUCETE/4.png");
-	background-size: cover;
-}
-
-#bg_Lucete_Advantage * {
-	font-family: 'Nanum Myeongjo', serif;
-	color: white;
-}
-
-#bg_Lucete_Advantage #underline {
-	border-bottom: 15px solid white;
-}
-
-#bg_Lucete_Advantage #content {
-	line-height: 50px;
-	z-index: 1;
-	margin-top: 100px;
-}
-
-/*스톤 필요성 backgroud*/
-#bg_Lucete_Necessity {
-	height: 650px;
-	position: relative;
-	background-image: url("../../img/LUCETE/3.PNG");
-}
-
-#bg_Lucete_Necessity * {
-	font-family: 'Nanum Myeongjo', serif;
-	color: white;
-}
-
-#bg_Lucete_Necessity #content {
-	line-height: 50px;
-	z-index: 100;
-	margin-top: 100px;
-}
-
-#bg_Lucete_Necessity>img {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	width: 1900px;
-	height: 690px;
-	z-index: 0;
-}
-
-/* footer css */
 /* 풋터 설정 */
 footer {
 	background-color: #242424;
-	z-index: 1;
 }
 /* 풋터 콘텐츠 설정 */
 #footerTable {
@@ -255,7 +299,8 @@ footer {
 	padding: 1.5px 4px 2px 4px;
 	font-size: 12px;
 	font-family: 'Noto Sans KR', sans-serif;
-} /* 메뉴바 스타일 - 임의 디자인(한국에자이 참고) 추후 변경예정 */
+}
+/* 메뉴바 스타일 - 임의 디자인(한국에자이 참고) 추후 변경예정 */
 /* 헤더 전체 설정 */
 header {
 	width: 100%;
@@ -648,7 +693,12 @@ input[type=checkbox]+label {
 <link
 	href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap"
 	rel="stylesheet">
+<!-- 노토산스kr 폰트 가져오기 -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+	rel="stylesheet">
 </head>
+
 <body>
 	<!-- <헤더(상단 메뉴바) 시작> -->
 	<!--헤더 시작-->
@@ -723,10 +773,11 @@ input[type=checkbox]+label {
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
 				<ul>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Order.jsp">장례절차</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Goods.jsp">장례용품</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Price.jsp">장례비용</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Lucete.jsp">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 				</ul></li>
 			<li><a href="#" id='second' class="colorcss">보험서비스</a>
 				<ul>
@@ -762,9 +813,11 @@ input[type=checkbox]+label {
 				<li id="serve1"><a href="#">장례서비스 </a>
 					<hr>
 					<ul>
-						<li><a href="#">장례절차</a></li>
-						<li><a href="#">장례용품</a></li>
-						<li><a href="#">장례비용</a></li>
+						<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 					</ul></li>
 
 				<li id="serve2"><a href="#">보험서비스</a>
@@ -776,7 +829,7 @@ input[type=checkbox]+label {
 						<li><a href='#'>다발성 경화증 치료제</a></li>
 					</ul></li>
 				<li><a href="#"><a>혜윰스케치북</a>
-					<hr></li>
+						<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>
 					<ul>
@@ -785,101 +838,124 @@ input[type=checkbox]+label {
 						<li><a href='#'>QnA</a></li>
 					</ul></li>
 				<li><a href="#">혜윰 Family</a>
-				<hr></li>
+					<hr></li>
 			</ul>
 		</div>
 	</header>
 
-	<!-- section 시작 -->
-	<section>
-		<div id="funeral_menu">
-			<div id="funeral_menu_Inner">
-				<div>
-					<a href="Funeral_Price.html" target="_self">장례 비용</a>
-				</div>
-				<div>
-					<a href="Funeral_Oder.html" target="_self">장례 절차</a>
-				</div>
-				<div>
-					<a href="Funeral_Goods.html" target="_self">장례 용품</a>
-				</div>
-				<div>
-					<a href="Funeral_Lucete.html" target="_self">LUCETE</a>
+	<section id="funeralProcessSection">
+		<div style="margin: auto;">
+			<div id="funeral_menu">
+				<div id="funeral_menu_Inner">
+					<div>
+						<a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'" target="_self">장례비용</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'" target="_self">장례절차</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'" target="_self">장례용품</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'" target="_self">LECETE</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/reservation.jsp'" target="_self">장례예약</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div id="center">
-			<h1 id="luceteTitle" style="text-align: center;">혜 윰 LUCETE</h1>
 
-			<div id="bg_Lucete">
-				<div>
-					<div id="underline">
-						<div>
-							<p id="title" style="color: white;">혜 윰
-								LUCETE&nbsp;-&nbsp;메모리얼 스톤</p>
-						</div>
+			<div id="funeral_service">
+				<br> <br>
+				<div id="funeralProcessArea">
+					<h1 id="funeralProcessTitle">장례 절차</h1>
+					<div>
+						<table id="funeralProcessTable">
+							<!-- 1. 콜센터 및 상담 -->
+							<tr>
+								<td rowspan="2"><img src="../../img/콜센터.jpg"></td>
+								<td style="font-size: 30px;" class="processTitle">1. 콜센터 및
+									상담</td>
+							</tr>
+							<tr>
+								<td id="content">
+									<p>
+										반려동물이 무지개 다리를 건너면 우선 깨끗한 타월에 감싸 줍니다.<br> 다만 너무 뜨거운(온돌및
+										직사광선)장소에 있지말고 서늘한 곳에 한치해 주시는 것이 좋습니다.<br> 반려동물 떠나 보낼 마음의
+										준비가 되어있다면<br> 반려동물 장례식장 혜윰에 연락주시면 장례 일정을 잡아드립니다.
+									</p>
+									<p>
+										<span id="tel">TEL</span>&nbsp;&nbsp;&nbsp;&nbsp;010-4033-4458
+									</p>
+								</td>
+							</tr>
+
+							<!-- 2. 입관식/추모식 -->
+							<tr>
+								<td rowspan="2"><img src="../../img/장례절차 사진/추모실.PNG"></td>
+								<td style="font-size: 30px;" class="processTitle">2. 입관/추모식</td>
+							</tr>
+							<tr>
+								<td id="content">
+									<p>
+										화장터에 도착하시면 안내원에 따라 간단한 서류를 작성합니다.<br> 동물 등록이 되어 있으신 분들은
+										화장 증명서를 발급 해드리니, 가까운 동사무소에서 등록을 말소 하셔야 합니다.<br> 서류를 작성하시면
+										마지막으로 사랑했던 아이와의 마지막 인사를 하게 됩니다.<br> 독립된 추모 공간에서 사랑했던 지난
+										날들을 떠올리며 마지막 인사를 하게 됩니다.<br>
+									</p>
+								</td>
+							</tr>
+							<!-- 3. 화장식 -->
+							<tr>
+								<td rowspan="2"><img src="../../img/화장터.jpg"></td>
+								<td style="font-size: 30px;" class="processTitle">3. 화장식</td>
+							</tr>
+							<tr>
+								<td id="content">
+									<p>
+										추모식을 마치면 반려동물 전용 화장로로 이동하여 화장을 진행하게 됩니다.<br> 화장하는 과정은 모두
+										참관 가능하며 철저한 개별 화장으로 진행 되고 있습니다.<br> 화장은 5KG 기준으로 30~40분
+										정도의 시간이 소요됩니다.<br>
+									</p>
+								</td>
+							</tr>
+							<!-- 4. 유골 수습 -->
+							<tr>
+								<td rowspan="2"><img src="../../img/유골함.jpg"></td>
+								<td style="font-size: 30px;" class="processTitle">4. 유골 수습</td>
+							</tr>
+							<tr>
+								<td id="content">
+									<p>
+										화장을 마치고 유골은 수습하여 곱게 분골하여 친환경 유골함에 담아 전달해 드리고 있습니다.<br>
+										납골당에 안치를 선택하신 고객님은 납골당에 안치하게 되며,<br> 친환경 유골함이기 때문에 땅에 묻어도
+										썩지 않기 때문에 오랜 보관이 가능합니다.<br> 봉안당에 안치를 선택하신 고객님께서는 유골함과 함께
+										보관되며,<br> 메모리얼 스톤을 선택하신 보호자님은 바로 제작에 들어 가게 됩니다.
+									</p>
+								</td>
+							</tr>
+							<!-- 5. 친환경 유골함 및 메모리얼 스톤 -->
+							<tr>
+								<td rowspan="2"><img src="../../img/메모리얼스톤.jpg"></td>
+								<td style="font-size: 30px;" class="processTitle">선택 사항</td>
+							</tr>
+							<tr>
+								<td id="content">
+									<p>
+										<b> - 봉안당</b><br> 혜윰은 24시간 유골에 손상이 가지않는 최적 온도로 365일 24시간
+										유지되고 있어<br> 우리 사랑하는 아이를 보고 싶을 때 언제든 방문 하셔도 됩니다.<br>
+										<b> - 메모리얼 스톤</b><br> 100%유골로 만들어 반려동물의 결정체이며 제작 소요 시간은
+										1시간입니다.<br>
+									</p>
+								</td>
+							</tr>
+						</table>
 					</div>
-				</div>
-				<div id="content" style="color: white;">
-					<p>
-						<b>LUCETE</b><br> 밝게 빛나라 : spanish(Latin)<br>
-						<br> 혜윰의 LUCETE는, 소중한 추억들이 가장 아름답게 간직 할 수 있는 방법입니다.<br>
-						아이와의 추억이 영원할 수 있도록 혜윰에서 준비했습니다.<br> 가장 순수하게, 가장 가치있게, 영원히 함께
-						빛 날 수 있습니다.
-					</p>
-				</div>
-				<img src="../../img/장례용품 사진/배경/Lucete(스톤).PNG" width="1900px" height="690"
-					alt="">
-			</div>
-			<div id="bg_Lucete_Characteristics">
-				<div style="height: 300px;">
-					<div id="underline">
-						<div style="margin-top: 120px;">
-							<p id="title" style="color: rgb(63, 62, 62);">혜 윰 LUCETE 특징</p>
-						</div>
-					</div>
-				</div>
-				<div id="content" style="color: white;">
-					<p>
-						1. 부패, 냄새 변형이 없는 유리화된 무기물입니다.<br> 2. 사리(참된 수행의 결과로 생겨나는 구슬모양의
-						유골) 후 미관상 아름답습니다.<br> 3. 반지, 목걸이 등 악세사리에 부착이 가능한 준보석입니다.
-					</p>
-				</div>
-			</div>
-			<div id="bg_Lucete_Advantage">
-				<div style="height: 200px;">
-					<div id="underline">
-						<div style="margin-top: 120px;">
-							<p id="title">혜 윰 LUCETE 장점</p>
-						</div>
-					</div>
-				</div>
-				<div id="content" style="color: white;">
-					<p>
-						1. LUCETE로 소중한 우리아이의 기억을 떠올려 사별에 따른 비탄의 심리치유가 가능한 효과가 있습니다.<br>
-						2. 납골당, 봉안당과 달리 직접 보관 하기 때문에 관리비용등을 줄일 수 있습니다.
-					</p>
-				</div>
-			</div>
-			<div id="bg_Lucete_Necessity">
-				<!-- <img src="image/LUCETE/3.PNG" alt=""> -->
-				<div style="height: 200px;">
-					<div id="underline">
-						<div style="margin-top: 120px;">
-							<p id="title" style="color: white;">혜 윰 LUCETE 필요성</p>
-						</div>
-					</div>
-				</div>
-				<div id="content" style="color: white;">
-					<p>
-						1. 화장 후 납골당, 봉안당의 유골의 부패, 해충서식, 시멘트화 현상으로 보관이 어려울 수 있습니다.<br>
-						2. 사회적 비용증가 및 화장 문화의 의미가 퇴색되었습니다.<br> 3. 애완동물주들에게 슬픔을 승화 시켜
-						줍니다.
-					</p>
 				</div>
 			</div>
 		</div>
 	</section>
+
 	<!-- footer 시작-->
 	<footer>
 		<table id="footerTable">
@@ -924,5 +1000,12 @@ input[type=checkbox]+label {
 			Copyright © 2020-2020 hyeyum Institute All Right Reserved
 		</p>
 	</footer>
+
+	<script>
+		// $('#funeralProcessSection img').parent('td').width().css('height','300px');
+		// $('#funeralProcessSection img').css('width', $('#funeralProcessSection img').parent('td').width()).css('height',$('#funeralProcessSection img').parent('td').height());
+		// $('#funeralProcessSection img').css('width', $('#funeralProcessSection img').parent('td').width()).css('height','300px');
+	</script>
 </body>
+
 </html>

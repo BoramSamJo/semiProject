@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- 장례 예약 -->
-<title>Funeral_Oder</title>
+<!-- 장례 가격 -->
+<title>funeral_Price</title>
 
 <script src="http://code.jquery.com/jquery-latest.min.js">
 	최신
@@ -28,18 +28,6 @@ body * {
 /* href 링크 밑줄 및 색깔 수정*/
 #a {
 	text-decoration: none;
-}
-
-#funeralProcessArea {
-	background-color: #d2c4b9;
-}
-
-/* 절차별 타이틀 설정 */
-.processTitle {
-	font-family: 'Nanum Myeongjo', serif;
-	padding: 35px;
-	font-weight: 500;
-	border-bottom: 2px solid #242424;
 }
 
 /* 맨위 장례서비스 종류(장례 비용, 장례 절차, 장례 용품)*/
@@ -79,184 +67,157 @@ body * {
 	font-size: 20px;
 }
 
-/* 장례절차 타이틀 설정 */
-#funeralProcessArea {
-	background-color: #d2c4b9;
-	padding-bottom: 50px;;
+#funeralPriceFirstText {
+	color: #b3a193;
+	padding: 30px;
+	font-size: 30px;
+	background-color: rgb(65, 64, 64);
+	background: -webkit-linear-gradient(top, rgb(65, 64, 64), #242424);
+	font-weight: 500;
 }
 
-#funeralProcessTitle {
-	background-color: #242424;
+/* 장례가격 타이틀 설정 */
+.funeralPriceTitle {
+	/* background-color: #242424;
+            background: -webkit-linear-gradient(top, #3d3d3d, #242424);
+            padding: 20px;
+            margin: 0px;
+            font-size: 25px;
+            color: #d2c4b9;
+            text-align: center; */
+	margin-top: 50px;
+}
+
+#funeral_service {
+	text-align: center;
+}
+
+/* 테이블 상단  */
+#thead {
 	background: -webkit-linear-gradient(top, #3d3d3d, #242424);
-	padding: 20px;
-	margin: 0px;
-	font-size: 25px;
-	color: #d2c4b9;
 	text-align: center;
+	color: #b3a193;
+	font-weight: 500;
 }
 
-/* 메모리얼 스톤 장점 속성 */
-#stone_Advantage {
-	border-radius: 20px 20px 20px 20px;
+/* 테이블 가운데로 고정 */
+#table {
+	margin: auto;
+	margin-bottom: 40px;
+}
+
+/* 테이블 안에 글자 속성 */
+#thead {
+	font-size: 30px;
+}
+
+#tbody {
+	font-size: 20px;
+	color: #242424
+}
+
+/* 참고사항 */
+#notes {
 	width: 800px;
-	height: 300px;
 	margin: auto;
-	background: #b3a193;
-}
-
-/* table안에 들어갈 이미지 크기 -> 스크립트로 해주자*/
-#funeralProcessSection img {
-	width: 200px;
-	height: 200px;
-}
-
-/* 메모레일스톤 특징 표 글자 속성 */
-.why td {
-	font-size: 18px;
-	padding-left: 10px;
+	text-align: left;
+	font-size: 13px;
 	color: #242424;
+	font-weight: 500;
+	width: 610px;
+	line-height: 26px;
+	margin-bottom: 70px;
+	text-align: center;
+	/* background-color: #b3a193; */
 }
 
-.why th {
-	color: #242424;
-	background: #d2c4b9;
+#table {
+	width: 1100px;
+	border: 1px solid #242424;
+	/* 테이블간격없애기 */
+	border-collapse: collapse;
 }
 
-/* 테이블 간격 줄이기 */
-#funeralProcessTable {
-	margin: auto;
-	margin-top: 30px;
+#table #tbody td:nth-of-type(1) {
+	background: -webkit-linear-gradient(top, #d3bdae, #b3a193);
+	font-weight: 500;
 }
 
-#funeralProcessTable img {
-	border-radius: 2px;
+.choiceProduct #tbody tr:nth-of-type(1) td:nth-of-type(2) {
+	background: -webkit-linear-gradient(top, #d3bdae, #b3a193);
+	font-weight: 500;
 }
 
-#funeralProcessTable td, #funeralProcessTable tr {
+#table tr, #table td, #table th {
+	border: 1px solid #242424;
+	padding: 10px;
+	font-size: 20px;
+	text-align: center;
+}
+
+[id^=imgview] {
+	width: auto;
+	float: right;
 	border: none;
-}
-
-#funeralProcessTable tr:nth-of-type(5) td:nth-of-type(2),
-	#funeralProcessTable tr:nth-of-type(9) td:nth-of-type(2),
-	#funeralProcessTable tr:nth-of-type(1) td:nth-of-type(2) {
-	border-bottom: 2px solid black;
-}
-
-#funeralProcessTable tr:nth-of-type(3) td:nth-of-type(2),
-	#funeralProcessTable tr:nth-of-type(7) td:nth-of-type(2) {
-	border-bottom: 2px solid #b3a193;
-}
-
-#funeralProcessTable tr:nth-of-type(1) td:nth-of-type(1) {
-	border-top-left-radius: 10px;
-}
-
-#funeralProcessTable tr:nth-of-type(1) td:nth-of-type(2) {
-	border-top-right-radius: 10px;
-}
-
-#funeralProcessTable tr:nth-of-type(9) td:nth-of-type(1) {
-	border-bottom-left-radius: 10px;
-}
-
-#funeralProcessTable tr:nth-of-type(10) td:nth-of-type(1) {
-	border-bottom-right-radius: 10px;
-}
-
-#funeralProcessTable p {
-	margin: 0px;
-}
-
-/* 테이블영역 각각 색상주기 */
-#funeralProcessTable {
-	color: #242424;
-	border-spacing: inherit;
-}
-
-#funeralProcessTable tr:nth-of-type(1), #funeralProcessTable tr:nth-of-type(2)
-	{
-	background-color: #b3a193;
-}
-
-#tel {
-	display: inline-block;
-	background-color: #383737;
+	background-color: #242424;
 	color: #b3a193;
-	width: 45px;
-	text-align: center;
+	border-radius: 3px;
+	padding: 5px;
 }
-
-#funeralProcessTable tr:nth-of-type(3), #funeralProcessTable tr:nth-of-type(4)
-	{
-	background-color: #383737;
-	color: #b3a193;
+/*이미지 크기*/
+.img img {
+	width: 400px;
+	height: 340px;
+	border-top: 1px solid #242424;
 }
-
-#funeralProcessTable tr:nth-of-type(5), #funeralProcessTable tr:nth-of-type(6)
-	{
-	background-color: #b3a193;
-}
-
-#funeralProcessTable tr:nth-of-type(7), #funeralProcessTable tr:nth-of-type(8)
-	{
-	background-color: #383737;
-	color: #b3a193;
-}
-
-#funeralProcessTable tr:nth-of-type(9), #funeralProcessTable tr:nth-of-type(10)
-	{
-	background-color: #b3a193;
-}
-
-#funeralProcessTable tr {
-	height: 100px;
-	/* margin: 20px; */
-}
-
-#funeralProcessTable td, #funeralProcessTable td p, #funeralProcessTable th
-	{
-	padding: 20px;
-	line-height: 30px;
-}
-
-#area1 {
-	height: 150px;
-	text-align: center;
+/*이미지를 보여줄 div*/
+.img {
 	position: relative;
-}
-
-#area2 {
+	position: absolute;
+	top: 580px;
+	left: 200px;
+	margin-left: 30%;
+	display: none;
+	width: 400px;
+	height: 400px;
+	background: #242424;
+	color: #b3a193;
 	border: 1px solid #242424;
-	width: 150px;
-	height: 150px;
-	display: inline-block;
+	border-radius: 5px;
+	background-size: cover;
+	font-weight: 500;
 }
 
-#area3 {
-	height: 90px;
+#img4 {
+	width: 800px;
 }
 
-#area3 img {
-	width: 80px;
-	height: 80px;
+#img4 img {
+	width: 800px;
+}
+/*이미지 제목*/
+#img_title {
+	position: absolute;
+	top: 12px;
+	left: 0px;
 	text-align: center;
+	margin-left: 50px;
+	font-size: 25px;
+	/* background-color: blue; */
 }
-
-#area4 {
-	position: relative;
-	width: 50px;
-	height: 50px;
-	border: 1px solid #242424;
-	top: -110px;
-	left: 125px;
-	border-radius: 50px;
-	vertical-align: middle;
+/*이미지 닫기(x) 크기*/
+#close {
+	float: right;
+	margin-right: 20px;
+	font-size: 40px;
+	/* background-color: aliceblue; */
 }
 
 /* 풋터 설정 */
 footer {
 	background-color: #242424;
 }
+
 /* 풋터 콘텐츠 설정 */
 #footerTable {
 	width: 1000px;
@@ -685,18 +646,10 @@ input[type=checkbox]+label {
 	cursor: pointer;
 	line-height: 22px;
 	padding-left: 25px;
-	background: url('../img/notCheck1.png') left/25px no-repeat;
+	background: url('img/notCheck1.png') left/25px no-repeat;
 }
 /* ------------------------로그인 css 끝-------------------------- */
 </style>
-<!-- 나눔명조 폰트 가져오기 -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&display=swap"
-	rel="stylesheet">
-<!-- 노토산스kr 폰트 가져오기 -->
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-	rel="stylesheet">
 </head>
 
 <body>
@@ -773,10 +726,11 @@ input[type=checkbox]+label {
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
 				<ul>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Order.jsp">장례절차</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Goods.jsp">장례용품</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Price.jsp">장례비용</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Lucete.jsp">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 				</ul></li>
 			<li><a href="#" id='second' class="colorcss">보험서비스</a>
 				<ul>
@@ -812,11 +766,11 @@ input[type=checkbox]+label {
 				<li id="serve1"><a href="#">장례서비스 </a>
 					<hr>
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/Funeral_Order.jsp">장례절차</a></li>
-						<li><a href="<%=request.getContextPath()%>/Funeral_Goods.jsp">장례용품</a></li>
-						<li><a href="<%=request.getContextPath()%>/Funeral_Price.jsp">장례비용</a></li>
-						<li><a
-							href="<%=request.getContextPath()%>/Funeral_Lucete.jsp">장례비용</a></li>
+						<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 					</ul></li>
 
 				<li id="serve2"><a href="#">보험서비스</a>
@@ -828,7 +782,7 @@ input[type=checkbox]+label {
 						<li><a href='#'>다발성 경화증 치료제</a></li>
 					</ul></li>
 				<li><a href="#"><a>혜윰스케치북</a>
-						<hr></li>
+					<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>
 					<ul>
@@ -837,120 +791,265 @@ input[type=checkbox]+label {
 						<li><a href='#'>QnA</a></li>
 					</ul></li>
 				<li><a href="#">혜윰 Family</a>
-					<hr></li>
+				<hr></li>
 			</ul>
 		</div>
 	</header>
 
-	<section id="funeralProcessSection">
+	<!-- section 시작 -->
+
+	<section>
 		<div style="margin: auto;">
 			<div id="funeral_menu">
 				<div id="funeral_menu_Inner">
 					<div>
-						<a href="Funeral_Price.html" target="_self">장례 비용</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'" target="_self">장례비용</a>
 					</div>
 					<div>
-						<a href="Funeral_Oder.html" target="_self">장례 절차</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'" target="_self">장례절차</a>
 					</div>
 					<div>
-						<a href="Funeral_Goods.html" target="_self">장례 용품</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'" target="_self">장례용품</a>
 					</div>
 					<div>
-						<a href="Funeral_Lucete.html" target="_self">LUCETE</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'" target="_self">LECETE</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/reservation.jsp'" target="_self">장례예약</a>
 					</div>
 				</div>
 			</div>
+			<div id="center" style="position: relative;">
+				<div style="text-align: center;">
+					<p id="funeralPriceFirstText" style="font-size: 30px;">
+						모든 장례는 철저히 개별 화장으로 진행되며<br> 100% 참관하실 수 있습니다
+					</p>
+				</div>
+				<!--자세히보기 클릭시 보여줄 이미지들-->
+				<div id="img1-1" class="img">
+					<label id="img_title">일반 수의</label> <label id="close">X</label> <img
+						src="../../img/장례용품 사진/수의1.png">
+				</div>
+				<div id="img1-2" class="img">
+					<label id="img_title">고급 수의</label> <label id="close">X</label> <img
+						src="../../img/장례용품 사진/수의2.png">
+				</div>
+				<div id="img2" class="img">
+					<label id="img_title">관</label> <label id="close">X</label> <img
+						src="../../img/장례용품 사진/오동나무관2.png">
+				</div>
+				<div id="img3" class="img">
+					<label id="img_title">산골장</label> <label id="close">X</label> <img
+						src="../../img/장례비용 사진/산골장.PNG">
+				</div>
+				<div id="img4" class="img">
+					<label id="img_title">봉안당</label> <label id="close">X</label> <img
+						src="../../img/장례비용 사진/봉안당.PNG">
+				</div>
+				<div id="img5" class="img">
+					<label id="img_title">LUCETE(메모리얼 스톤)</label> <label id="close">X</label>
+					<img src="../../img/메모리얼스톤2.jpg">
+				</div>
+				<div id="funeral_service">
+					<!-- 장례 서비스 -->
+					<h1 class="funeralPriceTitle">장례 패키지</h1>
+					<table id="table">
+						<thead id="thead">
+							<tr>
+								<td>혜움 장례 형식</td>
+								<td>혜윰 장례 절차</td>
+								<td>혜윰 장례 가격</td>
+							</tr>
+						</thead>
+						<tbody id="tbody">
+							<tr>
+								<td>기본형</td>
+								<td>화장 + 염습(수의X) + 유골함</td>
+								<td>? 원</td>
+							</tr>
+							<tr>
+								<td>일반형</td>
+								<td>화정 + 염습(수의x) + 기능성유골함</td>
+								<td>300,000원</td>
+							</tr>
+							<tr>
+								<td>고급형</td>
+								<td>화장 + 염습(삼베수의) + 화장관(오동나무관) + 기능성유골함</td>
+								<td>600,000원</td>
+							</tr>
+							<tr>
+								<td>VIP형</td>
+								<td>화장 + 염습(삼베고급수의) + 화장관(오동나무관) + 납골당/수목장/메모리얼스톤 중 택1</td>
+								<td>1,200,000원</td>
+							</tr>
+						</tbody>
+					</table>
 
-			<div id="funeral_service">
-				<br> <br>
-				<div id="funeralProcessArea">
-					<h1 id="funeralProcessTitle">장례 절차</h1>
-					<div>
-						<table id="funeralProcessTable">
-							<!-- 1. 콜센터 및 상담 -->
+					<!-- 장례용품 선택형 -->
+					<h1 class="funeralPriceTitle">선택형 장례상품</h1>
+					<table id="table" class="choiceProduct">
+						<thead id="thead">
 							<tr>
-								<td rowspan="2"><img src="../../img/콜센터.jpg"></td>
-								<td style="font-size: 30px;" class="processTitle">1. 콜센터 및
-									상담</td>
+								<td colspan="2">구분</td>
+								<td>가격</td>
 							</tr>
+						</thead>
+						<tbody id="tbody">
 							<tr>
-								<td id="content">
-									<p>
-										반려동물이 무지개 다리를 건너면 우선 깨끗한 타월에 감싸 줍니다.<br> 다만 너무 뜨거운(온돌및
-										직사광선)장소에 있지말고 서늘한 곳에 한치해 주시는 것이 좋습니다.<br> 반려동물 떠나 보낼 마음의
-										준비가 되어있다면<br> 반려동물 장례식장 혜윰에 연락주시면 장례 일정을 잡아드립니다.
-									</p>
-									<p>
-										<span id="tel">TEL</span>&nbsp;&nbsp;&nbsp;&nbsp;010-4033-4458
-									</p>
+								<!-- <td style="border-right: none;">염습(일반수의 <button id="imgview1-1">자세히보기</button>
+                                        /고급삼베수의)</td>
+                                    <th style="border-left: none;"><button id="imgview1">자세히보기</button></th> -->
+								<td>일반수의
+									<button id="imgview1-1"
+										style="margin-left: 15px; margin-bottom: 5px;">예시</button>
 								</td>
+								<td>고급수의
+									<button id="imgview1-2"
+										style="margin-left: 20px; margin-bottom: 5px;">예시</button>
+								</td>
+								<td>70,000원/80,000원</td>
 							</tr>
+							<tr>
+								<!-- <td style="border-right: none;">오동나무관</td>
+                                    <th style="border-left: none;"><button id="imgview2" style="margin-left: 30px;">자세히보기</button></th> -->
+								<td colspan="2">오동나무관
+									<button id="imgview2" style="margin-left: 30px;">예시</button>
+								</td>
+								<td>70,000원</td>
+							</tr>
+							<tr>
+								<!-- <td style="border-right: none;">수목장(1년/2년)</td>
+                                    <th style="border-left: none;"><button id="imgview3" >자세히보기</button></th> -->
+								<td colspan="2">수목장(1년/2년)
+									<button id="imgview3" style="margin-left: 30px;">예시</button>
+								</td>
+								<td>350,000원/550,000원(계약후 연장시 1년 150,000원)</td>
+							</tr>
+							<tr>
+								<!-- <td style="border-right: none;">봉안당(1년)</td>
+                                    <th style="border-left: none;"><button id="imgview4">자세히보기</button></th> -->
+								<td colspan="2">봉안당(1년)
+									<button id="imgview4" style="margin-left: 30px;">예시</button>
+								</td>
+								<td>위치에따라 가격 변동(1층~4층 : 100,000원~400,000원)</td>
+							</tr>
+							<tr>
+								<!-- <td style="border-right: none;">메모리얼 스톤</td>
+                                    <th style="border-left: none;"><button id="imgview5">자세히보기</button></th> -->
+								<td colspan="2">LUCETE(메모리얼스톤)
+									<button id="imgview5" style="margin-left: 30px;">예시</button>
+								</td>
+								<td>200,000원</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
-							<!-- 2. 입관식/추모식 -->
-							<tr>
-								<td rowspan="2"><img src="../../img/장례절차 사진/추모실.PNG"></td>
-								<td style="font-size: 30px;" class="processTitle">2. 입관/추모식</td>
-							</tr>
-							<tr>
-								<td id="content">
-									<p>
-										화장터에 도착하시면 안내원에 따라 간단한 서류를 작성합니다.<br> 동물 등록이 되어 있으신 분들은
-										화장 증명서를 발급 해드리니, 가까운 동사무소에서 등록을 말소 하셔야 합니다.<br> 서류를 작성하시면
-										마지막으로 사랑했던 아이와의 마지막 인사를 하게 됩니다.<br> 독립된 추모 공간에서 사랑했던 지난
-										날들을 떠올리며 마지막 인사를 하게 됩니다.<br>
-									</p>
-								</td>
-							</tr>
-							<!-- 3. 화장식 -->
-							<tr>
-								<td rowspan="2"><img src="../../img/화장터.jpg"></td>
-								<td style="font-size: 30px;" class="processTitle">3. 화장식</td>
-							</tr>
-							<tr>
-								<td id="content">
-									<p>
-										추모식을 마치면 반려동물 전용 화장로로 이동하여 화장을 진행하게 됩니다.<br> 화장하는 과정은 모두
-										참관 가능하며 철저한 개별 화장으로 진행 되고 있습니다.<br> 화장은 5KG 기준으로 30~40분
-										정도의 시간이 소요됩니다.<br>
-									</p>
-								</td>
-							</tr>
-							<!-- 4. 유골 수습 -->
-							<tr>
-								<td rowspan="2"><img src="../../img/유골함.jpg"></td>
-								<td style="font-size: 30px;" class="processTitle">4. 유골 수습</td>
-							</tr>
-							<tr>
-								<td id="content">
-									<p>
-										화장을 마치고 유골은 수습하여 곱게 분골하여 친환경 유골함에 담아 전달해 드리고 있습니다.<br>
-										납골당에 안치를 선택하신 고객님은 납골당에 안치하게 되며,<br> 친환경 유골함이기 때문에 땅에 묻어도
-										썩지 않기 때문에 오랜 보관이 가능합니다.<br> 봉안당에 안치를 선택하신 고객님께서는 유골함과 함께
-										보관되며,<br> 메모리얼 스톤을 선택하신 보호자님은 바로 제작에 들어 가게 됩니다.
-									</p>
-								</td>
-							</tr>
-							<!-- 5. 친환경 유골함 및 메모리얼 스톤 -->
-							<tr>
-								<td rowspan="2"><img src="../../img/메모리얼스톤.jpg"></td>
-								<td style="font-size: 30px;" class="processTitle">선택 사항</td>
-							</tr>
-							<tr>
-								<td id="content">
-									<p>
-										<b> - 봉안당</b><br> 혜윰은 24시간 유골에 손상이 가지않는 최적 온도로 365일 24시간
-										유지되고 있어<br> 우리 사랑하는 아이를 보고 싶을 때 언제든 방문 하셔도 됩니다.<br>
-										<b> - 메모리얼 스톤</b><br> 100%유골로 만들어 반려동물의 결정체이며 제작 소요 시간은
-										1시간입니다.<br>
-									</p>
-								</td>
-							</tr>
-						</table>
-					</div>
+				<!-- 참고사항 -->
+				<div id="notes">
+					<p>
+						※ 5KG 기준이며, 5KG 초과 시 KG당 만원이 추가됩니다. (일반형은 10KG까지 고급형 VIP형은 20KG까지
+						기준) <br> ※ 25KG 이하만 가능합니다. (25KG 이상은 현재 추가 화장로 개설 중이므로 설치 후
+						서비스 가능합니다.)
+					</p>
 				</div>
 			</div>
 		</div>
 	</section>
+	<script>
+		// 일반 수의 보여주기 및 숨기기
+		$(function() {
+			$("#imgview1-1").click(function() {
+				$("#img1-1").show();
+				$('#img1-2 ,#img2, #img3, #img4, #img5').hide(); // 고급수의사진을 보고 있을때 일반수의사진 자세히보기 버튼을 클릭시 일반 수의 그림외는 다 숨긴다. 
+			});
+			$("#img1-1").click(function() {
+				$("#img1-1").hide();
+			});
+		});
+		$(function() {
+			$('#close').click(function() {
+				$('#img1-1').hide();
+			});
+		});
+		// 고급 수의 보여주기 및 숨기기
+		$(function() {
+			$("#imgview1-2").click(function() {
+				$("#img1-2").show();
+				$('#img1-1 ,#img2, #img3, #img4, #img5').hide();
+			});
+			$("#img1-2").click(function() {
+				$("#img1-2").hide();
+			});
+		});
+		$(function() {
+			$('#close').click(function() {
+				$('#img1-2').hide();
+			});
+		});
+		// 오동나무관 보여주기 및 숨기기
+		$(function() {
+			$("#imgview2").click(function() {
+				$("#img2").show();
+				$('#img1-1 ,#img1-2, #img3, #img4, #img5').hide();
+			});
+			$("#img2").click(function() {
+				$("#img2").hide();
+			});
+		});
+		$(function() {
+			$('#close').click(function() {
+				$('#img2').hide();
+			});
+		});
+		// 산골당 보여주기 및 숨기기
+		$(function() {
+			$("#imgview3").click(function() {
+				$("#img3").show();
+				$('#img1-1 ,#img1-2, #img2, #img4, #img5').hide();
+			});
+			$("#img3").click(function() {
+				$("#img3").hide();
+			});
+		});
+		$(function() {
+			$('#close').click(function() {
+				$('#img3').hide();
+			});
+		});
+		// 봉안당 보여주기 및 숨기기
+		$(function() {
+			$("#imgview4").click(function() {
+				$("#img4").show();
+				$('#img1-1 ,#img1-2, #img2, #img3, #img5').hide();
+			});
+			$("#img4").click(function() {
+				$("#img4").hide();
+			});
+		});
+		$(function() {
+			$('#close').click(function() {
+				$('#img4').hide();
+			});
+		});
+		// LUCETE 보여주기 및 숨기기
+		$(function() {
+			$("#imgview5").click(function() {
+				$("#img5").show();
+				$('#img1-1 ,#img1-2, #img2, #img3, #img4').hide();
+			});
+			$("#img5").click(function() {
+				$("#img5").hide();
+			});
+		});
+		$(function() {
+			$('#close').click(function() {
+				$('#img5').hide();
+			});
+		});
+	</script>
+
+	<!-- section 끝 -->
 
 	<!-- footer 시작-->
 	<footer>
@@ -996,12 +1095,6 @@ input[type=checkbox]+label {
 			Copyright © 2020-2020 hyeyum Institute All Right Reserved
 		</p>
 	</footer>
-
-	<script>
-		// $('#funeralProcessSection img').parent('td').width().css('height','300px');
-		// $('#funeralProcessSection img').css('width', $('#funeralProcessSection img').parent('td').width()).css('height',$('#funeralProcessSection img').parent('td').height());
-		// $('#funeralProcessSection img').css('width', $('#funeralProcessSection img').parent('td').width()).css('height','300px');
-	</script>
 </body>
 
 </html>

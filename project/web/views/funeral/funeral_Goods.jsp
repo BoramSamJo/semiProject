@@ -898,10 +898,11 @@ input[type=checkbox]+label {
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
 				<ul>
-				<li><a href="<%=request.getContextPath()%>/Funeral_Order.jsp">장례절차</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Goods.jsp">장례용품</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Price.jsp">장례비용</a></li>
-					<li><a href="<%=request.getContextPath()%>/Funeral_Lucete.jsp">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 				<%-- href="<%=request.getContextPath()%>/views/Funeral_Order.jsp" --%>
 					<!-- <li><a onclick="location.href='Funeral_Order.jsp'">장례절차</a></li> -->
 					
@@ -925,7 +926,7 @@ input[type=checkbox]+label {
 				</ul></li>
 			<li><a href="#" id='second' class="colorcss">보험서비스</a>
 				<ul>
-					<li><a href='#'>한국에자이 제품</a></li>
+					<li><a href='#' >한국에자이 제품</a></li>
 					<li><a href='#'>치매증상 치료제</a></li>
 					<li><a href='#'>뇌전증 치료제</a></li>
 					<li><a href='#'>다발성 경화증 치료제</a></li>
@@ -957,9 +958,11 @@ input[type=checkbox]+label {
 				<li id="serve1"><a href="#">장례서비스 </a>
 					<hr>
 					<ul>
-						<li><a href="#" onclick="goOrder();">장례절차</a></li>
-						<li><a href="#">장례용품</a></li>
-						<li><a href="#">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'">장례절차</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'">장례용품</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'">장례비용</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'">Lucete</a></li>
+					<li><a href="#" onclick="location.href='views/funeral/reservation.jsp'">장례예약</a></li>
 					</ul></li>
 
 				<li id="serve2"><a href="#">보험서비스</a>
@@ -991,16 +994,19 @@ input[type=checkbox]+label {
 			<div id="funeral_menu">
 				<div id="funeral_menu_Inner">
 					<div>
-						<a href="Funeral_Price.html" target="_self">장례 비용</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Price.jsp'" target="_self">장례비용</a>
 					</div>
 					<div>
-						<a href="Funeral_Oder.html" target="_self">장례 절차</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Order.jsp'" target="_self">장례절차</a>
 					</div>
 					<div>
-						<a href="Funeral_Goods.html" target="_self">장례 용품</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Goods.jsp'" target="_self">장례용품</a>
 					</div>
 					<div>
-						<a href="Funeral_Lucete.html" target="_self">LUCETE</a>
+						<a href="#" onclick="location.href='views/funeral/funeral_Lecete.jsp'" target="_self">LECETE</a>
+					</div>
+					<div>
+						<a href="#" onclick="location.href='views/funeral/reservation.jsp'" target="_self">장례예약</a>
 					</div>
 				</div>
 			</div>
