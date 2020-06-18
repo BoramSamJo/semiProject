@@ -58,6 +58,7 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(maintainCheck);
 			PrintWriter out = response.getWriter();
 			System.out.println("여기오나");
+			System.out.println(loginUser);
 			if(loginUser!=null) {
 				if(maintainCheck.equals("true")) {
 					System.out.println(maintainCheck);
@@ -74,6 +75,7 @@ public class LoginServlet extends HttpServlet {
 					out.close();
 				}else if(maintainCheck.equals("false")){
 					System.out.println(maintainCheck);
+					System.out.println(loginUser);
 					out.print("successLogin");
 					out.flush();
 					out.close();

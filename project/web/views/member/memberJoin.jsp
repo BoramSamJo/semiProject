@@ -869,8 +869,8 @@
                     <p>(주)혜윰-반려동물상조서비스 회원으로 가입되셨습니다.</p>
                     <p>누구보다 정성스런 마음으로 여러분을 모시겠습니다.</p>
                 </div>
-                <button type="button" id="toHomeBtn">홈으로</button>
-                <button type="button" id="toLogInBtn">로그인</button>
+                <button type="button" id="toHomeBtn" onclick="memberCompleteGoHome();">홈으로</button>
+                <button type="button" id="toLogInBtn" onclick="memberCompleteGoLog();">로그인</button>
            </div>
         </div>
     </section>
@@ -1021,6 +1021,7 @@
                 var regEx = /^[^@^ ]{1,}$/;
                 if(!regEx.test($(this).val())||$(this).val()==''){
                     $('#resultEmail').html('<abbr class="RegExplainHover" title="이메일 아이디에 공백이나 @가 들어갔는지 확인해보세요">이메일 입력 안될때</abbr>').css(styleFalse)
+                    $('#email').focus();
                 }else{
                     $('#resultEmail').prop('value', '');
                 }
@@ -1632,8 +1633,22 @@
                 }
             });
 
-            
         })
+
+            //가입완료단게 로그인으로 폼
+            function memberCompleteGoLog(){
+            	alert('adf');
+            	if($('#moveToLogIn').css('display')=='none'){
+	            	$('#moveToLogIn2').click();            		
+            	}else{
+	            	$('#moveToLogIn').click();            		
+            	}
+            }
+            //홈으로
+            function memberCompleteGoHome(){
+            	alert('adf');
+            	location.replace('<%=request.getContextPath()%>/index.jsp');
+            }
     </script>
     <!-- 이용약관, 개인정보처리방침 클릭시 팝업창 띄우기 => 디자인 미완!!!! -->
     <script>

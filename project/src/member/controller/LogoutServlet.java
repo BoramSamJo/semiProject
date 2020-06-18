@@ -44,6 +44,9 @@ public class LogoutServlet extends HttpServlet {
 			}
 		}
 		
+		//userId까지 삭제
+		request.getSession().removeAttribute("userId");
+		
 		PrintWriter out = response.getWriter();
 		out.print("successLogout");
 		out.flush();

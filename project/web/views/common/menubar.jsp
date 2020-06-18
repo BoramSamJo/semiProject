@@ -616,10 +616,10 @@ header * {
 	</header>
 
 	<!-- 예약 fixed 사이드바 와 관리자 바-->
-	<%if(loginUser!=null&&request.getSession().getAttribute("userId")!=null&&request.getSession().getAttribute("userId").equals("admin")){%>
+	<%if(loginUser!=null&&((request.getSession().getAttribute("userId")!=null&&request.getSession().getAttribute("userId").equals("admin"))||((Member)request.getSession().getAttribute("loginUser")).getmId().equals("admin"))){%>
 	<aside id="reservation">
 		<p>
-			<a href="">관리</a>
+			<a href="<%=request.getContextPath() %>/views/common/managebar.jsp">관리</a>
 		</p>
 	</aside>
 	<%}else{ %>

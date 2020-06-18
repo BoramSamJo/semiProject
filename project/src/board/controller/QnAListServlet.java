@@ -70,7 +70,8 @@ public class QnAListServlet extends HttpServlet {
 		
 		//2. QnA답변 불러오기
 		ArrayList<QAnswer> qAList = new QnAService().selectQAnswerList();
-		
+		System.out.println(qList);
+		System.out.println(qAList);
 		//3. 뿌리기
 		RequestDispatcher veiw = null;
 		if(listCount==0) {

@@ -36,6 +36,8 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 
 		return result;
@@ -56,7 +58,6 @@ public class MemberDao {
 
 			if(rs.next()) {
 				member = new Member(rs.getInt("MEMBER_NO")
-									, rs.getInt("INS_CODE")
 									, rs.getString("MEMBER_ID")
 									, rs.getString("MEMBER_PWD")
 									, rs.getString("MEMBER_NAME")
@@ -66,6 +67,7 @@ public class MemberDao {
 									, rs.getString("ENROLL_DATE")
 									, rs.getString("MODIFY_DATE")
 									, rs.getString("STATUS")
+									, rs.getString("MAIL_SERVICE")
 									);
 			}
 		} catch (SQLException e) {
@@ -200,7 +202,6 @@ public class MemberDao {
 				m = new Member(
 								rs.getInt(1)
 								, rs.getInt("MEMBER_NO")
-								, rs.getInt("INS_CODE")
 								, rs.getString("MEMBER_ID")
 								, rs.getString("MEMBER_PWD")
 								, rs.getString("MEMBER_NAME")

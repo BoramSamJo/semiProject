@@ -60,7 +60,7 @@ public class QnADao {
 				"                                                                                ORDER BY CREATE_DATE DESC) A\r\n" + 
 				"                                                                                )\r\n" + 
 				"WHERE RNUM BETWEEN ? AND ?";
-		
+		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
@@ -82,6 +82,7 @@ public class QnADao {
 								, rs.getString("STATUS")
 								);
 				qlist.add(q);
+				System.out.println(q);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
