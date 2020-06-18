@@ -7,6 +7,7 @@ public class Member implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 4682182484310434843L;
+	private int rNo;
 	private int mNo;
 	private int insCode;
 	private String mId;
@@ -63,6 +64,22 @@ public class Member implements Serializable{
 		this.mPwd = mPwd;
 	}
 	
+	public Member(int rNo, int mNo, int insCode, String mId, String mPwd, String mName, String phone, String email,
+			String address, String enrollDate, String modifyDate, String status, String mailServie) {
+		this.rNo = rNo;
+		this.mNo = mNo;
+		this.insCode = insCode;
+		this.mId = mId;
+		this.mPwd = mPwd;
+		this.mName = mName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.mailServie = mailServie;
+	}
 	public int getmNo() {
 		return mNo;
 	}
@@ -138,17 +155,22 @@ public class Member implements Serializable{
 	public void setMailServie(String mailServie) {
 		this.mailServie = mailServie;
 	}
+	public int getrNo() {
+		return rNo;
+	}
+	public void setrNo(int rNo) {
+		this.rNo = rNo;
+	}
 	
 	
 	@Override
 	public String toString() {
-		return "Member [mNo=" + mNo + ", insCode=" + insCode + ", mId=" + mId + ", mPwd=" + mPwd + ", mName=" + mName
-				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", enrollDate=" + enrollDate
-				+ ", modifyDate=" + modifyDate + ", status=" + status + ", mailServie=" + mailServie + "]";
+		return "Member [rNo=" + rNo + ", mNo=" + mNo + ", insCode=" + insCode + ", mId=" + mId + ", mPwd=" + mPwd
+				+ ", mName=" + mName + ", phone=" + phone + ", email=" + email + ", address=" + address
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", mailServie="
+				+ mailServie + "]";
 	}
-	
-	
-	
+
 	
 	
 }

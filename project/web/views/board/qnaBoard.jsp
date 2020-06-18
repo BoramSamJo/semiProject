@@ -565,7 +565,7 @@
 				<%if(p.getListCount()==0){%>
 					
 				<%}else{ %>
-					<%if(isSearch=="false") {%>
+					<%if(isSearch.equals("false")) {%>
 		                 <button onclick="location.href='<%=request.getContextPath() %>/QnAList.bo?currentPage=<%=1 %>'" class="pagingBtns" ><<</button>
 		                 &nbsp;
 		                 <button onclick="location.href='<%=request.getContextPath() %>/QnAList.bo?currentPage=<%=currentPage-1 %>'" class="pagingBtns" ><</button>

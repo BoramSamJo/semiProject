@@ -6,7 +6,11 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import board.model.dao.QnADao;
+import board.model.vo.Pagination;
+import board.model.vo.QnABoard;
 import member.model.dao.MemberDao;
 import member.model.vo.Animal;
 import member.model.vo.Member;
@@ -74,6 +78,36 @@ public class MemberService {
 		close(conn);
 		
 		return animal;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		
+		int listCount = new MemberDao().getListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> selectAllMember(Pagination p) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> member = new MemberDao().selectAllMember(conn, p);
+		
+		close(conn);
+		
+		return member;
+	}
+
+	public ArrayList<Animal> selectAllAnimal() {
+		Connection conn = getConnection();
+		
+		ArrayList<Animal> animal = new MemberDao().selectAllAnimal(conn);
+		
+		close(conn);
+		
+		return animal;	
 	}
 
 

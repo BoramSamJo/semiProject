@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import board.model.vo.Pagination;
+import board.model.vo.QAnswer;
 import board.model.vo.QnABoard;
 import member.model.vo.Animal;
 import member.model.vo.Member;
@@ -145,6 +147,111 @@ public class MemberDao {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+		}
+		
+		return animal;
+	}
+
+	public int getListCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		
+		String query = "SELECT COUNT(*) FROM MEMBER WHERE STATUS = 'Y'";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> selectAllMember(Connection conn, Pagination p) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		ArrayList<Member> member = new ArrayList<>();
+		
+		int currentPage = p.getCurrentPage();
+		int limit = p.getLimit();
+		int startRow = (currentPage-1)*limit+1;
+		int endRow = currentPage*limit;
+
+		
+		String query = "SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MEMBER WHERE STATUS='Y' AND MEMBER_NO!=1 ORDER BY ENROLL_DATE) M) WHERE RNUM BETWEEN ? AND ? ORDER BY RNUM";
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				m = new Member(
+								rs.getInt(1)
+								, rs.getInt("MEMBER_NO")
+								, rs.getInt("INS_CODE")
+								, rs.getString("MEMBER_ID")
+								, rs.getString("MEMBER_PWD")
+								, rs.getString("MEMBER_NAME")
+								, rs.getString("PHONE")
+								, rs.getString("EMAIL")
+								, rs.getString("ADDRESS")
+								, rs.getString("ENROLL_DATE")
+								, rs.getString("MODIFY_DATE")
+								, rs.getString("STATUS")
+								, rs.getString("MAIL_SERVICE")
+								);
+				member.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return member;
+	}
+
+	public ArrayList<Animal> selectAllAnimal(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Animal a = null;
+		ArrayList<Animal> animal = new ArrayList<>();
+		
+		String query = "SELECT * FROM ANIMAL";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				a = new Animal(
+								rs.getString("A_NO")
+								, rs.getInt("MEMBER_NO")
+								, rs.getString("A_NAME")
+								, rs.getString("KIND")
+								, rs.getString("WEIGHT")
+								, rs.getString("STATUS")
+								);
+				animal.add(a);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
 		}
 		
 		return animal;
