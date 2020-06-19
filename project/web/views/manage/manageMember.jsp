@@ -28,14 +28,11 @@
 	
 	String searchText ="";
 	String searchKey ="";
-// 	String isSearch = (String)request.getAttribute("isSearch");//서치서블릿의 결과인지 어쩐지 판단
-	String isSearch = "false";
+	String isSearch = (String)request.getAttribute("isSearch");//서치서블릿의 결과인지 어쩐지 판단
 	if(isSearch==null){
 		isSearch="false";
 	}else{
 		isSearch="true";
-		searchText = (String)request.getAttribute("content");
-		searchKey = (String)request.getAttribute("selectBox");
 	}
 	
 %>
@@ -120,8 +117,19 @@ white
 	background: -webkit-linear-gradient(top, rgb(65, 64, 64), #242424);
 	color: #b3a193;
 }
+
+.borderNone{
+	border:none;
+	border: 1px solid #b3a193;
+	height: 30px;
+	text-indent: 10px;
+	color:#242424;
+	font-weight:500;
+	font-size:15px;
+	border-radius: 3px;
+}
 /* input 텍스트 입력 창 공통설정 */
-#manageMemberSection input {
+#manageMemberSection input:not([class=borderNone]) {
 	border-radius: 3px;
 	border: 1px solid #b3a193;
 	height: 30px;
@@ -190,7 +198,13 @@ white
 	width: 100px;
 }
 
-* /
+.TableCSS1 tr:nth-of-type(2n) td {
+	border-right: 1px solid lightgray;
+}
+.TableCSS1 tr:nth-of-type(2n) td:last-child 
+, .TableCSS1 tr:nth-of-type(2n) td:nth-of-type(9) {
+	border-right: none;
+}
 
 .tablehover:hover {
 	background: rgb(228, 227, 227);
@@ -214,6 +228,7 @@ white
 	border: none;
 	border-bottom: 1px solid lightgray;
 }
+
 </style>
 </head>
 <body id="manageMemberSection">
@@ -229,56 +244,64 @@ white
 		<h2 style="color: #685d55">회원정보</h2>
 
 		<div id="searchArea">
-              <select name="selectFind" id="selectFind" style="height:32px;border-radius:3px">
-                    <option selected value='' disabled>카테고리 선택</option>
-                    <option value="userName">회원명</option>
-                    <option value="ins">보험가입자</option>
-                    <option value="fu">장례완료자</option>
-                </select>
-            <input type='text' name="searchText" id="searchText" disabled style="background:lightgray">&nbsp;
-			<input type="text" name="completeDate" id="completeDate" placeholder="장례경과일 입력" disabled style="background:lightgray">
-			<button id="findBtn" class="memberManageBtns">조회</button>
-			<button class="memberManageBtns">mail 전송</button>
+			<form action="<%=request.getContextPath()%>/searchMember.me">
+	             <select name="selectFind" id="selectFind" style="height:32px;border-radius:3px">
+	                    <option selected value='' disabled>카테고리 선택</option>
+	                    <option value="FindUserName">회원명</option>
+	                    <option value="FinduserId">아이디</option>
+	                    <option value="FindPhone">전화번호</option>
+	                    <option value="FindIns">보험가입자</option>
+	                    <option value="FindFu">장례완료자</option>
+	                </select>
+	            <input type='text' name="searchText" id="searchText" disabled style="background:lightgray">&nbsp;
+				<input type="text" name="completeDate" id="completeDate" placeholder="경과일 입력" disabled style="background:lightgray">
+				<button id="findBtn" class="memberManageBtns">조회</button>
+				<button class="memberManageBtns">mail 전송</button>
+			</form>
 		</div>
-
+		<div id="listResultArea" align="right" style="">
+			<label>조회 결과 : <%=listCount %>명</label>
+		</div>
 
 		<table class="TableCSS1" border="0px">
 			<tr>
 				<th class="bar">회원번호</th>
 				<th>이름</th>
+				<th>아이디</th>
 				<th>전화번호</th>
 				<th>이메일</th>
 				<th colspan="4">주소</th>
 				<th>가입일</th>
-				<th>펫</th>
+<!-- 				<th>펫</th> -->
 				<th>상태</th>
-				<th>관리</th>
+				<th></th>
 				<th>
 					<input type="checkbox" name="selectAll" id="selectAll" style="width:20px;margin-top:10px">
 				</th>
 			</tr>
 			<%if(mList.size()<1){ %>
 			<tr>
-				<td colspan="10">조회할 회원이 없습니다</td>
+				<td colspan="13">조회할 회원이 없습니다</td>
 			</tr>
 			<%}else{%>
 			<%for(int i = 0; i < mList.size(); i++){ %>
 			<%if(!mList.isEmpty()){%>
-			<tr onclick="getPwd(this);" class="off" id='modaltest1'>
+			<tr class="off" id='modaltest1'>
 				<td class='init'><%=mList.get(i).getrNo() %></td>
 				<td class='init'><%=mList.get(i).getmName() %></td>
+				<td class='init'><%=mList.get(i).getmId() %></td>
 				<td class='init'><%=mList.get(i).getPhone() %></td>
 				<td class='init'><%=mList.get(i).getEmail() %></td>
 				<td class='init' colspan="4"><%=mList.get(i).getAddress() %></td>
 				<td class='init'><%=mList.get(i).getEnrollDate().substring(0,10) %></td>
-				<td class='init'>
-					<%for(int j = 0; j < aList.size(); j++){ %> <%if(mList.get(i).getmNo()==aList.get(j).getmNo()){ %>
-					보유 <%break;}else{%> <%if(j==aList.size()-1){ %> 없음 <%} %> <%}%> <%} %>
-				</td>
+<!-- 				<td class='init'> -->
+<%-- 					<%for(int j = 0; j < aList.size(); j++){ %> <%if(mList.get(i).getmNo()==aList.get(j).getmNo()){ %> --%>
+<%-- 					보유 <%break;}else{%> <%if(j==aList.size()-1){ %> 없음 <%} %> <%}%> <%} %> --%>
+<!-- 				</td> -->
 				<td class='init'><%=mList.get(i).getStatus() %></td>
 				<td class='init'>
-					<button class="memberManageBtns">수정</button>
-					<button class="memberManageBtns">탈퇴</button>
+					<!-- <button class="memberManageBtns">수정</button> -->
+					<button class="memberManageBtns" onclick="goodBye('<%=mList.get(i).getmId()%>');">탈퇴</button>
 				</td>
 				<td class='init'>
 					<form>
@@ -288,47 +311,54 @@ white
 			</tr>
 			<%for(int j = 0; j < aList.size(); j++){ %>
 			<%if(mList.get(i).getmNo()==aList.get(j).getmNo()){ %>
+			<form action="<%=request.getContextPath() %>/updateAnimal.me" method="get">
 			<tr class="A">
-				<td></td>
+				<td><input type="hidden" name="mNo" value="<%=aList.get(j).getmNo() %>"></td>
 				<td><img src="<%=request.getContextPath() %>/img/answerImg3.png" width="20px"></td>
 				<td>반려동물</td>
 				<%if(aList.get(j).getStatus().equals("N")){ %>
 				<td colspan="1">
-					<input type="text" name="status" value="[미장례]" style="border:none; text-align:center" size="5">
+					<input type="text" name="status" class="status" value="[일반]" style="border:none; text-align:center" size="7">
+					<input type="hidden" id="<%=aList.get(j).getaNo() %>" value="[일반]">
 				</td>
 				<%}else{ %>
 				<td colspan="1">
-					<input type="text" name="status" value="[미장례]" style="border:none; text-align:center" size="5">
+					<input type="text" name="status" class="status" value="[장례완료]" style="border:none; text-align:center" size="7">
+					<input type="hidden" id="<%=aList.get(j).getaNo() %>" value="[장례완료]">
 				</td>
 				<%} %>
 				<%if(aList.get(j).getaName()==null){ %>
 				<td colspan="1"><label>이름 : </label><input type="text"
-					name="aName" value="미입력" size="6"></td>
+					name="aName" value="미입력" size="6" class="borderNone"></td>
 				<%}else{ %>
 				<td><label>이름 : </label><input type="text" name="aName"
-					value="<%=aList.get(j).getaName() %>" size="6"></td>
+					value="<%=aList.get(j).getaName() %>" size="6" class="borderNone"></td>
 				<%} %>
 				<%if(aList.get(j).getKind()==null){ %>
 				<td colspan="1"><label>종 : </label><input type="text"
-					name="aKind" value="미입력" size="10"></td>
+					name="aKind" value="미입력" size="10" class="borderNone"></td>
 				<%}else{ %>
 				<td colspan="1"><label>종 : </label><input type="text"
-					name="aKind" value="<%=aList.get(j).getKind() %>" size="10">
+					name="aKind" value="<%=aList.get(j).getKind() %>" size="10" class="borderNone">
 				</td>
 				<%} %>
 				<%if(aList.get(j).getWeight()==null){ %>
 				<td colspan="1"><label>체중 : </label><input type="text"
-					name="aWeight" value="미입력" size="5"></td>
+					name="aWeight" class="aWeight" value="미입력" size="5" class="borderNone"> kg
+					<input type="hidden" class="aWeight2" value="미입력">
+				</td>
 				<%}else{ %>
 				<td colspan="1"><label>체중 : </label><input type="text"
-					name="aWeight" value="<%=aList.get(j).getWeight() %>" size="5">
+					name="aWeight" class="aWeight" value="<%=aList.get(j).getWeight() %>" size="5" class="borderNone"> kg
+					<input type="hidden" class="<%=aList.get(i).getmNo() %>" value="<%=aList.get(j).getWeight() %>">
 				</td>
 				<%} %>
 				<td>
-					<button class="memberManageBtns">수정</button>
+					<button type="submit" class="memberManageBtns">수정</button>
 				</td>
 				<td colspan="6"></td>
 			</tr>
+			</form>
 			<%break;}else{ %>
 			<%if(j==aList.size()-1){ %>
 			<tr class="A">
@@ -398,19 +428,52 @@ white
 		<%}%>
 		<%}%>
 
-	<%-- 		            <%if(isSearch=="true"){ %> --%>
+	<%if(isSearch.equals("true")){ %>
 	<br>
 	<br>
-	<button onclick="reloadForWhole();" id="writeQnaBtn" class="memberManageBtns">전체보기</button>
+	<button onclick="location.href='<%=request.getContextPath() %>/manageMList.bo'" id="writeQnaBtn" class="memberManageBtns">전체보기</button>
 	<br>
 	<br>
-	<%--            <%} %> --%>
+	 <%} %>
 	<br>
 	</div>
 
 	<script>
+	//입력 제약조건(잘못되면 원래값으로 돌아가기)
+	$('.status').each(function(index, item){ 
+		$(item).blur(function(){
+			if($(item).val()!='[일반]'&&$(item).val()!='[장례완료]'){
+				alert('장례여부 입력 양식 : [일반] / [장례완료]');
+				$(item).val($(item).next().val());
+			}
+		});
+	})
+	$('.aWeight').each(function(index, item){ 
+		$(item).blur(function(){
+			var regEx = /^[\d]{1,}[.]{0,1}[\d]{1,}$/;
+	    	if(!regEx.test($(item).val())){
+	    		alert('숫자와 .한개로만 입력되어야 합니다.');
+	    		$(item).val($(item).next().val());
+	    	}
+		});
+	})
+
+	
+		//탈퇴 버튼
+		function goodBye(mId){
+			var really = confirm('탈퇴처리 하시겠습니까?');
+			if(really){
+				location.href="<%=request.getContextPath()%>/memberGone.me?mId="+mId;
+			}else{
+				return;
+			}
+		}
+		
+		
+		
 		// 카테고리 선택해야 조회가능하게
 		$('#findBtn').click(function(){
+			alert('asdf');
 			if($('#selectFind').val()==''||$('#selectFind').val()==null){
 				alert('카테고리를 선택해주세요');
 				return;
@@ -424,7 +487,7 @@ white
 			if($('#selectFind').val()!=''&&$('#selectFind').val()!=null){
 				$('#searchText').prop('disabled', false).css('background', 'white');
 				
-				if($('#selectFind').val()=='fu'){
+				if($('#selectFind').val()=='FindFu'||$('#selectFind').val()=='FindIns'){
 					$('#searchText').prop('disabled', true).css('background', 'lightgray');
 					$('#completeDate').prop('disabled', false).css('background', 'white');
 				}else{
@@ -435,6 +498,8 @@ white
 			}
 			
 		});
+		
+		
 		
 	</script>
 

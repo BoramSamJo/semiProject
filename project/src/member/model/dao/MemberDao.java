@@ -189,7 +189,7 @@ public class MemberDao {
 		int endRow = currentPage*limit;
 
 		
-		String query = "SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MEMBER WHERE STATUS='Y' AND MEMBER_NO!=1 ORDER BY ENROLL_DATE) M) WHERE RNUM BETWEEN ? AND ? ORDER BY RNUM";
+		String query = "SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MEMBER WHERE STATUS='Y' AND MEMBER_NO!=1 ORDER BY ENROLL_DATE DESC) M) WHERE RNUM BETWEEN ? AND ? ORDER BY RNUM";
 		
 		
 		try {
@@ -256,6 +256,120 @@ public class MemberDao {
 		}
 		
 		return animal;
+	}
+
+	public int memberGone(Connection conn, String mId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = "UPDATE MEMBER SET STATUS = 'N' WHERE MEMBER_ID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mId);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateAnimal(Connection conn, Animal a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = "UPDATE ANIMAL SET A_NAME=?, KIND=?, WEIGHT=?, STATUS=? WHERE MEMBER_NO = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, a.getaName());
+			pstmt.setString(2, a.getKind());
+			pstmt.setString(3, a.getWeight());
+			pstmt.setString(4, a.getStatus());
+			pstmt.setInt(5, a.getmNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int getSearchListCount(Connection conn, String colName, String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+
+		String query = "SELECT COUNT(*) FROM MEMBER WHERE "+colName+" LIKE '%"+searchText+"%' AND STATUS = 'Y' AND MEMBER_NO !=1";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				listCount = rs.getInt(1);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> searchMember(Connection conn, Pagination p, String colName, String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		ArrayList<Member> member = new ArrayList<>();
+		
+		int currentPage = p.getCurrentPage();
+		int limit = p.getLimit();
+		int startRow = (currentPage-1)*limit+1;
+		int endRow = currentPage*limit;
+
+		String query = "SELECT * FROM (SELECT ROWNUM RNUM, M.* FROM (SELECT * FROM MEMBER WHERE "+colName+" LIKE '%"+searchText+"%' AND STATUS = 'Y' AND MEMBER_NO!=1 ORDER BY ENROLL_DATE DESC) M) WHERE RNUM BETWEEN ? AND ? ORDER BY RNUM";		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				m = new Member(
+								rs.getInt(1)
+								, rs.getInt("MEMBER_NO")
+								, rs.getString("MEMBER_ID")
+								, rs.getString("MEMBER_PWD")
+								, rs.getString("MEMBER_NAME")
+								, rs.getString("PHONE")
+								, rs.getString("EMAIL")
+								, rs.getString("ADDRESS")
+								, rs.getString("ENROLL_DATE")
+								, rs.getString("MODIFY_DATE")
+								, rs.getString("STATUS")
+								, rs.getString("MAIL_SERVICE")
+								);
+				member.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return member;
 	}
 
 

@@ -110,5 +110,57 @@ public class MemberService {
 		return animal;	
 	}
 
+	public int memberGone(String mId) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().memberGone(conn, mId);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateAnimal(Animal a) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateAnimal(conn, a);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int getSearchListCount(String colName, String searchText) {
+		Connection conn = getConnection();
+		
+		int listCount = new MemberDao().getSearchListCount(conn, colName, searchText);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> searchMember(Pagination p, String colName, String searchText) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> member = new MemberDao().searchMember(conn, p, colName, searchText);
+		
+		close(conn);
+		
+		return member;
+	}
+
 
 }
