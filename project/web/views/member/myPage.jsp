@@ -4,7 +4,7 @@
 	Member m = (Member)request.getAttribute("m");
 	ArrayList<Animal> aList = (ArrayList<Animal>)request.getAttribute("aList");
 	ArrayList<CalendarViews> rList = (ArrayList<CalendarViews>)request.getAttribute("rList");
-	ArrayList<Insurance> iList = (ArrayList<Insurance>)request.getAttribute("iList");
+	ArrayList<IList> iList = (ArrayList<IList>)request.getAttribute("iList");
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -338,12 +338,12 @@
                 <h2 style="color:#685d55">보험 가입 내역</h2>
                 <p>* 보험 상품에 대한 자세한 정보가 궁금하시다면 1577-0996으로 문의주세요</p>
                 <table class="TableCSS1">
+	                    <tr><th scope="row">번호</th><th scope="row">가입자 성함</th><th scope="row">반려동물 이름</th><th scope="row">가입일</th><th scope="row">가입상품</th></tr>
        		 	<%if(iList.isEmpty()){ %>
                		<td colspan="5">보험 내역이 없습니다.</td>
                	<%} else{%>
 	                <%for(int i=0; i<iList.size(); i++){ %>
-	                    <tr><th scope="row">번호</th><th scope="row">가입자 성함</th><th scope="row">반려동물 이름</th><th scope="row">가입일</th><th scope="row">가입상품</th></tr>
-	                    <tr class="tablehover"><td scope="row"><%=i+1 %></td><td><%=m.getmName() %></td><td><%=aList.get(i).getaName() %></td><td>2020-03-21</td><td><%=iList.get(i).getInsContent() %></td></tr>
+	                    <tr class="tablehover"><td scope="row"><%=i+1 %></td><td><%=m.getmName() %></td><td><%=aList.get(i).getaName() %></td><td><%=iList.get(i).getEnrollDate()%></td><td><%=iList.get(i).getInsName() %></td></tr>
                 	<%} %>
                 <%} %>
                 </table><br>
@@ -454,52 +454,46 @@
                     		<td>반려동물 이름</td>
                     		<td>품종</td>
                     		<td>무게</td>
-                    	</tr>
-                    	<tr class="secretPet">
-                    		<td>이름</td>
-                    		<td><input type="text" name="petName"></td><br>
-                    	</tr>
-                    	<tr class="secretPet">
-                    		<td>품종</td>
-                    		<td>
-	                    		<select name="petKind" style="height:35px">
-	                    			<option value="강아지">강아지</option>
-	                    			<option value="고양이">고양이</option>
-	                    			<option value="기타">기타</option>
-	                    		</select>
-	                    		<input type="text" name="detailInfo">
-	                    	</td>
-	                    	<td><button type="reset" onclick="canclePetInsert();">취소</button>
+                    		<td><button type="button" id="changePetInfo" onclick="petChangeBtn();" style="width:70px;">수정하기</button></td>
                     	</tr>
                     </form>
                     <form>
-                    	<tr class="secretPet">
-                    		<td>무게</td>
-                    		<td><input type="text" id="petWeight" name="petWeight"></td>
-                    		<td><button type="button" onclick="petInsertInfo();">등록</button></td>
-                    	</tr >
-                   		<%for(int i=0; i<aList.size(); i++){ %>
-   		                	<tr class="petDetailInfo2">
-           	        			<td></td>
-               	    			<td><%=aList.get(i).getaName()%></td>
-               	    			<td><%=aList.get(i).getKind()%></td>
-               	    			<td><%=aList.get(i).getWeight()+"kg" %></td>
-               	    			<td><button type="button" id="changePetInfo" onclick="petChangeBtn();" style="width:70px;">수정</button></td>
-                    		</tr>
-                    			<tr class="hiddenPetInfo">
-                    			<td><input type="hidden" name="animalNo" value="<%=aList.get(i).getaNo()%>"></td>
-                    			<td><input type="text" name="changeName" value="<%=aList.get(i).getaName()%>"></td>
+                    	<%if(aList.isEmpty()){ %>
+                    		<tr class="hiddenPetInfo">
+                    			<td><input type="hidden" name="animalNo"></td>
+                    			<td><input type="text" name="changeName"></td>
                	    			<td><select name="changeKind">
                	    					<option value="강아지">강아지</option>
                	    					<option value="고양이">고양이</option>
                	    					<option value="기타">기타</option>
                	    				</select>
-               	    				<input type="text" name="changeDetail" value="<%=aList.get(i).getKind()%>">
+               	    				<input type="text" name="changeDetail">
                	    			</td>
-               	    			<td><input type="text" name="changeWeight" value="<%=aList.get(i).getWeight()%>"></td>
+               	    			<td><input type="text" name="changeWeight"></td>
                     		</tr>
-                   		<%} %>
+                    	<%} else{ %>
+	                   		<%for(int i=0; i<aList.size(); i++){ %>
+	   		                	<tr class="petDetailInfo2">
+	           	        			<td></td>
+	               	    			<td><%=aList.get(i).getaName()%></td>
+	               	    			<td><%=aList.get(i).getKind()%></td>
+	               	    			<td><%=aList.get(i).getWeight()+"kg" %></td>
+	                    		</tr>
+	                    		<tr class="hiddenPetInfo">
+	                    			<td><input type="hidden" name="animalNo" value="<%=aList.get(i).getaNo()%>"></td>
+	                    			<td><input type="text" name="changeName" value="<%=aList.get(i).getaName()%>"></td>
+	               	    			<td><select name="changeKind">
+	               	    					<option value="강아지">강아지</option>
+	               	    					<option value="고양이">고양이</option>
+	               	    					<option value="기타">기타</option>
+	               	    				</select>
+	               	    				<input type="text" name="changeDetail" value="<%=aList.get(i).getKind()%>">
+	               	    			</td>
+	               	    			<td><input type="text" name="changeWeight" value="<%=aList.get(i).getWeight()%>"></td>
+	                    		</tr>
+	                   		<%} %>
                    		
+	                   	<%} %>
                    		<tr id="changePetInfo2">
                    			<td></td>
                    			<td colspan="3"><button type="reset" class="cancel">취소</button>&nbsp;<button type="button"  onclick="petChangeBtn2();">수정</button></td>
@@ -610,7 +604,6 @@
                 $(".certificationshow").css({"display":"none"});
                 $(".hiddenPetInfo").css("display","none");
                 $("#changePetInfo2").css("display","none");
-                $("#changePetInfo").css("display","table-row");
             });
         });
 
@@ -708,62 +701,20 @@
 			});
     	}
     	
-    	// 반려동물 추가 버튼 클릭시
-    	function petInsert(){
-    		$(".secretPet").css("display","table-row");
-    		$("#petInsertBtn").css("display","none");
-    		$(".petDetailInfo").css("display","none");
-    		$(".hiddenPetInfo").css("display","none");
-    		$("#changePetInfo").css("display","none");
-    	}
     	function canclePetInsert(){
     		$(".secretPet").css("display","none");
     		$("#petInsertBtn").css("display","table-row");
     		$(".petDetailInfo").css("display","table-row");
     		$("#changePetInfo").css("display","table-row");
     	}
-    	
-    	// 반려동물 정보 등록
-    	function petInsertInfo(){
-    		var userNo = <%=m.getmNo()%>;
-    		var name = $("[name=petName]").val();
-    		var kind = $("[name=petKind]").val();
-    		var detail = $("[name=detailInfo]").val();
-    		var weight = $("[name=petWeight]").val();
-    		
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/insert.an",
-				type:"post",
-				data:{userNo:userNo, name:name, kind:kind, detail:detail, weight:weight},
-    			success:function(data){
-    				$(".petDetailInfo1").html("");
-    				
-    				for(var key in data){
-    					var $tr = $("<tr>");
-    					var $detail = $("<td>").text(data[key].aName+" "+data[key].kind+" "+data[key].weight+"kg");
-    					
-    					$tr.append("<td>");
-    					$tr.append($detail);
-    					$tr.append("<td><button type='button' id='petChangeBtn'>수정하기</button></td>")
-    					$("#memberFixTable").append($tr);
-    				}
-    	            $(".secretPet").css({"display":"none"});
-    	            $("#petInsertBtn").css("display","table-row");
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
-    	
+
     	function petChangeBtn(){
     		$(".hiddenPetInfo").css("display","table-row");
-    		$("#changePetInfo").css("display","none");
     		$("#changePetInfo2").css("display","table-row");
     		
     	}
     	
-    	// 반려동물 정보 변경
+    	// 반려동물 정보 추가/변경
     	function petChangeBtn2(){
     		var userNo = <%=m.getmNo()%>;
     		var animalNo = $("[name=animalNo]").val();
@@ -783,14 +734,12 @@
     					var $tr = $("<tr>");
     					var $name = $("<td>").text(data[key].aName);
     					var $kind = $("<td>").text(data[key].kind)
-    					var $weight = $("<td>").text(data[key].weight+"kg")
+    					var $weight = $("<td>").text(data[key].weight)
     					
-    					$tr.append("<td>");
-    					$tr.append($name);
-    					$tr.append($kind);
-    					$tr.append($weight);
-    					$tr.append("<td><button type='button' id='changePetInfo'>수정</button></td>")
-    					$("#memberFixTable").append($tr);
+    					$(".petDetailInfo2").append("<td>");
+    					$(".petDetailInfo2").append($name);
+    					$(".petDetailInfo2").append($kind);
+    					$(".petDetailInfo2").append($weight);
     				}
     	            $("#changePetInfo2").css({"display":"none"});
     	            $(".hiddenPetInfo").css({"display":"none"});

@@ -16,7 +16,7 @@ public class AnimalDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		String query = "INSERT INTO ANIMAL VALUES(SEQ_PNO.NEXTVAL, ?, ?, ?, ?, 'Y')";
+		String query = "INSERT INTO ANIMAL VALUES((SELECT NVL(MAX(A_NO),0)+1 FROM ANIMAL), ?, ?, ?, ?, 'Y')";
 		
 		try {
 			pstmt = conn.prepareStatement(query);

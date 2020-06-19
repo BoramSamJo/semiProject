@@ -13,28 +13,19 @@ import myPage.model.vo.Animal;;
 
 public class AnimalService {
 
-	public static ArrayList<Animal> insertPet(Animal a) {
-		Connection conn = getConnection();
-		ArrayList<Animal> aList = new ArrayList();
-		
-		int result = AnimalDao.insertPet(conn, a);
-		
-		if(result>0) {
-			commit(conn);
-			aList = AnimalDao.searchPet(conn,a);
-		}else {
-			rollback(conn);
-		}
-		
-		return aList;
-	}
 
 	public static ArrayList<Animal> changeAnimal(Animal a) {
 		Connection conn = getConnection();
 		ArrayList<Animal> aList = new ArrayList();
+		int result = 0;
 		
-		int result = AnimalDao.changeAnimal(conn, a);
-		
+		aList = AnimalDao.searchPet(conn, a);
+		if(aList.isEmpty()) {
+			result = AnimalDao.insertPet(conn, a);
+		}else {
+			result = AnimalDao.changeAnimal(conn, a);
+		}
+
 		if(result>0) {
 			commit(conn);
 			aList = AnimalDao.searchPet(conn, a);

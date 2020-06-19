@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import member.model.service.MemberService;
+import myPage.model.service.MemberService;
 import member.model.vo.Member;
 
 /**

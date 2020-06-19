@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import myPage.model.vo.Animal;
 import member.model.vo.Member;
-import member.model.service.MemberService;
-import member.model.vo.Animal;
+import myPage.model.service.MemberService;
 import myPage.model.vo.CalendarViews;
-import myPage.model.vo.Insurance;
+import myPage.model.vo.IList;
 
 /**
  * Servlet implementation class firstViews
@@ -39,7 +39,7 @@ public class firstViewsServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		ArrayList<Animal> aList = new ArrayList<>();		// 동물정보 리스트
 		ArrayList<CalendarViews> rList = new ArrayList<>();	// 장례예약정보 리스트
-		ArrayList<Insurance> iList = new ArrayList<>();		// 보험가입정보 리스트
+		ArrayList<IList> iList = new ArrayList<>();		// 보험가입정보 리스트
 		
 		Member m = (Member)session.getAttribute("loginUser");
 		

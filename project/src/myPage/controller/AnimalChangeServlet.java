@@ -42,6 +42,8 @@ public class AnimalChangeServlet extends HttpServlet {
 		ArrayList<Animal> aList = new ArrayList();
 		Animal a = new Animal(animalNo, userNo, name, kind, weight);
 		
+		
+		
 		aList = AnimalService.changeAnimal(a);
 		
 		PrintWriter out = response.getWriter();
