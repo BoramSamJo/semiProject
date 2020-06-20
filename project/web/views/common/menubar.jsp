@@ -789,7 +789,7 @@ header * {
         
         moveToLogIn.onclick = function(){
             modal.style.display = "block";
-
+            $('#userIdLogIn').focus();
             var heightLogIn = $('body>header').height();
             var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
             
@@ -799,7 +799,7 @@ header * {
         
         moveToLogIn2.onclick = function(){
             modal.style.display = "block";
-
+			$('#userIdLogIn').focus();
             var heightLogIn = $('#reactMenu').height();
             var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
             

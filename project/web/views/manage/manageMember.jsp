@@ -34,7 +34,23 @@
 	}else{
 		isSearch="true";
 	}
+	String isIns = (String)request.getAttribute("isIns");//보험서치한건지 판단
+	if(isIns==null){
+		isIns="false";
+	}else{
+		isIns="true";
+	}
+	String isFu = (String)request.getAttribute("isFu");//장례서치한건지 판단
+	if(isFu==null){
+		isFu="false";
+	}else{
+		isFu="true";
+	}
 	
+	String sendCompleteDate = (String)request.getAttribute("sendCompleteDate");
+	if(sendCompleteDate==null){
+		sendCompleteDate="false";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -243,8 +259,8 @@ white
 	<div id="memberArea">
 		<h2 style="color: #685d55">회원정보</h2>
 
-		<div id="searchArea">
-			<form action="<%=request.getContextPath()%>/searchMember.me">
+		<div id="searchArea" align="right">
+			<form action="<%=request.getContextPath()%>/searchMember.me?">
 	             <select name="selectFind" id="selectFind" style="height:32px;border-radius:3px">
 	                    <option selected value='' disabled>카테고리 선택</option>
 	                    <option value="FindUserName">회원명</option>
@@ -254,10 +270,18 @@ white
 	                    <option value="FindFu">장례완료자</option>
 	                </select>
 	            <input type='text' name="searchText" id="searchText" disabled style="background:lightgray">&nbsp;
-				<input type="text" name="completeDate" id="completeDate" placeholder="경과일 입력" disabled style="background:lightgray">
+				<input type="number" name="completeDate" id="completeDate" placeholder="경과일 입력" disabled style="background:lightgray">
 				<button id="findBtn" class="memberManageBtns">조회</button>
-				<button class="memberManageBtns">mail 전송</button>
 			</form>
+			<div>
+				<label for="insText">보험메일</label>
+				<input type="radio" name="mailText" id="insText" value="insText" style="position:relative; top:9px;">
+				<label for="fuText">장례메일</label>
+				<input type="radio" name="mailText" id="fuText" value="fuText" style="position:relative; top:9px;">
+				<label for="directMailText">직접입력:</label>
+				<input type="text" id="directMailText">
+				<button type="button" class="memberManageBtns" onclick="sendMail();">mail 전송</button>
+			</div>
 		</div>
 		<div id="listResultArea" align="right" style="">
 			<label>조회 결과 : <%=listCount %>명</label>
@@ -271,7 +295,13 @@ white
 				<th>전화번호</th>
 				<th>이메일</th>
 				<th colspan="4">주소</th>
+				<%if(isIns.equals("true")){ %>
+				<th>보험<br>가입일</th>
+				<%}else if(isFu.equals("true")){ %>
+				<th>장례일</th>
+				<%}else{%>
 				<th>가입일</th>
+				<%}%>
 <!-- 				<th>펫</th> -->
 				<th>상태</th>
 				<th></th>
@@ -305,7 +335,7 @@ white
 				</td>
 				<td class='init'>
 					<form>
-						<input type="checkbox" name="sendMailUser" id="sendMailUser" style="width:20px;margin-top:10px;background:black"> 
+						<input type="checkbox" name="sendMailUser" value="<%=mList.get(i).getEmail() %>" style="width:20px;margin-top:10px;background:black"> 
 					</form>
 				</td>
 			</tr>
@@ -334,7 +364,7 @@ white
 				<td><label>이름 : </label><input type="text" name="aName"
 					value="<%=aList.get(j).getaName() %>" size="6" class="borderNone"></td>
 				<%} %>
-				<%if(aList.get(j).getKind()==null){ %>
+				<%if(aList.get(j).getKind().equals("()")){ %>
 				<td colspan="1"><label>종 : </label><input type="text"
 					name="aKind" value="미입력" size="10" class="borderNone"></td>
 				<%}else{ %>
@@ -450,8 +480,9 @@ white
 	})
 	$('.aWeight').each(function(index, item){ 
 		$(item).blur(function(){
-			var regEx = /^[\d]{1,}[.]{0,1}[\d]{1,}$/;
-	    	if(!regEx.test($(item).val())){
+			var regEx1 = /^[\d]{1,}[.]{0,1}[\d]{1,}$/;
+			var regEx2 = /^[\d]{1,}$/;
+	    	if(!regEx1.test($(item).val())&&!regEx2.test($(item).val())){
 	    		alert('숫자와 .한개로만 입력되어야 합니다.');
 	    		$(item).val($(item).next().val());
 	    	}
@@ -476,10 +507,8 @@ white
 			alert('asdf');
 			if($('#selectFind').val()==''||$('#selectFind').val()==null){
 				alert('카테고리를 선택해주세요');
-				return;
+				return false;
 			}
-			
-			
 		})
 		
 		//카테고리 선택에따른 서치창 변화
@@ -499,8 +528,96 @@ white
 			
 		});
 		
+		  //체크박스 모두동의
+        $("#selectAll").change(function(){
+            var bool = $(this).prop('checked');
+            if(bool){
+                $('input:checkbox').prop('checked',bool).next().css('background-image', "url('<%=request.getContextPath()%>/checkboxImage/innerbeigeOuterblack.png')");
+            }else{
+                $('input:checkbox').prop('checked',bool).next().css('background-image', "url('<%=request.getContextPath()%>/img/notCheck1.png')");
+            }
+        });
+
+        //체크박스 모두 동의한 후, 하나라도 해제되면 모두동의항목도 체크 해제
+        $('input:checkbox').each(function(index, item){
+            $(this).change(function(){
+                if($(this).prop('checked')==false){
+                    $('#selectAll').next().css('background-image', "url('<%=request.getContextPath()%>/img/notCheck1.png')");
+                    $('#selectAll').prop('checked', false);
+                }
+            });
+        });
 		
-		
+        //보낼 메일 선택시, 라디오버튼이나 직접입력 중 하나만 가능하게
+        $('#directMailText').focus(function(){
+        	$('input:radio').each(function(index, item, value){
+        		$(item).prop('checked', false);
+        	})
+        })
+    	$('input:radio').change(function(){
+	        $(this).each(function(index, item, value){
+      			if($(item).prop('checked')==true){
+					$('#directMailText').val('');       			
+      			}
+	       	})
+     	})
+     	
+        //메일보내기
+        function sendMail(){
+        	//먼저 선택된 회원이 있는지 검증위한 변수
+        	var isChecked = false;
+        	
+        	//메일보낼 회원의 이메일을 배열에 담음
+        	var users = document.getElementsByName('sendMailUser');
+    		var usersEmail = [];
+        	$(users).each(function(index, item, value){
+        		if($(item).prop('checked')==true){
+        			usersEmail.push($(item).val());
+        			isChecked = true;
+        		}
+        	})
+			
+        	//선택된 회원이 있는지 검증
+        	if(isChecked==false){
+        		alert('선택한 회원이 없습니다')
+        		return;
+        	}
+        	
+        	//보낼 메일텍스트를 선택
+        	var sendMailText = '';
+        	if($('#directMailText').val()==''){
+	        	$('input:radio').each(function(index, item, value){
+	        		if($(item).prop('checked')==true){
+	        			sendMailText = $(item).val();
+	        		}
+	        	})
+        	}else{
+	        	sendMailText = $('#directMailText').val();
+        	}
+        	
+        	//보낼 메일을 선택하지 않으면 리턴
+        	if(sendMailText==''){
+        		alert('보낼 메일을 선택하셔야 합니다')
+        		return;
+        	}
+        	
+        	//경과일을 담을 변수 생성
+        	var passDate = <%=sendCompleteDate%>;
+			
+        	//서블릿 가기
+        	$.ajax({
+  				 url:'<%=request.getContextPath()%>/sendManyEmail.me'
+  				, type:'post'
+  				, traditional : true
+  				, data:{usersEmail:usersEmail, sendMailText:sendMailText, passDate:passDate}
+  				, success:function(data){
+  					alert(data);
+  				}
+  				, error:function(request, status, error){
+           			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+           		}
+  			})
+        }
 	</script>
 
 </body>

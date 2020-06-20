@@ -46,9 +46,9 @@ public class ManageSearchMemberServlet extends HttpServlet {
 			break;
 		case "FindPhone" : colName="PHONE";
 			break;
-		case "FindIns" : colName="MEMBER_NO";//ins_list에 member_no가 매치되는 사람
+		case "FindIns" : colName="INS";//ins_list에 member_no가 매치되는 사람
 			break;
-		case "FindFu" : colName="MEMBER_NO";//fu_list에 member_no가 매치되는 사람
+		case "FindFu" : colName="FU";//fu_list에 member_no가 매치되는 사람
 			break;
 		}
 		
@@ -113,6 +113,72 @@ public class ManageSearchMemberServlet extends HttpServlet {
 			}
 			
 		}else if(searchText==null) {//장례완료 회원 중 일정 날짜가 경과한 회원 조회
+			//0. 페이징처리 
+			//1) 리스트 총 개수 구하기
+			int listCount = new MemberService().getForMailListCount(colName, completeDate);
+			System.out.println(listCount);
+			int currentPage;
+			int limit;		
+			int maxPage;	
+			int startPage;	
+			int endPage;
+			
+			currentPage=1;
+			if(request.getParameter("currentPage")!=null) {
+				currentPage = Integer.valueOf(request.getParameter("currentPage"));
+				
+				if(currentPage<1) {
+					currentPage=1;
+				}
+			}
+			limit=10;
+			maxPage = (int)((double)listCount/limit + 0.9);
+			if(currentPage > maxPage) {
+				currentPage = maxPage;
+			}
+			startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit+1;
+			endPage = startPage + limit - 1;
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}
+
+			Pagination p = new Pagination(currentPage, listCount, limit, maxPage, startPage, endPage);
+			
+			ArrayList<Member> mList = new MemberService().searchForMail(p, colName, completeDate);
+			
+			ArrayList<Animal> aList = new MemberService().selectAllAnimal();
+			
+			RequestDispatcher veiw = null;
+			if(listCount==0) {
+				request.setAttribute("member", mList);
+				request.setAttribute("animal", aList);
+				request.setAttribute("p", p);
+				request.setAttribute("isSearch", "true");
+				if(colName.equals("INS")) {
+					request.setAttribute("isIns", "true");
+				}else {
+					request.setAttribute("isFu", "true");
+				}
+				request.getRequestDispatcher("views/manage/manageMember.jsp").forward(request, response);
+				return;
+			}
+			if(!mList.isEmpty()) {
+				request.setAttribute("member", mList);
+				request.setAttribute("animal", aList);
+				request.setAttribute("p", p);
+				request.setAttribute("sendCompleteDate", completeDate);
+				request.setAttribute("isSearch", "true");
+				if(colName.equals("INS")) {
+					request.setAttribute("isIns", "true");
+				}else {
+					request.setAttribute("isFu", "true");
+				}
+				request.getRequestDispatcher("views/manage/manageMember.jsp").forward(request, response);
+			}else {
+				request.setAttribute("p", p);
+				request.setAttribute("msg", "회원조회 실패");
+				request.getRequestDispatcher("views/manage/manageMember.jsp").forward(request, response);
+			}
 			
 		}
 		

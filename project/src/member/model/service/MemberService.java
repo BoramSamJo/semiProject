@@ -162,5 +162,25 @@ public class MemberService {
 		return member;
 	}
 
+	public int getForMailListCount(String colName, String completeDate) {
+		Connection conn = getConnection();
+		
+		int listCount = new MemberDao().getForMailListCount(conn, colName, completeDate);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Member> searchForMail(Pagination p, String colName, String completeDate) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> member = new MemberDao().searchForMail(conn, p, colName, completeDate);
+		
+		close(conn);
+		
+		return member;
+	}
+
 
 }

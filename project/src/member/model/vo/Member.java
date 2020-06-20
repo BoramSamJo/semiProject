@@ -76,6 +76,21 @@ public class Member implements Serializable{
 		this.status = status;
 		this.mailServie = mailServie;
 	}
+	
+	
+	public Member(int rNo, int mNo, String mId, String mName, String phone, String email, String address,
+			String enrollDate, String status, String mailServie) {
+		this.rNo = rNo;
+		this.mNo = mNo;
+		this.mId = mId;
+		this.mName = mName;
+		this.phone = phone;
+		this.email = email;
+		this.address = address;
+		this.enrollDate = enrollDate;
+		this.status = status;
+		this.mailServie = mailServie;
+	}
 	public int getmNo() {
 		return mNo;
 	}
