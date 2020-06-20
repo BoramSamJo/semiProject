@@ -17,6 +17,7 @@ public class QnABoard implements Serializable{
 	private String qPwd;
 	private String answer;
 	private String qCName;//조인해서 카테고리명 가져올거라 string
+	private int mNo;
 	private String status;
 	
 	
@@ -37,7 +38,29 @@ public class QnABoard implements Serializable{
 		this.status = status;
 	}
 	
+	public QnABoard(int rowNum, int qNo, String mName, String qTitle, String qContent, String createDate,
+			String modifyDate, String qPwd, String answer, String qCName, int mNo, String status) {
+		this.rowNum = rowNum;
+		this.qNo = qNo;
+		this.mName = mName;
+		this.qTitle = qTitle;
+		this.qContent = qContent;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.qPwd = qPwd;
+		this.answer = answer;
+		this.qCName = qCName;
+		this.mNo = mNo;
+		this.status = status;
+	}
 	
+	
+	public int getmNo() {
+		return mNo;
+	}
+	public void setmNo(int mNo) {
+		this.mNo = mNo;
+	}
 	public int getRowNum() {
 		return rowNum;
 	}

@@ -52,7 +52,7 @@ public class QnADao {
 
 		
 		String query = "SELECT * \r\n" + 
-				"FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT Q_NO,  Q_TITLE, Q_CONTENT, Q.CREATE_DATE, Q.MODIFY_DATE, Q.STATUS, Q_PWD, ANSWER, MEMBER_NAME, QC_NAME\r\n" + 
+				"FROM (SELECT ROWNUM RNUM, A.* FROM (SELECT Q_NO,  Q_TITLE, Q_CONTENT, Q.CREATE_DATE, Q.MODIFY_DATE, Q.STATUS, Q_PWD, MEMBER_NO, ANSWER, MEMBER_NAME, QC_NAME\r\n" + 
 				"                                                                                FROM QNABOARD Q\r\n" + 
 				"                                                                                JOIN Q_CATEGORY USING(QC_NO)\r\n" + 
 				"                                                                                JOIN MEMBER USING(MEMBER_NO) \r\n" + 
@@ -60,7 +60,7 @@ public class QnADao {
 				"                                                                                ORDER BY CREATE_DATE DESC) A\r\n" + 
 				"                                                                                )\r\n" + 
 				"WHERE RNUM BETWEEN ? AND ?";
-		System.out.println(query);
+//		System.out.println(query);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
@@ -79,10 +79,11 @@ public class QnADao {
 								, rs.getString("Q_PWD")
 								, rs.getString("ANSWER")
 								, rs.getString("QC_NAME")
+								, rs.getInt("MEMBER_NO")
 								, rs.getString("STATUS")
 								);
 				qlist.add(q);
-				System.out.println(q);
+//				System.out.println(q);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -284,6 +285,102 @@ public class QnADao {
 			pstmt.setString(4, password);
 			pstmt.setInt(5, category);
 			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertAnswer(Connection conn, int mNo, int qNo, String qAContent) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "";
+		
+		
+		try {
+			for(int i = 0; i < 2; i++) {
+				if(i==0) {
+					query = "INSERT INTO Q_ANSWER VALUES((SELECT NVL(MAX(QA_NO), 0)+1 FROM Q_ANSWER), ?, ?, ?, SYSDATE, SYSDATE, 'Y')";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, mNo);
+					pstmt.setInt(2, qNo);
+					pstmt.setString(3, qAContent);
+					result = pstmt.executeUpdate();
+				}else {
+					query = "UPDATE QNABOARD SET ANSWER='Y' WHERE Q_NO = ?";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, qNo);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int updateAnswer(Connection conn,String qANo, String qAContent, int qNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "";
+		
+		try {
+			for(int i = 0; i < 2; i++) {
+				if(i==0) {
+					query = "UPDATE Q_ANSWER SET A_CONTENT=? WHERE QA_NO = ?";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, qAContent);
+					pstmt.setString(2, qANo);
+					result = pstmt.executeUpdate();
+				}else {
+					query = "UPDATE QNABOARD SET ANSWER='Y' WHERE Q_NO = ?";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, qNo);
+					result += pstmt.executeUpdate();
+				}
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int deleteQnA(Connection conn, String qNo, String qANo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = "";
+		
+		try {
+			for(int i = 0; i < 2; i++) {
+				if(i==0) {
+					query = "UPDATE QNABOARD SET STATUS='N' WHERE Q_NO = ?";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, qNo);
+					result = pstmt.executeUpdate();
+				}else {
+					query = "UPDATE Q_ANSWER SET STATUS='N' WHERE QA_NO = ?";
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, qANo);
+					result += pstmt.executeUpdate();
+				}
+			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

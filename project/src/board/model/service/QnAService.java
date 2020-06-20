@@ -102,5 +102,47 @@ public class QnAService {
 		return result;
 	}
 
+	public int insertAnswer(int mNo, int qNo, String qAContent) {
+		Connection conn = getConnection();
+		
+		int result = new QnADao().insertAnswer(conn, mNo, qNo, qAContent);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int updateAnswer(String qANo, String qAContent, int qNo) {
+		Connection conn = getConnection();
+		
+		int result = new QnADao().updateAnswer(conn, qANo, qAContent, qNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int deleteQnA(String qNo, String qANo) {
+		Connection conn = getConnection();
+		
+		int result = new QnADao().deleteQnA(conn, qNo, qANo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
 
 }
