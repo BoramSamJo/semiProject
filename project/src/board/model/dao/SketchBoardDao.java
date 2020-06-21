@@ -493,4 +493,32 @@ public class SketchBoardDao {
 
 		return result;
 	}
+
+
+	public int manageDeleteReply(Connection conn, SbReply sr) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		System.out.println("dao에서 삭제mNo : " + sr.getMemberNo());
+		System.out.println("dao에서 삭제sbNo : " + sr.getSbNo());
+		
+		String query = "UPDATE SB_REPLY SET STATUS='N' WHERE R_NO=? AND SB_NO=?";
+		
+		try {
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sr.getrNo());
+			pstmt.setInt(2, sr.getSbNo());
+ 
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 }

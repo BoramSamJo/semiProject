@@ -706,7 +706,7 @@ footer {
     			 		})
            				})
            				}else{
-               				alert("댓글은 작성자만 수정 가능합니다.");
+               				alert("댓글은 작성자만 수정가능합니다.");
            				}}else{
                			}
                			})
@@ -789,7 +789,6 @@ footer {
                        						$replyTable.append($tr3);
                    						
                    							}
-                   						$("#replyContent").text("");
 
                   					}
                    				
@@ -798,6 +797,8 @@ footer {
                                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
                                }
                    		})
+            			}else{
+            				alert("댓글은 작성자만 삭제가능합니다.");
             			}
                			});
            		

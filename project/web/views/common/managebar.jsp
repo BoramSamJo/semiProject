@@ -103,12 +103,12 @@ margin:0px;
 				<ul>
 					<li><a href="">공지사항</a></li>
 					<li><a href="">FAQ</a></li>
-					<li><a href="">QnA</a></li>
+					<li><a href="<%=request.getContextPath()%>/manageQList.bo">QnA</a></li>
 					<li><a href="">추모게시판</a></li>
 				</ul></li>
 			<li><a href="">장례예약관리</a></li>
 			<li><a href="">보험관리</a></li>
-			<li><a href="">더할거?</a></li>
+			<li><a href="<%=request.getContextPath()%>/manageList.sb">혜윰스케치북</a></li>
 		</ul>
 	</div>
 	

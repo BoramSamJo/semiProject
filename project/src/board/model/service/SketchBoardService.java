@@ -240,4 +240,36 @@ public class SketchBoardService {
 		return result;
 	}
 
+	public int manageDeleteReply(SbReply sr) {
+		Connection conn = null;
+		
+		SketchBoardDao sbd = new SketchBoardDao();
+		
+		int result = sbd.manageDeleteReply(conn, sr);
+		
+		
+		System.out.println("서비스에서 결과 : " + result);
+		
+		
+		if(result>0) {
+			commit(conn);
+			
+		}else {
+			rollback(conn);
+			result=0;
+		}
+		
+		System.out.println("서비스단에서 댓글삭제 : " + result);
+		
+		
+		close(conn);
+		return result;
+	
+	}
+
+	public int manageDeleteSketchBoard(SketchBoard sb) {
+		
+		return 0;
+	}
+
 }

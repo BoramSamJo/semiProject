@@ -5,7 +5,8 @@
 	Pagination pn = (Pagination)request.getAttribute("pn");
 	ArrayList<SketchBoard> list = (ArrayList<SketchBoard>)request.getAttribute("list");
 	ArrayList<Attachment> fList = (ArrayList<Attachment>)request.getAttribute("fList");
-
+	Member user = (Member) request.getSession().getAttribute("loginUser");
+	
 	int listCount = pn.getListCount();
 	int currentPage = pn.getCurrentPage();
 	int	limit = pn.getLimit();
@@ -243,6 +244,7 @@ img {
 	witdh: 100px;
 	height: 200px;
 }
+
 </style>
 <!-- 노토산스kr 폰트 가져오기 -->
 <link
@@ -300,8 +302,11 @@ img {
 				
 				</tr>
 					<%} %>
-					<%}} %>
-				
+					<%}}else{ %>
+				<tr id="noneBoard">
+					<td>작성된 게시글이 없습니다.</td>
+				</tr>
+					<%} %>
 			</table>
 
 
@@ -395,7 +400,6 @@ img {
         	$("#write").mouseenter(function(){
         		$(this).css("cursor","pointer");
     		}).click(function(){
-    			/* var sbNo = $(".clickArea").children("input").val(); */
     			location.href="<%=request.getContextPath() %>/views/board/sketchBoardWrite.jsp";
     		});
 			
