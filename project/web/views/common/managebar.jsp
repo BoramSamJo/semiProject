@@ -136,10 +136,10 @@ margin:0px;
 			<li><a href="<%=request.getContextPath()%>/manageMList.bo">회원관리</a></li>
 			<li><a href="">게시판관리</a>
 				<ul>
-					<li><a href="">공지사항</a></li>
-					<li><a href="">FAQ</a></li>
+					<li><a href="<%=request.getContextPath()%>/manageNbList.bo">공지사항</a></li>
+					<li><a href="<%=request.getContextPath()%>/manageFbList.bo">FAQ</a></li>
 					<li><a href="<%=request.getContextPath()%>/manageQList.bo">QnA</a></li>
-					<li><a href="">추모게시판</a></li>
+					<li><a href="">추모게시판</a></li> 
 				</ul></li>
 			<li><a href="">장례예약관리</a></li>
 			<li><a href="">보험관리</a></li>

@@ -569,7 +569,7 @@
             <div id='Backarea'>
                 <h1 id="notiTitle1">CS CENTER Manage</h1><h3 id="notiTitle2">고객센터 관리</h3>
             </div>
-            <div id = 'headline'><span onclick="location.href='CS_NotiMain.html';">공지사항</span><span onclick="location.href='CS_FAQ.html';">FAQ</span><span  onclick="location.href='<%=request.getContextPath()%>/manageQList.bo';" >QnA</span></div>
+            <div id = 'headline'><span onclick="location.href='<%=request.getContextPath()%>/manageNbList.bo';">공지사항</span><span onclick="location.href='<%=request.getContextPath()%>/manageFbList.bo';">FAQ</span><span  onclick="location.href='<%=request.getContextPath()%>/manageQList.bo';" >QnA</span></div>
             	<%if(isC.equals("true")||isC.equals("past")) {%>
             	<select name="selectCategory" id="selectCategory" onchange="selectC(this);" disabled>
                    <option selected value='' class="choice" disabled>카테고리 선택</option>

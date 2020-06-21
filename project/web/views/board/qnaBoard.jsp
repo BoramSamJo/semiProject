@@ -460,7 +460,7 @@
                 <h1 id="notiTitle1">HYE YUM CS CENTER</h1><h3 id="notiTitle2">혜윰 고객센터</h3>
             </div>
             <form action="<%=request.getContextPath()%>/searchQ.bo" method="post" onsubmit="return testKey();">
-            <div id = 'headline'><span onclick="location.href='CS_NotiMain.html';">공지사항</span><span onclick="location.href='CS_FAQ.html';">FAQ</span><span  onclick="location.href='CS_QnA.html';" >QnA</span></div>
+            <div id = 'headline'><span onclick="goNoti()">공지사항</span><span onclick="goFAQ()">FAQ</span><span>QnA</span></div>
               <select name="selectBox" id="selectCategory">
                     <option selected value=''>카테고리 선택</option>
                     <option value="title">제목</option>
@@ -504,7 +504,7 @@
 		                        <%for(int j = 0; j < qAList.size(); j++){ %>
 		                        	<%if(qList.get(i).getqNo()==qAList.get(j).getqNo()){ %>
 		                        		완료
-		                        	<%}else{%>
+		                        	<%break;}else{%>
 			                        	<%if(j==qAList.size()-1){ %>
 			                        	대기
 			                        	<%} %>
@@ -673,6 +673,16 @@
         </footer>
 
         <!------------------------------------------------------------------------------------------------------------------------------------------>
+       	<script>
+       	//공지사항으로 이동
+       	function goNoti(){
+       		location.href="<%=request.getContextPath()%>/list.bo";
+       	}
+        //FAQ로 이동
+    	function goFAQ(){
+			location.href="<%=request.getContextPath()%>/list.fbo"; 
+		}
+       	</script>
         <script>
         	originBoardPwd = '';//db에서 온 각게시글의 BoardPwd를 담을 전역변수
         	boardClicked = '';//클릭된 게시글 객체를 담을 변수

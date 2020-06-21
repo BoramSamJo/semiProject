@@ -555,10 +555,10 @@ header * {
 					<li><a href='#'>가입안내</a></li>
 				</ul></li>
 			<li><a href="#" id='third' class="colorcss">혜윰스케치북</a></li>
-			<li><a href="#" id='forth' class="colorcss">고객센터</a>
+			<li><a href="<%=request.getContextPath()%>/list.bo" id='forth' class="colorcss">고객센터</a>
 				<ul>
-					<li><a href='#'>공지사항</a></li>
-					<li><a href='#'>FAQ</a></li>
+					<li><a href="<%=request.getContextPath()%>/list.bo">공지사항</a></li>
+					<li><a href='<%=request.getContextPath()%>/list.fbo'>FAQ</a></li>
 					<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 				</ul></li>
 			<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp" id='fifth' class="colorcss">For Member</a></li>
