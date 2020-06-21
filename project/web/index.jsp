@@ -1,23 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="member.model.vo.Member, javax.servlet.http.Cookie"%>
+   pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-	
-	Cookie[] cookies = request.getCookies();
-	if(cookies!=null&&cookies.length>0){
-		for(int i = 0; i < cookies.length; i++){
-			if(cookies[i].getName().equals("loginCookie")){
-				if(loginUser==null){
-					//자동로그인시 loginUser나 세션에 id만 들어있도록 해놨으므로
-					//추후 모든건 회원 아이디(userId라는 이름의 세션값)로만 데이터를 불러오게 해야한다
-					request.getSession().setAttribute("userId", cookies[i].getValue());
-					loginUser = new Member();
-					loginUser.setmId(cookies[i].getValue());
-					System.out.println(loginUser);
-				}
-			}
-		}
-	}
+   Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+   
 %>
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -35,7 +20,7 @@
         <!-- build:css styles/main.css -->
 
         <!-- 이거보면 섹션바뀌는거 알수있음 -->
-        <link rel="stylesheet" href="stylesheets/screen.css"> 
+        <link rel="stylesheet" href="stylesheets/screen.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
          <!-- 브라우저 기능검사 -->
@@ -942,8 +927,8 @@
             }
             /* 로그인 섹선 안 이미지 */
             .logInSection tr:nth-of-type(1) td{
-				vertical-align: middle;
-			}
+            vertical-align: middle;
+         }
             /* 로그인 버튼 설정 */
             #logBtn{
                 box-sizing: content-box;
@@ -961,12 +946,12 @@
             #maintenanceLogInLabel{
                 
             }
-			#maintenanceLogInLabel span{
-			    font-size: 15px;
-			    color:dimgray;
-			    font-weight:500;
-			}
-			
+         #maintenanceLogInLabel span{
+             font-size: 15px;
+             color:dimgray;
+             font-weight:500;
+         }
+         
             /* input태그 설정(버튼, 체크박스 제외) */
             .modal input:not([id='submit']):not([type='checkbox']){
                 width:290px;
@@ -1002,171 +987,171 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     </head>
     <body>
-      	<!-- <헤더(상단 메뉴바) 시작> -->
-	<!--헤더 시작-->
-	<header id='nav'>
-		<!-- 0. 모달 로그인 팝업 -->
-		<div id="navSmallLink">
-			<%if(loginUser==null){ %>
-			<a id="moveToLogIn" class="TextmoveTo">로그인</a>
-			<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a>
-			<%}else{ %>
-			<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-			<a class="TextmoveTo" id="moveToMyPage">마이페이지</a>
-			<%} %>
-			<a class="TextmoveTo" href="#">오시는길</a>
-		</div>
-		<div class="modal" id="myModal">
-			<!-- 1) 로그인단 + 우측 이미지 -->
-			<div id="logIn" class="">
-				<div id="logInHeader">
-					<p>로그인</p>
-					<span class="close">&times;</span>
-				</div>
-				<div class="logInSection">
-					<form id="loginForm">
-						<table id="loginT">
-							<tr>
-								<td><img src="LOGO/LOGO3.png" width="300" height="100"
-									alt=""></td>
-							</tr>
-							<tr>
-								<td><input type="text" name="userId" id="userIdLogIn"
-									placeholder="아이디" required></td>
-								<!-- <td rowspan="7"> 
+         <!-- <헤더(상단 메뉴바) 시작> -->
+   <!--헤더 시작-->
+   <header id='nav'>
+      <!-- 0. 모달 로그인 팝업 -->
+      <div id="navSmallLink">
+         <%if(loginUser==null){ %>
+         <a id="moveToLogIn" class="TextmoveTo">로그인</a>
+         <a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a>
+         <%}else{ %>
+         <a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
+         <a class="TextmoveTo" id="moveToMyPage">마이페이지</a>
+         <%} %>
+         <a class="TextmoveTo" href="#">오시는길</a>
+      </div>
+      <div class="modal" id="myModal">
+         <!-- 1) 로그인단 + 우측 이미지 -->
+         <div id="logIn" class="">
+            <div id="logInHeader">
+               <p>로그인</p>
+               <span class="close">&times;</span>
+            </div>
+            <div class="logInSection">
+               <form id="loginForm">
+                  <table id="loginT">
+                     <tr>
+                        <td><img src="LOGO/LOGO3.png" width="300" height="100"
+                           alt=""></td>
+                     </tr>
+                     <tr>
+                        <td><input type="text" name="userId" id="userIdLogIn"
+                           placeholder="아이디" required></td>
+                        <!-- <td rowspan="7"> 
                                         <span id="advertisement">
                                             &nbsp;&nbsp;&nbsp;&nbsp;<img src="img/심리센터8.png" width="240px" height="270px" alt="">
                                         </span>
                                     </td> -->
-							</tr>
-							<tr>
-								<td><input type="password" name="userPwd" id="password"
-									placeholder="비밀번호" required></td>
-							</tr>
-							<tr>
-								<td><input src="checkboxImage/비활성화상태체크박스.png"
-									type="checkbox" name="maintenanceLogIn" id="maintenanceLogIn"
-									> <label for="maintenanceLogIn"
-									id="maintenanceLogInLabel">&nbsp;로그인 상태 유지
-										</label>
-									<!-- 체크여부가져오기 위한 히든타입 태그 -->
-									<input type="hidden" id="forMaintainCheck" value="false">
-								</td>
-							</tr>
-							<tr>
-								<td><input type="button" value="로그인" id="logBtn" disabled onclick="goLogin();">
-								</td>
-							</tr>
-							<!-- 2) 아이디 찾기, 비번 찾기, 회원가입 링크 -->
-							<tr>
-								<td>
-									<div id="smallInform" align='center'>
-										<a href="views/member/mySearch.jsp" id="#">아이디 찾기 |</a> <a href="views/member/mySearch.jsp" id="#"><b>비밀번호
-												찾기</b></a><span style="font-size: 10px; font-weight: lighter;">
-											|</span> <a href="semi_Join.html">회원가입</a>
-									</div>
-								</td>
-							</tr>
-							<!-- <tr>
+                     </tr>
+                     <tr>
+                        <td><input type="password" name="userPwd" id="password"
+                           placeholder="비밀번호" required></td>
+                     </tr>
+                     <tr>
+                        <td><input src="checkboxImage/비활성화상태체크박스.png"
+                           type="checkbox" name="maintenanceLogIn" id="maintenanceLogIn"
+                           > <label for="maintenanceLogIn"
+                           id="maintenanceLogInLabel">&nbsp;로그인 상태 유지
+                              </label>
+                           <!-- 체크여부가져오기 위한 히든타입 태그 -->
+                           <input type="hidden" id="forMaintainCheck" value="false">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td><input type="button" value="로그인" id="logBtn" disabled onclick="goLogin();">
+                        </td>
+                     </tr>
+                     <!-- 2) 아이디 찾기, 비번 찾기, 회원가입 링크 -->
+                     <tr>
+                        <td>
+                           <div id="smallInform" align='center'>
+                              <a href="views/member/mySearch.jsp" id="#">아이디 찾기 |</a> <a href="views/member/mySearch.jsp" id="#"><b>비밀번호
+                                    찾기</b></a><span style="font-size: 10px; font-weight: lighter;">
+                                 |</span> <a href="semi_Join.html">회원가입</a>
+                           </div>
+                        </td>
+                     </tr>
+                     <!-- <tr>
                                     <td >
                                         <img src="img/dog-1532627_640.png" width="300" height="100" alt="">
                                     </td>
                                 </tr> -->
-						</table>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!--상단바-->
-		<ul id='navMenu'>
-			<img id="navLogo" src="LOGO/LOGO1.png" width="130" alt="로고이미지"
-				id='bigwindow_logo'>
-			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
-			<li><a href="#" id='first' class="colorcss">장례서비스</a>
-				<ul>
-					<li><a href="#">장례절차</a></li>
-					<li><a href="#">장례용품</a></li>
-					<li><a href="#">장례비용</a></li>
-					<li><a href="#">LUCETTE</a></li>
-					<li><a href="#">장례예약</a></li>
-				</ul></li>
-			<li><a href="#" id='second' class="colorcss">보험서비스</a>
-				<ul>
-					<li><a href='#'>보험소개</a></li>
-					<li><a href='#'>보장내용</a></li>
-					<li><a href='#'>가입안내</a></li>
-				</ul></li>
-			<li><a href="#" id='third' class="colorcss">혜윰스케치북</a></li>
-			<li><a href="#" id='forth' class="colorcss">고객센터</a>
-				<ul>
-					<li><a href='#'>공지사항</a></li>
-					<li><a href='#'>FAQ</a></li>
-					<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
-				</ul></li>
-			<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp" id='fifth' class="colorcss">For Member</a></li>
-		</ul>
+                  </table>
+               </form>
+            </div>
+         </div>
+      </div>
+      <!--상단바-->
+      <ul id='navMenu'>
+         <img id="navLogo" src="LOGO/LOGO1.png" width="130" alt="로고이미지"
+            id='bigwindow_logo'>
+         <!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
+         <li><a href="#" id='first' class="colorcss">장례서비스</a>
+            <ul>
+               <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Order.jsp">장례절차</a></li>
+               <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례용품</a></li>
+               <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Price.jsp">장례비용</a></li>
+               <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
+               <li><a href="#">장례예약</a></li>
+            </ul></li>
+         <li><a href="<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp" id='second' class="colorcss">보험서비스</a>
+            <ul>
+               <li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
+               <li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
+               <li><a href='#'>가입안내</a></li>
+            </ul></li>
+         <li><a href="<%=request.getContextPath() %>/list.sb" id='third' class="colorcss">혜윰스케치북</a></li>
+         <li><a href="#" id='forth' class="colorcss">고객센터</a>
+            <ul>
+               <li><a href='#'>공지사항</a></li>
+               <li><a href='#'>FAQ</a></li>
+               <li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
+            </ul></li>
+         <li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp" id='fifth' class="colorcss">For Member</a></li>
+      </ul>
 
 
-		<!-- 반응형 메뉴 -->
-		<div id='reactMenu'>
-			<img id="serveLogo" src="LOGO/LOGO1.png" width="120" alt="로고이미지"
-				id='bigwindow_logo'>
-			<div id="serveMenuBtn">
-				<img src="img/noun_List_25956.png" width="90" height="90">
-			</div>
-			<ul id="serveMenu">
-				<div id="serveSmallLink">
-					<%if(loginUser==null){ %>
-					<a id="moveToLogIn2" class="TextmoveTo">로그인</a> 
-					<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
-					<%}else{ %>
-					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-					<a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
-					<%} %>
-					<a class="TextmoveTo">오시는길</a>
-				</div>
+      <!-- 반응형 메뉴 -->
+      <div id='reactMenu'>
+         <img id="serveLogo" src="LOGO/LOGO1.png" width="120" alt="로고이미지"
+            id='bigwindow_logo'>
+         <div id="serveMenuBtn">
+            <img src="img/noun_List_25956.png" width="90" height="90">
+         </div>
+         <ul id="serveMenu">
+            <div id="serveSmallLink">
+               <%if(loginUser==null){ %>
+               <a id="moveToLogIn2" class="TextmoveTo">로그인</a> 
+               <a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
+               <%}else{ %>
+               <a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
+               <a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
+               <%} %>
+               <a class="TextmoveTo">오시는길</a>
+            </div>
 
-				<li id="serve1"><a href="#">장례서비스 </a>
-					<hr>
-					<ul>
-						<li><a href="#">장례절차</a></li>
-						<li><a href="#">장례용품</a></li>
-						<li><a href="#">장례비용</a></li>
-						<li><a href="#">LUCETTE</a></li>
-						<li><a href="#">장례예약</a></li>
-					</ul></li>
+            <li id="serve1"><a href="#">장례서비스 </a>
+               <hr>
+               <ul>
+                  <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Order.jsp">장례절차</a></li>
+                  <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례용품</a></li>
+                  <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Price.jsp">장례비용</a></li>
+                  <li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
+                  <li><a href="#">장례예약</a></li>
+               </ul></li>
 
-				<li id="serve2"><a href="/view/insurance/insuranceMain.jsp">보험서비스</a>
-					<hr>
-					<ul>
-						<li><a href="/view/insurance/insuranceMain.jsp">보험소개</a></li>
-						<li><a href="/view/insurance/insuranceContent.jsp">보장내용</a></li>
-						<li><a href='#'>가입안내</a></li>
-					</ul></li>
-				<li><a href="/views/board/sketchBoardList.jsp"><a>혜윰스케치북</a>
-					<hr></li>
-				<li id="serve3"><a href="#">고객센터</a>
-					<hr>
-					<ul>
-						<li><a href='#'>공지사항</a></li>
-						<li><a href='#'>FAQ</a></li>
-						<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
-					</ul></li>
-				<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp">For Member</a>
-				<hr></li>
-			</ul>
-		</div>
-	</header>
+            <li id="serve2"><a href="#">보험서비스</a>
+               <hr>
+               <ul>
+                  <li><a href='#'>보험소개</a></li>
+                  <li><a href='#'>보장내용</a></li>
+                  <li><a href='#'>가입안내</a></li>
+               </ul></li>
+            <li><a href="#"><a>혜윰스케치북</a>
+               <hr></li>
+            <li id="serve3"><a href="#">고객센터</a>
+               <hr>
+               <ul>
+                  <li><a href='#'>공지사항</a></li>
+                  <li><a href='#'>FAQ</a></li>
+                  <li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
+               </ul></li>
+            <li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp">For Member</a>
+            <hr></li>
+         </ul>
+      </div>
+   </header>
 
         <!-- 예약 fixed 사이드바 와 관리자 바-->
-       <%if(loginUser!=null&&request.getSession().getAttribute("userId")!=null&&request.getSession().getAttribute("userId").equals("admin")){%>
-	        <aside id="reservation">         
-	            <p><a href="">관리</a></p>
-	        </aside>
+      <%if(loginUser!=null&&((request.getSession().getAttribute("userId")!=null&&request.getSession().getAttribute("userId").equals("admin"))||((Member)request.getSession().getAttribute("loginUser")).getmId().equals("admin"))){%>
+           <aside id="reservation">         
+               <p><a href="<%=request.getContextPath() %>/views/common/managebar.jsp">관리</a></p>
+           </aside>
         <%}else{ %>
-	        <aside id="reservation">         
-	            <p><a href="">예약</a></p>
-	        </aside>
+           <aside id="reservation">         
+               <p><a href="">예약</a></p>
+           </aside>
         <%}%>
 
         <main>
@@ -1410,59 +1395,59 @@
          </div>
 
 
-	<!-- jsp 관련 스크립트 -->
-	<script>
-		function goLogin(){
-			var userId = $('#userIdLogIn');
-			var userPwd = $('#password');
-			var maintainCheck = $('#forMaintainCheck');
-				alert('asdf');
+   <!-- jsp 관련 스크립트 -->
+   <script>
+      function goLogin(){
+         var userId = $('#userIdLogIn');
+         var userPwd = $('#password');
+         var maintainCheck = $('#forMaintainCheck');
+            alert('asdf');
 
-			$.ajax({
-				url:"<%=request.getContextPath()%>/login.me"
-				, type:"get"
-				, data:{userId:userId.val(), userPwd:userPwd.val(), maintainCheck:maintainCheck.val()}
-				, success:function(data){
-					if(data=='noneId'){
-						alert('존재하지 않는 아이디 입니다');
-						userId.focus();
-					}else if(data=='successLogin'){
-						alert('로그인 성공');
-						//모달창은 reload가 안먹으므로 수동으로 꺼주자
-						var modal = document.getElementById('myModal');
-        				modal.style.display = 'none';
-						
-						if(modal.style.display=='none'){
-							location.reload(true);
-						}
-					}else if(data=='failLogin'){
-						alert('로그인 실패');
-					}
-				}
-				, error:function(request, status, error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			})
-		}
+         $.ajax({
+            url:"<%=request.getContextPath()%>/login.me"
+            , type:"get"
+            , data:{userId:userId.val(), userPwd:userPwd.val(), maintainCheck:maintainCheck.val()}
+            , success:function(data){
+               if(data=='noneId'){
+                  alert('존재하지 않는 아이디 입니다');
+                  userId.focus();
+               }else if(data=='successLogin'){
+                  alert('로그인 성공');
+                  //모달창은 reload가 안먹으므로 수동으로 꺼주자
+                  var modal = document.getElementById('myModal');
+                    modal.style.display = 'none';
+                  
+                  if(modal.style.display=='none'){
+                     location.reload(true);
+                  }
+               }else if(data=='failLogin'){
+                  alert('로그인 실패');
+               }
+            }
+            , error:function(request, status, error){
+               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+         })
+      }
 
-		function goLogout(){
-			$.ajax({
-				url:"<%=request.getContextPath()%>/logout.me"
-				, success:function(data){
-					if(data=='successLogout'){
-						alert('로그아웃되었습니다');
-						window.location.reload(true);
-					}else{
-						alert('로그아웃 실패')
-					}
-				}
-				, error:function(request, status, error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-			})
-		}
-	</script>
-	<!------------------------------------------------------------------------------------------------------------------------------------------>
+      function goLogout(){
+         $.ajax({
+            url:"<%=request.getContextPath()%>/logout.me"
+            , success:function(data){
+               if(data=='successLogout'){
+                  alert('로그아웃되었습니다');
+                  window.location.reload(true);
+               }else{
+                  alert('로그아웃 실패')
+               }
+            }
+            , error:function(request, status, error){
+               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+         })
+      }
+   </script>
+   <!------------------------------------------------------------------------------------------------------------------------------------------>
     <script>
         function currentDiv(){
             console.log($(".scene").prop("display",true));
@@ -1814,143 +1799,4 @@
         // 반응형메뉴의 서브메뉴 각 항목 나타내고 다른항목 없애기
         $('#serveMenu>li').each(function (index, element) {
             // element == this
-            $(this).click(function(){
-                var otherStyle = {'padding':'0px', 'line-height':'0px', 'height':'0px'}
-                $(this).children('ul').css('opacity', 1);
-                $(this).find('li').css({'color':'white', 'padding':'10px', 'line-height':'18px', 'height':'50px'});
-                $(this).siblings().find('li').css(otherStyle);
-                $(this).siblings().children('ul').css('opacity', 0);
-                $(this).children('hr').css('display', 'none');
-                $(this).siblings().children('hr').css('display', 'block');
-            })
-            
-        });
-       
-        
-        // 서브메뉴 버튼 위치 조정
-        // alert($('html').width()-$('#serveMenuBtn').width()-10);
-        $("#serveMenuBtn").css('right', -($('html').width()-$('#serveMenuBtn').width()-46));
-        $(window).resize(function(){
-            $("#serveMenuBtn").css('right', -($('html').width()-$('#serveMenuBtn').width()-46));
-        })
-        //서브로고 위치 조정
-        $('#serveLogo').css('position', 'absolute').css('left', $('html').width()/2 - $('#servelogo').width()/2-65);
-        $(window).resize(function(){
-            $('#serveLogo').css('position', 'absolute').css('left', $('html').width()/2 - $('#servelogo').width()/2-65);
-        })
-    </script>
-
-    <!-- 4. 로그인 모달창 동적제어 -->
-    <script>
-        // 로그인단 중앙으로 위치지정 - 나중에 네비바 추가되면 그거 고려해서 다시 좌표설정
-        $(window).scroll(function () {
-            var heightLogIn1 = $(document).scrollTop()+$('body>header').height()+50;
-            var heightLogIn2 = $(document).scrollTop()+$('#reactMenu').height()+80;
-            var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
-            
-            if($('#reactMenu').css('display')=='none'){
-                $('#logIn').css({'top':heightLogIn1, 'left':widthLogIn});
-            }else{
-                $('#logIn').css({'top':heightLogIn2, 'left':widthLogIn});
-            }
-        }); 
-        $(window).resize(function () { 
-                
-            var heightLogIn1 = $(document).scrollTop()+$('body>header').height()+50;
-            var heightLogIn2 = $(document).scrollTop()+$('#reactMenu').height()+80;
-            var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
-            
-            if($('#reactMenu').css('display')=='none'){
-                $('#logIn').css({'top':heightLogIn1, 'left':widthLogIn});
-            }else{
-                $('#logIn').css({'top':heightLogIn2, 'left':widthLogIn});
-            }
-        });
-
-
-        // 수평선 길이 설정
-        $(function(){
-            var logInWidth = $('#logInT').css('width');
-            $('hr').css('width', logInWidth);
-        })
-
-        // 로그인 링크 클릭하면 로그인 모달팝업 띄우기(띄울때 로그인단 위치선정도)
-        var moveToLogIn = document.querySelector('#moveToLogIn');
-        var moveToLogIn2 = document.querySelector('#moveToLogIn2');
-        var modal = document.getElementById('myModal');
-
-        moveToLogIn.onclick = function(){
-            modal.style.display = "block";
-
-            var heightLogIn = $(document).scrollTop()+$('body>header').height()+50;
-            var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
-            
-            $('#logIn').css({'top':heightLogIn, 'left':widthLogIn});
-
-        };
-        moveToLogIn2.onclick = function(){
-            // $('#serveMenu').css('display', 'none');
-            modal.style.display = "block";
-
-            var heightLogIn = $(document).scrollTop()+$('#reactMenu').height()+50;
-            var widthLogIn = $('html').innerWidth()/2 - $('#logIn').width()/2;
-            
-            $('#logIn').css({'top':heightLogIn, 'left':widthLogIn});
-
-        };
-
-        // 모달 팝업 외의 공간을 클릭하면 모달팝업 끄기
-        window.onclick = function(event){
-            if(event.target == modal){
-                modal.style.display = 'none';
-            }
-        }
-
-        // X버튼 누르면 모달팝업 끄기
-        var close = document.querySelector('.close');
-        close.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // 아이디/비번을 다 입력하면 로그인 버튼 활성화
-        $(function(){
-            $('#userIdLogIn').keyup(readyLogIn);
-            $('#password').keyup(readyLogIn);
-        })
-        function readyLogIn(){
-            if($('#userIdLogIn').val()!=''&&$('#password').val()!=''){
-                $('#logBtn').prop('disabled', false).css({'background':'#b3a193', 'color':'#242424'});
-            }
-            if($('#userIdLogIn').val()==''||$('#password').val()==''){
-                $('#logBtn').prop('disabled', true).css({'background':'lightgray', 'color':'gray'});
-            }
-        }
-
-        // 체크여부에따라 체크박스 이미지(라벨) 와리가리(색바뀜)
-        $('input:checkbox').each(function(index, item){
-            $(this).change(function(){
-                if($(this).prop('checked')==true){
-                    ($(this).next().css('background-image', "url('checkboxImage/innerbeigeOuterblack.png')"));
-                    $('input:hidden').val('true');
-                }else if($(this).prop('checked')==false){
-                    $(this).next().css('background-image', "url('img/notCheck1.png')")
-                    $('input:hidden').val('false');
-                }
-            });
-        });
-
-
-        // 모달팝업의 세로길이 맞춰주는 기능
-        $(function(){
-            var heightAll = $('html').height();
-            $('.modal').css('height',heightAll)
-        
-        })
-        $(window).resize(function () { 
-            var heightAll = $('html').height();
-            $('.modal').css('height',heightAll)
-        });
-    </script>
-
-</body>
-</html>
+    

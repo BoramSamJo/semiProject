@@ -347,7 +347,7 @@
         <div id="headline">
             <span onclick="location.href='insuranceMain.jsp'">보험소개</span>
             <span onclick="location.href='insuranceContent.jsp'">보장내용</span>
-            <span onclick="location.href='insuranceConfirm.jsp'">가입안내</span>
+            <span onclick="location.href='#'">가입안내</span>
         </div>
 
         <div id="fullContent">
@@ -678,7 +678,7 @@
                 alert("반려묘의 나이를 선택하세요");
                 return false;
             } else if (result1 || result2) {
-                location.href = "insuranceConfirm.html";
+                location.href = "<%=request.getContextPath()%>/calculate.ins";
             } else {
                 alert("반려묘의 종류를 선택하세요");
                 return false;

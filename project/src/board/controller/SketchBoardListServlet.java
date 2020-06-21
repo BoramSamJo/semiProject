@@ -88,26 +88,29 @@ public class SketchBoardListServlet extends HttpServlet {
 	
 		ArrayList<SketchBoard> list = new SketchBoardService().selectList(currentPage, limit);
 		
-		ArrayList<Attachment> fList = new SketchBoardService().selectFlist();
+
+		ArrayList<Attachment> fList = new SketchBoardService().selectFlist(list);
+		
 		
 		RequestDispatcher view = null;
+		
+//		System.out.println(list);
+//		System.out.println(fList);
 		
 		if(!list.isEmpty() && !fList.isEmpty()) {
 			request.setAttribute("pn", pn);
 			request.setAttribute("list", list);
 			request.setAttribute("fList", fList);
-			
-			view = request.getRequestDispatcher("views/sketchBoard/sketchBoardList.jsp");
+			view = request.getRequestDispatcher("views/board/sketchBoardList.jsp");
 		}else {
+			request.setAttribute("pn", pn);
+			request.setAttribute("list", list);
+			request.setAttribute("fList", fList);
 			request.setAttribute("msg", "게시글 조회 실패!");
-			view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view = request.getRequestDispatcher("views/board/sketchBoardList.jsp");
 		}
 		view.forward(request, response);
 	}
-	
-	
-	
-	
 	 
 
 	/**

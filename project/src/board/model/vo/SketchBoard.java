@@ -16,6 +16,7 @@ public class SketchBoard implements Serializable{
 	private Date modifyDate;	//수정일
 	private int count;			//조회수
 	private String status;		//회원탈퇴여부
+	private String memberName;
 	
 	public SketchBoard() {
 		super();
@@ -40,6 +41,23 @@ public class SketchBoard implements Serializable{
 		this.count = count;
 		this.status = status;
 	}
+	
+	
+
+	public SketchBoard(int sbNo, int memberNo, String sbTitle, String sbContent, Date createDate, Date modifyDate,
+			int count, String status, String memberName) {
+		super();
+		this.sbNo = sbNo;
+		this.memberNo = memberNo;
+		this.sbTitle = sbTitle;
+		this.sbContent = sbContent;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.count = count;
+		this.status = status;
+		this.memberName = memberName;
+	}
+
 
 	public int getSbNo() {
 		return sbNo;
@@ -104,6 +122,17 @@ public class SketchBoard implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
 
 	@Override
 	public String toString() {

@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import board.model.service.QnAService;
 import board.model.service.SketchBoardService;
 import board.model.vo.Attachment;
 import board.model.vo.SketchBoard;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class SketchBoardWriteServlet
@@ -40,11 +42,15 @@ public class SketchBoardWriteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-//		String title = request.getParameter("title");
-//		String content = request.getParameter("textarea");
-
 		
-
+		String userId = (String)request.getSession().getAttribute("userId");
+		if(userId==null) {
+			userId = ((Member)request.getSession().getAttribute("loginUser")).getmId();
+		}
+		
+		System.out.println(userId);
+		
+		int mNo = new SketchBoardService().selectMemberNo(userId);
 
 		int maxSize = 1024 * 1024 * 10;
 
@@ -61,6 +67,7 @@ public class SketchBoardWriteServlet extends HttpServlet {
 		SketchBoard sb = new SketchBoard();
 		sb.setSbTitle(title);
 		sb.setSbContent(content);
+		sb.setMemberNo(mNo);
 
 		ArrayList<String> changeName = new ArrayList<>();
 
@@ -99,13 +106,13 @@ public class SketchBoardWriteServlet extends HttpServlet {
 			fileList.add(at);
 		}
 		
-		int result = new SketchBoardService().insertSketchBoard(sb,fileList);
+		int result = new SketchBoardService().insertSketchBoard(sb, fileList);
 
 		if (result > 0) {
 			response.sendRedirect("list.sb?currentPage=1"); // 경로상 이동이기 때문에 sendRedirect 사용
 		} else {
-			request.setAttribute("msg", "게시판 조회 실패");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			request.setAttribute("msg", "게시글 작성 실패");
+			request.getRequestDispatcher("views/board/sketchBoardList.jsp").forward(request, response);
 			;
 		}
 	}

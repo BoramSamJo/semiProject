@@ -11,6 +11,7 @@ public class Reply {
 	private Date createDate;
 	private Date modifyDate;
 	private String status;
+	private String memberName;
 	
 	public Reply() {
 		super();
@@ -35,6 +36,23 @@ public class Reply {
 		this.modifyDate = modifyDate;
 		this.status = status;
 	}
+	
+	
+
+	public Reply(int rNo, int sbNo, int memberNo, String rContent, Date createDate, Date modifyDate, String status,
+			String memberName) {
+		super();
+		this.rNo = rNo;
+		this.sbNo = sbNo;
+		this.memberNo = memberNo;
+		this.rContent = rContent;
+		this.createDate = createDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.memberName = memberName;
+	}
+
+
 
 	public int getrNo() {
 		return rNo;
@@ -91,6 +109,19 @@ public class Reply {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	
+	public String getMemberName() {
+		return memberName;
+	}
+
+
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+
 
 	@Override
 	public String toString() {

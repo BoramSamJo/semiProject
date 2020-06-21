@@ -286,7 +286,7 @@
 			<div id="headline">
 				<span onclick="location.href='insuranceMain.jsp';">보험소개</span> <span
 					onclick="location.href='insuranceContent.jsp';">보장내용</span> <span
-					onclick="location.href='insuranceConfirm.jsp';">가입안내</span>
+					onclick="location.href='#';">가입안내</span>
 			</div>
 
 			<div id="wrap">

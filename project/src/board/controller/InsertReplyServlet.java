@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import board.model.service.SketchBoardService;
 import board.model.vo.Reply;
+import board.model.vo.SbReply;
 
 /**
  * Servlet implementation class InsertReplyServlet
@@ -33,15 +35,26 @@ public class InsertReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String content = request.getParameter("content");
+		String rContent = request.getParameter("rContent");
+		int sbNo = Integer.valueOf(request.getParameter("sbNo"));
+		int mNo = Integer.valueOf(request.getParameter("mNo"));
 		
-		Reply r = new Reply();
-		r.setrContent(content);
+		System.out.println("ajax 후 : " + rContent);
+		System.out.println("ajax 후 : " + sbNo);
+		System.out.println("ajax 후 : " + mNo);
 		
-		ArrayList<Reply> rList = new SketchBoardService().insertReply(r);
+		SbReply r = new SbReply();
+		r.setrContent(rContent);
+		r.setSbNo(sbNo);
+		r.setMemberNo(mNo);
 		
-		response.setContentType("application/json;");
-		new Gson().toJson(rList, response.getWriter());
+		ArrayList<SbReply> rList = new SketchBoardService().insertReply(r);
+		
+//		System.out.println("댓글 불러오기 : " + rList);
+		
+		response.setContentType("application/json");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		gson.toJson(rList, response.getWriter());
 		
 	}
 

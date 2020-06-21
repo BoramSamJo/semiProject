@@ -472,7 +472,7 @@
 
               <!--QnA영역-->
               <div>
-                <table class="TableCSS1" id=QnATable cellspacing="0" cellpadding="0" border="0px" >
+                <table class="TableCSS1" id=QnATable cellspacing="0" cellpadding="0">
                     <tr>
                         <th class="bar">번호</th>
                         <th>공개</th>
@@ -521,7 +521,7 @@
 				                    <%if(qList.get(i).getqNo()==qAList.get(j).getqNo()){ %>
 				                    <tr class="A">
 				                        <td><img src="/project/img/answerImg3.png" width="35px"></td>
-				                        <td colspan="4" style="text-align:left">
+				                         <td colspan="5" style="text-align:left">
 				                            <%=qAList.get(j).getaContent() %>
 				                        </td>
 				                    	<td></td>
@@ -554,7 +554,7 @@
 		                    	<td></td>
 		                    </tr>
 		                     <tr class="A">
-		                    	<td><img src="../../img/answerImg3.png" width="35px"></td>
+		                    	<td><img src="/project/img/answerImg3.png" width="35px"></td>
 	                    		<td colspan="5" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
 		                     	<td></td>
 	                    	</tr>

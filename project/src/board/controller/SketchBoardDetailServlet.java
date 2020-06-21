@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.SketchBoardService;
 import board.model.vo.Attachment;
+import board.model.vo.SbReply;
 import board.model.vo.SketchBoard;
 
 /**
@@ -41,30 +42,28 @@ public class SketchBoardDetailServlet extends HttpServlet {
 		
 		int result = new SketchBoardService().updateCount(sbNo);
 		
-//		System.out.println(result);
-//		ArrayList<SketchBoard> list = new SketchBoardService().selectList(sb);
-//		
-//		ArrayList<Attachment> fList = new SketchBoardService().selectFlist(sb);
-		
 		RequestDispatcher view = null;
 		
 		if(result>0) {
 			SketchBoard sb = new SketchBoardService().selectList(sbNo);
 			Attachment at = new SketchBoardService().selectFlist(sbNo);
-			
-//			System.out.println(sb);
-//			System.out.println(at);
+			ArrayList<SbReply> rList = new SketchBoardService().selectReply(sbNo);
+
+//			System.out.println(rList);
 			
 			if(sb != null && at != null) {
 				request.setAttribute("sb", sb);
 				request.setAttribute("at", at);
-				view = request.getRequestDispatcher("views/sketchBoard/sketchBoardDetail.jsp");
+				request.setAttribute("rList", rList);
+				view = request.getRequestDispatcher("views/board/sketchBoardDetail.jsp");
 			}else {
 				request.setAttribute("msg", "게시물 조회 실패");
-				view = request.getRequestDispatcher("views/common/errorPage.jsp");
+				view = request.getRequestDispatcher("views/board/sketchBoardDetail.jsp");
 			}
 			view.forward(request, response);
 
+			
+			
 		}
 		
 	}

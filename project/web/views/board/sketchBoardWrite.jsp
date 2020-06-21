@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -356,11 +357,11 @@
         <section id="notiSection">
              <!-- 고객센터 공통 상단 -->
             <div id='Backarea'>
-                <img src="../../img/CS_icon4.png" id=headimg>
+                <img src="<%=request.getContextPath() %>/img/CS_icon4.png" id=headimg>
                 <h1 id="notiTitle1">HYEYUM SKETCHBOOK</h1><h3 id="notiTitle2">혜윰 스케치북</h3>
             </div>
            <div id="smallTitles">
-                <img src="../../img/CS_icon3.png" id = 'img1'>
+                <img src="<%=request.getContextPath() %>/img/CS_icon3.png" id = 'img1'>
                 <h3 id="smallTitle">추억 기록하기</h3>
            </div>
            <div id="middleTitle">
@@ -371,13 +372,13 @@
                        아이들과 함께한 소중한 추억을 나누어주세요
                     </p>
                </div>
-                <img src="../../img/please.PNG" id = 'img2'>
+                <img src="<%=request.getContextPath() %>/img/please.PNG" id = 'img2'>
            </div>
         
             <div id="wrapTable">
+            
             <table>
-                <form name="form" id='form' action="<%=request.getContextPath() %>/write.sb" method="post" encType="multipart/form-data">
-
+	        	<form name="form" id='form' action="<%=request.getContextPath() %>/write.sb" method="post" encType="multipart/form-data">
                     <colgroup>
                     <col width = '20%'>
                     <col width = '80%'>
@@ -385,16 +386,16 @@
 	
                     <table>
                         <tr>
-                        <td class = 'tdCss'><img src="../../img/service.png">제목</td>
+                        <td class = 'tdCss'><img src="<%=request.getContextPath() %>/img/service.png">제목</td>
                         <td>
                             <input type = 'text' placeholder="게시글 제목을 입력하세요"  id = 'title' name = "title" required></td>
                         </tr>
                         <tr>
                             <td></td>
-                            <td><textarea rows="20" cols="100" placeholder="내용을 입력해주세요" id='content' name = "textarea" required></textarea></td>
+                            <td><textarea rows="20" cols="100" placeholder="내용을 입력해주세요" id='content' name = "textarea" id= required></textarea></td>
                         </tr>
                         <tr>
-                            <td class = 'tdCss'><img src="../../img/service.png">첨부</td>
+                            <td class = 'tdCss'><img src="<%=request.getContextPath() %>/img/service.png">첨부</td>
                             <td class="filebox">
                                 <label for='file'>업로드</label>
                                 <input multiple="multiple" type="file"  accept = "image/*" name = "file" id="file">
@@ -406,10 +407,11 @@
                         <input type = 'reset' value = '취소' onclick="reset" id="reset">
                         <input type = 'submit' value = '등록' onclick="upload" id = 'upload'>
                     </div>
-                </form>
+	        	</form>
             </table>
+    		</div>        
         </section>
-
+	
 
         <!--footer시작-->
         <footer>
@@ -464,7 +466,7 @@
         <!-------------------------------------------------------------------------------------------------------------------------------------->
         <script>
             //등록버튼 클릭 시
-            function upload(){
+/*             function upload(){
                 //1.radio 공개/비공개 값 넘겨주기
                 var radiobtn = document.getElementById('radio');
                 var radiobtn_check = 0;
@@ -478,7 +480,7 @@
                 //2.첨부파일 값 넘겨주기
                 document.file.select();
                 alert(document).selection.createRange().text();
-            }
+            } */
 
             
             //등록 버튼 페이지 전환(null이 아닐때)
@@ -497,7 +499,7 @@
                     }
                     $('#form').submit();
                     alert("등록이 완료되었습니다");
-                    location.href = 'sketchBoardList.jsp';
+                    location.href = '<%=request.getContextPath()%>/views/board/sketchBoardList.jsp';
                 })
             })
 
@@ -515,7 +517,7 @@
              $(function(){
                 $('#reset').click(function(){
                     alert("메인으로 돌아갑니다");
-                    location.href = 'sketchBoardList.jsp';
+                    location.href = '<%=request.getContextPath()%>/views/board/sketchBoardList.jsp';
                 })
             })
 
