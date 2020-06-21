@@ -1,31 +1,29 @@
-package myPage.controller;
+package calendar.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import myPage.model.service.AnimalService;
-import myPage.model.vo.Animal;
+import calendar.model.service.CalendarService;
+import calendar.model.vo.CalendarViews;
 
 /**
- * Servlet implementation class PetInsert
+ * Servlet implementation class calendarsearchServlet
  */
-@WebServlet("/insert.an")
-public class PetInsertServlet extends HttpServlet {
+@WebServlet("/search.ca")
+public class calendarSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PetInsertServlet() {
+    public calendarSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,22 +32,18 @@ public class PetInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.valueOf(request.getParameter("userNo"));
-		String name = request.getParameter("name");
-		String kind = "("+request.getParameter("kind")+")"+request.getParameter("detail");
-		int weight = Integer.valueOf(request.getParameter("weight"));
-		Animal a = new Animal(userNo, name, kind, weight);
-		ArrayList<Animal> aList = new ArrayList();
+		ArrayList<CalendarViews> clist = new ArrayList<>();
+		clist = CalendarService.searchCalendar();
 		
-		aList = AnimalService.insertPet(a);
-		
-		PrintWriter out = response.getWriter();
-		response.setContentType("application/json");
-		Gson gson = new Gson();
-		gson.toJson(aList, response.getWriter());
-		
-		out.flush();
-		out.close();
+		RequestDispatcher view = null;
+		if(!clist.isEmpty()) {
+//			System.out.println(clist);
+			view = request.getRequestDispatcher("views/manage/calendar.jsp");
+			request.setAttribute("clist", clist);
+		}else {
+			view = request.getRequestDispatcher("views/manage/calendar.jsp");
+		}
+		view.forward(request, response);
 	}
 
 	/**
