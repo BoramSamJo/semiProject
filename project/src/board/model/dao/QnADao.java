@@ -391,4 +391,216 @@ public class QnADao {
 		return result;
 	}
 
+
+	public int getSearchByCategoryListCount(Connection conn, String colName, String givenQuery, int colCategory) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		
+		String query = "SELECT COUNT(*) FROM ("+givenQuery+") JOIN MEMBER USING(MEMBER_NO) WHERE "+colName+" = "+colCategory;
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<QnABoard> searchByQCategory(Connection conn, Pagination p, String colName, String givenQuery,
+			int colCategory) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QnABoard q = null;
+		ArrayList<QnABoard> qlist = new ArrayList<>();
+		
+		int currentPage = p.getCurrentPage();
+		int limit = p.getLimit();
+		int startRow = (currentPage-1)*limit+1;
+		int endRow = currentPage*limit;
+		
+		String query = "SELECT * FROM (SELECT ROWNUM RNUMC, C.* FROM (SELECT Q_NO,  Q_TITLE, Q_CONTENT, QC.CREATE_DATE, QC.MODIFY_DATE, QC.STATUS, Q_PWD, ANSWER, MEMBER_NAME, QC_NAME FROM ("+givenQuery+") QC JOIN Q_CATEGORY USING(QC_NO) JOIN MEMBER USING(MEMBER_NO) WHERE "+colName+" = "+colCategory+" AND QC.STATUS='Y' ORDER BY CREATE_DATE DESC) C ) WHERE RNUMC BETWEEN ? AND ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				q = new QnABoard(
+						rs.getInt(1)
+						, rs.getInt("Q_NO")
+						, rs.getString("MEMBER_NAME")
+						, rs.getString("Q_TITLE")
+						, rs.getString("Q_CONTENT")
+						, rs.getString("CREATE_DATE")
+						, rs.getString("MODIFY_DATE")
+						, rs.getString("Q_PWD")
+						, rs.getString("ANSWER")
+						, rs.getString("QC_NAME")
+						, rs.getString("STATUS")
+						);
+				qlist.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return qlist;
+	}
+
+
+	public int getSearchByAnswerListCount(Connection conn, String colName, String givenQuery, String aStatus) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		
+		String query = "SELECT COUNT(*) FROM ("+givenQuery+") JOIN MEMBER USING(MEMBER_NO) WHERE "+colName+" = "+"'"+aStatus+"'";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<QnABoard> searchByQAnswer(Connection conn, Pagination p, String colName, String givenQuery,
+			String aStatus) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QnABoard q = null;
+		ArrayList<QnABoard> qlist = new ArrayList<>();
+		
+		int currentPage = p.getCurrentPage();
+		int limit = p.getLimit();
+		int startRow = (currentPage-1)*limit+1;
+		int endRow = currentPage*limit;
+		
+		String query = "SELECT * FROM (SELECT ROWNUM RNUMA, A.* FROM (SELECT Q_NO,  Q_TITLE, Q_CONTENT, QA.CREATE_DATE, QA.MODIFY_DATE, QA.STATUS, Q_PWD, ANSWER, MEMBER_NAME, QC_NAME FROM ("+givenQuery+") QA JOIN Q_CATEGORY USING(QC_NO) JOIN MEMBER USING(MEMBER_NO) WHERE "+colName+" = '"+aStatus+"' AND QA.STATUS='Y' ORDER BY CREATE_DATE DESC) A ) WHERE RNUMA BETWEEN ? AND ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				q = new QnABoard(
+						rs.getInt(1)
+						, rs.getInt("Q_NO")
+						, rs.getString("MEMBER_NAME")
+						, rs.getString("Q_TITLE")
+						, rs.getString("Q_CONTENT")
+						, rs.getString("CREATE_DATE")
+						, rs.getString("MODIFY_DATE")
+						, rs.getString("Q_PWD")
+						, rs.getString("ANSWER")
+						, rs.getString("QC_NAME")
+						, rs.getString("STATUS")
+						);
+				qlist.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return qlist;
+	}
+
+
+	public int getSearchByTextListCount(Connection conn, String colName, String givenQuery, String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int listCount = 0;
+		
+		String query = "SELECT COUNT(*) FROM ("+givenQuery+") JOIN MEMBER USING(MEMBER_NO) WHERE "+colName+" LIKE "+"'%"+searchText+"%'";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+
+		return listCount;
+	}
+
+
+	public ArrayList<QnABoard> searchByQText(Connection conn, Pagination p, String colName, String givenQuery,
+			String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QnABoard q = null;
+		ArrayList<QnABoard> qlist = new ArrayList<>();
+		
+		int currentPage = p.getCurrentPage();
+		int limit = p.getLimit();
+		int startRow = (currentPage-1)*limit+1;
+		int endRow = currentPage*limit;
+		
+		String query = "SELECT * FROM (SELECT ROWNUM RNUMT, T.* FROM (SELECT Q_NO,  Q_TITLE, Q_CONTENT, QT.CREATE_DATE, QT.MODIFY_DATE, QT.STATUS, Q_PWD, ANSWER, MEMBER_NAME, QC_NAME FROM ("+givenQuery+") QT JOIN Q_CATEGORY USING(QC_NO) JOIN MEMBER USING(MEMBER_NO) WHERE "+colName+" LIKE '%"+searchText+"%' AND QT.STATUS='Y' ORDER BY CREATE_DATE DESC) T ) WHERE RNUMT BETWEEN ? AND ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				q = new QnABoard(
+						rs.getInt(1)
+						, rs.getInt("Q_NO")
+						, rs.getString("MEMBER_NAME")
+						, rs.getString("Q_TITLE")
+						, rs.getString("Q_CONTENT")
+						, rs.getString("CREATE_DATE")
+						, rs.getString("MODIFY_DATE")
+						, rs.getString("Q_PWD")
+						, rs.getString("ANSWER")
+						, rs.getString("QC_NAME")
+						, rs.getString("STATUS")
+						);
+				qlist.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return qlist;
+	}
+
 }

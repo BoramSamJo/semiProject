@@ -144,5 +144,65 @@ public class QnAService {
 		return result;
 	}
 
+	public int getSearchByCategoryListCount(String colName, String givenQuery, int colCategory) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnADao().getSearchByCategoryListCount(conn, colName, givenQuery, colCategory);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<QnABoard> searchByQCategory(Pagination p, String colName, String givenQuery, int colCategory) {
+		Connection conn = getConnection();
+		
+		ArrayList<QnABoard> qList = new QnADao().searchByQCategory(conn, p, colName, givenQuery, colCategory);
+		
+		close(conn);
+		
+		return qList;
+	}
+
+	public int getSearchByAnswerListCount(String colName, String givenQuery, String aStatus) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnADao().getSearchByAnswerListCount(conn, colName, givenQuery, aStatus);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<QnABoard> searchByQAnswer(Pagination p, String colName, String givenQuery, String aStatus) {
+		Connection conn = getConnection();
+		
+		ArrayList<QnABoard> qList = new QnADao().searchByQAnswer(conn, p, colName, givenQuery, aStatus);
+		
+		close(conn);
+		
+		return qList;
+	}
+
+	public int getSearchByTextListCount(String colName, String givenQuery, String searchText) {
+		Connection conn = getConnection();
+		
+		int listCount = new QnADao().getSearchByTextListCount(conn, colName, givenQuery, searchText);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<QnABoard> searchByQText(Pagination p, String colName, String givenQuery, String searchText) {
+		Connection conn = getConnection();
+		
+		ArrayList<QnABoard> qList = new QnADao().searchByQText(conn, p, colName, givenQuery, searchText);
+		
+		close(conn);
+		
+		return qList;
+	}
+
 
 }

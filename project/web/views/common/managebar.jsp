@@ -91,6 +91,41 @@ margin:0px;
 	z-index: 0;
 }
 
+/* fixed 돌아가기버튼 설정 */
+#reservation {
+	width: 45px;
+	height: 45px;
+	right: 8%;
+	top: 620px;
+	position: relative;
+	position: fixed;
+	z-index: 9999999999;
+	background-color: #b3a193;
+	background-color: white;
+	opacity: 1;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	border: 2px solid #b3a193;
+	border-radius: 100px;
+}
+
+#reservation a {
+	position: absolute;
+	left: 1px;
+	top: 3px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100px;
+	text-indent: 2px;
+	line-height: 40px;
+	color: #242424;
+	color: #b3a193;
+	font-weight: bolder;
+	text-decoration: none;
+	font-size: 14px;
+	font-family: 'Noto Sans KR', sans-serif;
+}
 </style>
 
 </head>
@@ -112,7 +147,11 @@ margin:0px;
 		</ul>
 	</div>
 	
-	
+	<aside id="reservation">
+		<p>
+			<a href="<%=request.getContextPath() %>/index.jsp">Home</a>
+		</p>
+	</aside>
 
 <script>
 	var mainSideNav = document.getElementById('mainSideNav');

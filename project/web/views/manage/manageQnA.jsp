@@ -26,15 +26,50 @@
 		endPage = p.getEndPage();
 	}
 	
+	//넘겨받은 쿼리(없으면 기본형)
+	String query = (String)request.getAttribute("query");
+	if(query==null){
+		query = "SELECT * FROM QNABOARD";
+	}
+	
+	//줄 쿼리
+	String givenQuery ="";
+	//카테고리로 검색헀다 온 경우
+	String category ="";
+	String isC = (String)request.getAttribute("isC");//서치서블릿의 결과인지 어쩐지 판단
+	if(isC==null){
+		isC="false";
+	}else if(isC=="true"){
+		category = (String)request.getAttribute("category");
+		givenQuery = (String)request.getAttribute("givenQuery");
+	}else if(isC=="past"){//거쳐진 경우
+		
+	}
+	
+	//답변여부로 검색했다 온 경우
+	String isAnswer ="";
+	String isA= (String)request.getAttribute("isA");//서치서블릿의 결과인지 어쩐지 판단
+	if(isA==null){
+		isA="false";
+	}else if(isA=="true"){
+		isAnswer = (String)request.getAttribute("isAnswer");
+		givenQuery = (String)request.getAttribute("givenQuery");
+	}else if(isA=="past"){//거쳐진 경우
+		
+	}
+	
+	//검색어로 검색했다 온 경우
+	String selectBox ="";
 	String searchText ="";
-	String searchKey ="";
-	String isSearch = (String)request.getAttribute("isSearch");//서치서블릿의 결과인지 어쩐지 판단
-	if(isSearch==null){
-		isSearch="false";
-	}else{
-		isSearch="true";
-		searchText = (String)request.getAttribute("content");
-		searchKey = (String)request.getAttribute("selectBox");
+	String isT= (String)request.getAttribute("isT");//서치서블릿의 결과인지 어쩐지 판단
+	if(isT==null){
+		isT="false";
+	}else if(isT=="true"){
+		selectBox = (String)request.getAttribute("selectBox");
+		searchText = (String)request.getAttribute("searchText");
+		givenQuery = (String)request.getAttribute("givenQuery");
+	}else if(isT=="past"){//거쳐진 경우
+		
 	}
 %>
 <html lang="ko">
@@ -58,6 +93,7 @@
         #notiSection{
             text-align: center;
             position: relative;
+            margin-bottom:50px;
         }
        
         /* ----------고객센터 공통 상단 -----------*/
@@ -140,7 +176,7 @@
         #notiSection #selectCategory{
             position: absolute;
             margin-top: 13.5%;
-            margin-left: -4%;
+            margin-left: -8%;
             margin-bottom: 10px;
             height: 40px;
             border: 1px solid #b3a193;
@@ -152,7 +188,7 @@
         #notiSection #selectAnswer{
             position: absolute;
             margin-top: 13.5%;
-            margin-left: 5.1%;
+            margin-left: 1.1%;
             margin-bottom: 10px;
             height: 40px;
             border: 1px solid #b3a193;
@@ -164,7 +200,7 @@
         #notiSection #selectSearch{
             position: absolute;
             margin-top: 13.5%;
-            margin-left: 14.2%;
+            margin-left: 10.2%;
             margin-bottom: 10px;
             height: 40px;
             border: 1px solid #b3a193;
@@ -177,7 +213,7 @@
             position: absolute;
             top:230px;
             margin-top: 13.5%;
-            margin-left: 23.7%;
+            margin-left: 19.7%;
             border:none;
             border-bottom: 1px solid #242424;
             width: 10%;
@@ -185,10 +221,10 @@
         }
         #btntest{
             position: absolute;
-            top:430px;
-            right:190px;
+            top:425px;
+            right:250px;
             width: 55px;
-            height: 30px;
+            height: 35px;
             border: none;
             border-radius: 4px;
             background: -webkit-linear-gradient(top, #e0ccbb, #b3a193);
@@ -198,6 +234,18 @@
             background: -webkit-linear-gradient(top, rgb(65, 64, 64), #242424);
             color: #b3a193;
         }
+        #resetSearchBtn{
+         	position: absolute;
+            top:425px;
+            right:190px;
+            width: 55px;
+            height: 35px;
+            border: none;
+            border-radius: 4px;
+            background: -webkit-linear-gradient(top, #e0ccbb, #b3a193);
+            color: #242424;
+        }
+        
 		.answerBtn{
 			border: none;
             border-radius: 4px;
@@ -233,6 +281,8 @@
 			font-size:18px;
 			text-indent:10px;
 		}
+		
+		
         /* -----------테이블 영역-----------*/
         .TableCSS1 {
             width: 75%;
@@ -513,38 +563,69 @@
 
     <body>
         <%@include file="../common/managebar.jsp"%>
-
+		<input type="hidden" id="hiddenQuery" value="<%=query%>">
         <!--section시작-->
         <section id="notiSection">
             <div id='Backarea'>
                 <h1 id="notiTitle1">CS CENTER Manage</h1><h3 id="notiTitle2">고객센터 관리</h3>
             </div>
-            <form action="<%=request.getContextPath()%>/searchQ.bo" method="post" onsubmit="return testKey();">
             <div id = 'headline'><span onclick="location.href='CS_NotiMain.html';">공지사항</span><span onclick="location.href='CS_FAQ.html';">FAQ</span><span  onclick="location.href='<%=request.getContextPath()%>/manageQList.bo';" >QnA</span></div>
-           		<select name="selectCategory" id="selectCategory">
-                   <option selected value=''>카테고리 선택</option>
-                   <option value="all">전체</option>
+            	<%if(isC.equals("true")||isC.equals("past")) {%>
+            	<select name="selectCategory" id="selectCategory" onchange="selectC(this);" disabled>
+                   <option selected value='' class="choice" disabled>카테고리 선택</option>
+                   <option value="all">카테고리 전체</option>
                    <option value="reser">예약문의</option>
                    <option value="insFu">보험/장례문의</option>
                    <option value="price">가격문의</option>
                    <option value="etc">기타문의</option>
                </select>
-               <select name="selectAnswer" id="selectAnswer">
-                    <option selected value=''>답변 여부</option>
+            	<%}else {%>
+           		<select name="selectCategory" id="selectCategory" onchange="selectC(this);">
+                   <option selected value='' class="choice" disabled>카테고리 선택</option>
+                   <option value="all">카테고리 전체</option>
+                   <option value="reser">예약문의</option>
+                   <option value="insFu">보험/장례문의</option>
+                   <option value="price">가격문의</option>
+                   <option value="etc">기타문의</option>
+               </select>
+               <%} %>
+               
+               <%if(isA.equals("true")||isA.equals("past")) {%>
+               <select name="selectAnswer" id="selectAnswer" onchange="selectA(this);" disabled>
+                    <option selected value='' class="choice" disabled>답변 여부</option>
                     <option value="all">전체</option>
-                    <option value="title">답변</option>
+                    <option value="answer">답변</option>
                     <option value="noAnswer">미답변</option>
                 </select>
-              <select name="selectSearch" id="selectSearch">
-                    <option selected value=''>검색어 분류</option>
+                <%}else {%>
+                <select name="selectAnswer" id="selectAnswer" onchange="selectA(this);">
+                    <option selected value='' class="choice" disabled>답변 여부</option>
                     <option value="all">전체</option>
+                    <option value="answer">답변</option>
+                    <option value="noAnswer">미답변</option>
+                </select>
+                <%} %>
+                
+                <%if(isT.equals("true")||isT.equals("past")) {%>
+              	<select name="selectSearch" id="selectSearch" onchange="selectS(this);" disabled>
+                    <option selected value='' class="choice" disabled>검색어 분류</option>
+                    <option value="all">검색하지 않음</option>
                     <option value="title">제목</option>
                     <option value="content">내용</option>
                     <option value="writer">작성자</option>
                 </select>
-            <input type='search' name="content" id="searchText">&nbsp;
-            <button type="submit" name="search" id ="btntest">검색</button>
-        </form>
+                <%}else {%>
+                <select name="selectSearch" id="selectSearch" onchange="selectS(this);">
+                    <option selected value='' class="choice" disabled>검색어 분류</option>
+                    <option value="all">검색하지 않음</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                </select>
+                <%} %>
+            	<input type='search' name="content" id="searchText">&nbsp;
+            	<button type="submit" name="search" id ="btntest" onclick="searchKeyWord();">검색</button>
+            <button type="button" name="resetSearch" id ="resetSearchBtn" onclick="reloadForWhole();">초기화</button>
 
               <!--QnA영역-->
               <div>
@@ -625,7 +706,52 @@
 				<%if(p.getListCount()==0){%>
 					
 				<%}else{ %>
-					<%if(isSearch.equals("false")) {%>
+					<%if(isC.equals("true")) {%>
+	                 	<button onclick="location.href='<%=request.getContextPath()%>/searchQC.bo?currentPage=<%=1 %>&category=<%=category%>&givenQuery=<%=givenQuery%>';" class="pagingBtns" ><<</button>
+		                 &nbsp;
+		                 <button onclick="location.href='<%=request.getContextPath()%>/searchQC.bo?currentPage=<%=currentPage-1 %>&category=<%=category %>&givenQuery=<%=givenQuery%>';" class="pagingBtns" ><</button>
+		                 <%for(int pg = startPage; pg<=endPage; pg++){ %>
+		                 	<%if(pg == currentPage){ %>
+			                 	<button class="pagingBtns" disabled><%=pg %></button>
+							<%}else{ %>
+		                 		<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/searchQC.bo?currentPage=<%=pg %>&category=<%=category %>&givenQuery=<%=givenQuery%>';" class="pagingBtns" ><%=pg %></button>
+		                 	<%} %>
+		                 <%} %>
+		                 <button onclick="location.href='<%=request.getContextPath() %>/searchQC.bo?currentPage=<%=currentPage+1 %>&category=<%=category %>&givenQuery=<%=givenQuery%>';" class="pagingBtns" >></button>
+		                 &nbsp;
+		                 <button onclick="location.href='<%=request.getContextPath() %>/searchQC.bo?currentPage=<%=maxPage %>&category=<%=category %>&givenQuery=<%=givenQuery%>';" class="pagingBtns" >>></button>
+		                 
+	                 <%}else if(isA.equals("true")){ %>
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQA.bo?currentPage=<%=1 %>&isAnswer=<%=isAnswer %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" ><<</button>
+		                 &nbsp;
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQA.bo?currentPage=<%=currentPage-1 %>&isAnswer=<%=isAnswer %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" ><</button>
+		                 <%for(int pg = startPage; pg<=endPage; pg++){ %>
+		                 	<%if(pg == currentPage){ %>
+			                 	<button class="pagingBtns" disabled><%=pg %></button>
+							<%}else{ %>
+		                 		<button class="pagingBtns" onclick="location.href='<%=request.getContextPath()%>/manageSearchQA.bo?currentPage=<%=pg %>&isAnswer=<%=isAnswer %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" ><%=pg %></button>
+		                 	<%} %>
+		                 <%} %>
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQA.bo?currentPage=<%=currentPage+1 %>&isAnswer=<%=isAnswer %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" >></button>
+		                 &nbsp;
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQA.bo?currentPage=<%=maxPage %>&isAnswer=<%=isAnswer %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" >>></button>
+		                 
+		              <%}else if(isT.equals("true")){ %>
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQS.bo?currentPage=<%=1 %>&selectBox=<%=selectBox %>&searchText=<%=searchText %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" ><<</button>
+		                 &nbsp;
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQS.bo?currentPage=<%=currentPage-1 %>&selectBox=<%=selectBox %>&searchText=<%=searchText %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" ><</button>
+		                 <%for(int pg = startPage; pg<=endPage; pg++){ %>
+		                 	<%if(pg == currentPage){ %>
+			                 	<button class="pagingBtns" disabled><%=pg %></button>
+							<%}else{ %>
+		                 		<button class="pagingBtns" onclick="location.href='<%=request.getContextPath()%>/manageSearchQS.bo?currentPage=<%=pg %>&selectBox=<%=selectBox %>&searchText=<%=searchText %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" ><%=pg %></button>
+		                 	<%} %>
+		                 <%} %>
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQS.bo?currentPage=<%=currentPage+1 %>&selectBox=<%=selectBox %>&searchText=<%=searchText %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" >></button>
+		                 &nbsp;
+		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQS.bo?currentPage=<%=maxPage %>&selectBox=<%=selectBox %>&searchText=<%=searchText %>&givenQuery=<%=givenQuery %>';" class="pagingBtns" >>></button>
+		                 
+	                 <%}else{ %>
 		                 <button onclick="location.href='<%=request.getContextPath()%>/manageQList.bo?currentPage=<%=1 %>'" class="pagingBtns" ><<</button>
 		                 &nbsp;
 		                 <button onclick="location.href='<%=request.getContextPath()%>/manageQList.bo?currentPage=<%=currentPage-1 %>'" class="pagingBtns" ><</button>
@@ -639,85 +765,12 @@
 		                 <button onclick="location.href='<%=request.getContextPath()%>/manageQList.bo?currentPage=<%=currentPage+1 %>'" class="pagingBtns" >></button>
 		                 &nbsp;
 		                 <button onclick="location.href='<%=request.getContextPath()%>/manageQList.bo?currentPage=<%=maxPage %>'" class="pagingBtns" >>></button>
-		                 
-	                 <%}else{ %>
-	                 	<button onclick="location.href='<%=request.getContextPath()%>/manageSearchQ.bo?currentPage=<%=1 %>&content=<%=searchText%>&selectBox=<%=searchKey%>';" class="pagingBtns" ><<</button>
-		                 &nbsp;
-		                 <button onclick="location.href='<%=request.getContextPath()%>/manageSearchQ.bo?currentPage=<%=currentPage-1 %>&content=<%=searchText %>&selectBox=<%=searchKey%>';" class="pagingBtns" ><</button>
-		                 <%for(int pg = startPage; pg<=endPage; pg++){ %>
-		                 	<%if(pg == currentPage){ %>
-			                 	<button class="pagingBtns" disabled><%=pg %></button>
-							<%}else{ %>
-		                 		<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/manageSearchQ.bo?currentPage=<%=pg %>&content=<%=searchText %>&selectBox=<%=searchKey%>';" class="pagingBtns" ><%=pg %></button>
-		                 	<%} %>
-		                 <%} %>
-		                 <button onclick="location.href='<%=request.getContextPath() %>/manageSearchQ.bo?currentPage=<%=currentPage+1 %>&content=<%=searchText %>&selectBox=<%=searchKey%>';" class="pagingBtns" >></button>
-		                 &nbsp;
-		                 <button onclick="location.href='<%=request.getContextPath() %>/manageSearchQ.bo?currentPage=<%=maxPage %>&scontent=<%=searchText %>&selectBox=<%=searchKey%>';" class="pagingBtns" >>></button>
 	                 <%}%>
+		                 
                  <%}%>
                 </div>
-             <%if(request.getSession().getAttribute("userId")!=null||request.getSession().getAttribute("loginUser")!=null){ %>
-            	<button onclick="yesLogin();" id="writeQnaBtn">문의작성</button>
-             <%}else{ %>
-            	<button onclick="notLogin();" id="writeQnaBtn">문의작성</button>
-             <%} %>
-             
-            <%if(isSearch=="true"){ %>
-            <button onclick="reloadForWhole();" id="writeQnaBtn">전체보기</button><br><br>
-           <%} %>
-           
-            
         </section>
-        <br><br><br>
 
-        <!--footer시작-->
-        <footer>
-              <table id="footerTable">
-                    <tr>
-                        <th colspan="2">CUSTOMER CENTER</th>
-                        <th colspan="2">HYEYUMM</th>
-                    </tr>
-                    <tr>
-                        <td>24시 장례예약</td>
-                        <td>1577-0996</td>
-                        <td>동물장묘업 등록번호</td>
-                        <td>
-                            <a id="animalProtectSys" href="https://www.animal.go.kr/front/awtis/shop/undertaker1List.do?bizKnCd=&boardId=shop&pageSize=0&longitude=&latitude=&menuNo=6000000131&searchUprCd=&searchOrgCd=&searchCoNm=%ED%8E%AB%ED%8F%AC%EB%A0%88%EC%8A%A4%ED%8A%B8">
-                                동물보호시스템
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>기타문의</td>
-                        <td>09시부터 18시까지</td>
-                        <td colspan="2">제 5540000-038-2016-0001호</td>
-                    </tr>
-                    <tr>
-                        <td>이메일</td>
-                        <td>potter3786@naver.com</td>
-                        <td>사업자 등록번호</td>
-                        <td>255-81-00588</td>
-                    </tr>
-                    <tr>
-                        <td>운영시간</td>
-                        <td>09시부터 20시</td>
-                        <td>통신판매업 신고번호</td>
-                        <td>제 2017-경기광주-0168호</td>
-                    </tr>
-                    <tr>
-                        <td><a href="">오시는길</a></td>
-                        <td><a href="">사이트맵</a></td>
-                        <td><a href="">개인정보 처리방침</a></td>
-                        <td><a href="">이용약관</a></td>
-                    </tr>
-                </table>
-                <p id="footerP">
-                    해윰  |  사업자등록번호 : 0123456789호  |  동물장묘업 등록번호  |  대표자 : 배혜린
-                    <br>
-                    Copyright © 2020-2020 hyeyum Institute All Right Reserved
-                </p>
-        </footer>
 
         <!------------------------------------------------------------------------------------------------------------------------------------------>
         <script>
@@ -740,22 +793,9 @@
                 $(boardClicked).css('background', 'lightgray');
         	}
 
-			//검색어 검증
-			function testKey(){
-        		if($('#selectCategory').val()==''){
-        			alert('분류를 선택하세요');
-        			return false;        			
-        		}
-        		if($('#searchText').val()==''){
-        			alert('검색어를 입력하세요');
-        			return false;
-        		}
-        		return true;
-        	}
-        	
         	//전체보기 버튼 함수
         	function reloadForWhole(){
-        		location.href="<%=request.getContextPath()%>/QnAList.bo";
+        		location.href="<%=request.getContextPath()%>/manageQList.bo";
         	}
         	
         	
@@ -836,6 +876,62 @@
 	 			})
 	  			location.reload();
         	}
+        	
+        	//게시글 조회(가져온걸가지고 다른걸 선택하면 가져온 조회된 게시물 그 안에서 또 조회하고 이런식으로 할거임.)
+        	//카테고리별 조회
+        	givenQuery = $('#hiddenQuery').val();
+       		alert(givenQuery);
+        		
+        	function selectC(t){
+        		if($(t).val()=='all'){
+        			$(t).prop('disabled', true);
+        			return;
+        		}
+        		
+        		location.href ="<%=request.getContextPath()%>/manageSearchQC.bo?category="+$(t).val()+"&givenQuery="+givenQuery;
+        	}
+        	
+        	//답변여부별 조회
+        	function selectA(t){
+        		if($(t).val()=='all'){
+        			$(t).prop('disabled', true);
+        			return;
+        		}
+        		
+        		location.href ="<%=request.getContextPath()%>/manageSearchQA.bo?isAnswer="+$(t).val()+"&givenQuery="+givenQuery;
+        	}
+        	
+        	//검색어의 카테고리 검증
+        	function selectS(t){
+        		if($(t).val()=='all'){
+        			$('#searchText').prop('disabled', true).css({'border':'none'}).val('');
+        			return;
+        		}else{
+        			$('#searchText').prop('disabled', false).css({'border-bottom':'1px solid #242424'});
+        		}
+        	}
+        	
+        	
+        	//검색어 검증 후 조회
+			function searchKeyWord(){
+        		if($('#searchText').prop('disabled')){
+        			alert('검색하지 않음을 선택하셨습니다')
+        			return;
+        		}
+        		if($('#searchText').val()==''){
+        			alert('검색어를 입력하세요');
+        			return;
+        		}else{
+	        		if($('#selectSearch').val()==null){
+	        			alert('검색어 분류를 선택하세요');
+	        			return;        			
+	        		}
+        		}
+        		
+        		location.href ="<%=request.getContextPath()%>/manageSearchQS.bo?selectBox="+$('#selectSearch').val()+"&searchText="+$('#searchText').val()+"&givenQuery="+givenQuery;
+        	}
+        	
+        	
         </script>
     </body>
 </html>
