@@ -1,15 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="Member.model.vo.Member"%>
-	
- <%
-	Member member = (Member) request.getAttribute("member");
+<%@page
+	import="java.util.ArrayList, member.model.vo.Member, member.model.vo.Animal"%>
 
-	System.out.println("jsp member 객체 : "+member);
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"
+	import="java.util.regex.Matcher, java.util.regex.Pattern "%>
+
+<%
+	Member member = (Member)request.getAttribute("member");
+ 
+	System.out.println("servlet에서 가져온 member 객체 : "+member);
 	
-	String userId = member.getUserId();
+	String userName = member.getmName();
 	String phone = member.getPhone();
 	String address = member.getAddress();
-%> 
+	
+	
+ 	ArrayList<Animal> animal = (ArrayList<Animal>)(request.getAttribute("animal"));
+ 	System.out.println("servlet에서 가져온 animal 객체 : "+animal);
+ 	
+ 	 /* for(int i=0;i<animal.size();i++){
+ 		if(member.getmNo() == animal.get(i).getmNo()){
+ 			String aName = animal.get(i).getaName();
+ 			String aN = animal.get(i).getaName();
+ 		 	System.out.println(i + "번쨰 aName 객체 : "+aName);
+ 			String pKindMain = animal.get(i).getKind(); //패턴으로 ()안에 값을 추출한다.
+ 			
+ 			String pKindMainR = ""; //  group(0) : 전체, group(1) : ()안의 값  참고 사이트 :https://enterkey.tistory.com/353
+ 			Pattern p = Pattern.compile("[(](.*?)[)]");
+ 			Matcher m = p.matcher(pKindMain);
+
+ 				while(m.find()){
+ 					pKindMainR = m.group(1);
+ 					System.out.println("패턴으로뽑아낸 값 : " +pKindMainR); 
+ 					System.out.println(i + "번쨰 pKindMainR 객체 : "+pKindMainR);
+ 					}   // kind에서 ()를 제외한 나머지 값을 추출 String 
+ 			String pKindServe = animal.get(i).getKind();
+ 			int text = pKindServe.indexOf(")");
+ 			String pKindServeR = pKindServe.substring(text+1);
+ 			System.out.println("패턴으로 뽑아낸 값 : "+pKindServeR);
+ 			Double weight = animal.get(i).getWeight();
+ 		}else{
+ 			String aName = "입력해주세요.";
+ 			String pKindMainR = "강아지";
+ 			String pKindServeR ="입력해주세요.";
+ 			double weight = (double)00.0;
+ 			
+ 		} 
+ 			
+ 	}  */
+	
+
+ 	
+%>
 
 
 
@@ -273,11 +315,11 @@ body * {
 div {
 	text-align: center;
 	/* border: 1px solid red; */
-} 
+}
 
- #informWrap div{
-            text-align: left;
-        }
+#informWrap div {
+	text-align: left;
+}
 
 /* 선택한 날짜/시간 나오게 하기 */
 #plusContent {
@@ -289,7 +331,7 @@ div {
 	background-color: #d2c4b9;
 	width: 250px;
 	border-radius: 10px;
-	font-size:20px
+	font-size: 20px
 }
 
 /* 날짜/시간을 선택할시 클릭을 못하도록 가려줄 div */
@@ -466,6 +508,20 @@ footer {
         var date = new Date();//today의 Date를 세어주는 역할
         var out = 1; // td태그 클릭시 다음태그의 색깔을 지워줄 변수
 
+        function prevCalendar() {//이전 달
+            today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()); // ex. 2020년 05월 01일
+            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+            //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
+            buildCalendar(); //달력 cell 만들어 출력 
+        }
+
+        function nextCalendar() {//다음 달
+            today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); // ex. 2020년 7월 01일
+            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+            //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
+            buildCalendar();//달력 cell 만들어 출력
+        }
+        
         function buildCalendar() {//현재 달 달력 만들기
             //올해 1일을 넣어둘 변수(ex. 이번달 기준 2020년6월1일)
             var doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -528,19 +584,7 @@ footer {
             
         }
 
-        function prevCalendar() {//이전 달
-            today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()); // ex. 2020년 05월 01일
-            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-            //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
-            buildCalendar(); //달력 cell 만들어 출력 
-        }
-
-        function nextCalendar() {//다음 달
-            today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); // ex. 2020년 7월 01일
-            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-            //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
-            buildCalendar();//달력 cell 만들어 출력
-        }
+        
 
 
     </script>
@@ -621,23 +665,24 @@ footer {
 					<p style="font-size: 20px; color: #d0b7b5; margin-top: 170px;">
 						<u>시간을 선택하셨습니다.</u>
 					</p>
-					<button type="button" id="select_btn_time" onclick="reset();">▶ 시간 다시
-						선택하기</button>
+					<button type="button" id="select_btn_time" onclick="reset();">▶
+						시간 다시 선택하기</button>
 				</div>
 			</div>
 		</div>
 
 		<!--선택한 날짜/시간 나오게 하기-->
-		<form id="joinForm" action="<%=request.getContextPath()%>/order.me"
+		<!-- insertlist.f -->
+		<form id="joinForm" action="<%=request.getContextPath()%>/view.f"
 			method="get">
 			<div style="margin-left: 10px;">
 				<div id="plusContent" style="margin-right: 30px;">
-				<label>선택하신 날짜 : </label>
-					<input type="text" id="plusDate" name="plusDate" value="" readonly>
+					<label>선택하신 날짜 : </label> <input type="text" id="plusDate"
+						name="plusDate" value="" readonly>
 				</div>
 				<div id="plusContent" style="margin-right: 10px;">
-				<label>선택하신 시간 : </label>
-					<input type="text" id="plusTime" name="plusTime" value="" readonly>
+					<label>선택하신 시간 : </label> <input type="text" id="plusTime"
+						name="plusTime" value="" readonly>
 				</div>
 			</div>
 			<!-- 오늘 calendar를 뿌려줄 함수 -->
@@ -660,8 +705,8 @@ footer {
 						<div id="vip">VIP형</div>
 					</div>
 					<div id="removeFS">
-						<button type="button" id="select_btn_service" style="margin-top: 35px;">장례서비스
-							다시 선택하기</button>
+						<button type="button" id="select_btn_service"
+							style="margin-top: 35px;">장례서비스 다시 선택하기</button>
 					</div>
 				</div>
 				<h3>장례용품 선택사항</h3>
@@ -685,7 +730,8 @@ footer {
 						</div>
 						<div id="removeSelect1"
 							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; width: 130px; height: 194px; visibility: hidden;">
-							<button type="button" id="select_btn_select1" style="margin-top: 70px;">
+							<button type="button" id="select_btn_select1"
+								style="margin-top: 70px;">
 								수의 다시<br>선택하기
 							</button>
 						</div>
@@ -709,7 +755,8 @@ footer {
 						</div>
 						<div id="removeSelect2"
 							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; width: 160px; height: 194px; visibility: hidden;">
-							<button type="button" id="select_btn_select2" style="margin-top: 80px;">
+							<button type="button" id="select_btn_select2"
+								style="margin-top: 80px;">
 								관 다시<br>선택하기
 							</button>
 						</div>
@@ -735,8 +782,8 @@ footer {
 						</div>
 						<div id="removeSelect3"
 							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; width: 314px; height: 194px; visibility: hidden;">
-							<button type="button" id="select_btn_select3" style="margin-top: 70px;">화장후
-								다시 선택하기</button>
+							<button type="button" id="select_btn_select3"
+								style="margin-top: 70px;">화장후 다시 선택하기</button>
 						</div>
 					</div>
 				</div>
@@ -748,11 +795,10 @@ footer {
 					<label>장례 서비스 : </label> <input type="text" id="funeralSelect"
 						name="funeralSelect" value="" readonly> <label>수의
 						: </label> <input type="text" id="funeralSelect1" name="funeralSelect1"
-						value="" readonly> <label>관 : </label> <input
-						type="text" id="funeralSelect2" name="funeralSelect2"
-						value="" readonly> <label>화장후 선택 : </label> <input
-						type="text" id="funeralSelect3" name="funeralSelect3"
-						value="" readonly>
+						value="" readonly> <label>관 : </label> <input type="text"
+						id="funeralSelect2" name="funeralSelect2" value="" readonly>
+					<label>화장후 선택 : </label> <input type="text" id="funeralSelect3"
+						name="funeralSelect3" value="" readonly>
 				</div>
 			</div>
 			<hr>
@@ -768,31 +814,85 @@ footer {
 								<li>보호자 성함</li>
 							</td>
 							<td><input type="text" id="userName" name="userName"
-								value="<%=userId%>" size="15" readonly></td>
+								value="<%=userName %>" size="15"></td>
 						</tr>
 						<tr>
 							<td>
 								<li>연락처</li>
 							</td>
-							<td><input type="text" id="phone" name="phone" value="<%=phone%>"
-								size="15" readonly></td>
+							<td><input type="text" id="phone" name="phone"
+								value="<%=phone %>" size="15"></td>
 						</tr>
 						<tr>
 							<td>
 								<li>주소</li>
 							</td>
-							<td><input type="text" id="address" name="address" value="<%=address%>"
-								size="15" readonly></td>
+							<td><input type="text" id="address" name="address"
+								value="<%=address %>" size="15"></td>
 						</tr>
 					</table>
 				</div>
+				<% for(int i=0;i<animal.size();i++){%>
+				<% if(member.getmNo() == animal.get(i).getmNo()){%>
+				<% String aName = animal.get(i).getaName();  %>
+				<%System.out.println(i + "번쨰 aName 객체 : "+aName); %>
+				<%String pKindMain = animal.get(i).getKind();  %><!-- 패턴으로 ()안에 값을 추출한다.  -->
+				<%String pKindMainR = ""; %>
+				<!--  group(0) : 전체, group(1) : ()안의 값  참고 사이트 :https://enterkey.tistory.com/353  -->
+				<%Pattern p = Pattern.compile("[(](.*?)[)]"); %>
+				<%Matcher m = p.matcher(pKindMain); %>
+
+				<%while(m.find()){ %>
+				<%pKindMainR = m.group(1); %>
+				<%System.out.println("패턴으로뽑아낸 값 : " +pKindMainR); %>
+				<% }%>
+				<!-- kind에서 ()를 제외한 나머지 값을 추출 String -->
+				<%String pKindServe = animal.get(i).getKind(); %>
+				<% int text = pKindServe.indexOf(")"); %>
+				<% String pKindServeR = pKindServe.substring(text+1); %>
+				<%System.out.println("패턴으로 뽑아낸 값 : "+pKindServeR); %>
+				<%Double weight = animal.get(i).getWeight(); %>
 				<div id="petInfo" class="informEachWrap">
 					<table id="selectInputT" align="center">
 						<tr>
 							<td>
 								<li>아이 이름</li>
 							</td>
-							<td><input type="text" name="pName" id="pName" value=""
+							<td><input type="text" name="pName" id="pName"
+								value="<%=aName %>" placeholder="아이이름을 입력해주세요." readonly></td>
+						</tr>
+						<tr>
+							<td>
+								<li>아이 몸무게</li>
+							</td>
+							<td><span id="wrapPKSAndKg"> <!-- onkeydown="onlyNumber(event)" onkeyup="removeChar(event)" -->
+									<input type="number" name="pWeight" id="pWeight"
+									value="<%=weight %>" placeholder="00.0" maxlength="5" readonly
+									onkeypress="isNumberKey(event);" onkeyup="delHangle(event);"
+									oninput="numberMaxLength(this);"> <span id="kg">kg</span>
+							</span></td>
+						</tr>
+						<tr>
+							<td>
+								<li>아이 품종</li>
+							</td>
+							<td><select name="pKindMain" id="pKindMain" class="dropdown">
+									<option value="강아지" id="dog" name='<%=pKindMainR%>'>강아지</option>
+									<option value="고양이" id="cat" name='<%=pKindMainR%>'>고양이</option>
+									<option value="기타동물" id="ect" name="<%=pKindMainR%>">기타동물</option>
+							</select> <input type="text" name="pKindServe" id="pKindServe" value="a"
+								placeholder="상세품종" size="15" readonly></td>
+						</tr>
+					</table>
+				</div>
+				<%break; }else if(member.getmNo() != animal.get(i).getmNo()){ %>
+				<div id="petInfo" class="informEachWrap">
+					<table id="selectInputT" align="center">
+						<tr>
+							<td>
+								<li>아이 이름</li>
+							</td>
+							<td><input type="text" name="pName" id="pName" value="입력하세요"
 								placeholder="아이이름을 입력해주세요."></td>
 						</tr>
 						<tr>
@@ -800,7 +900,7 @@ footer {
 								<li>아이 몸무게</li>
 							</td>
 							<td><span id="wrapPKSAndKg"> <!-- onkeydown="onlyNumber(event)" onkeyup="removeChar(event)" -->
-									<input type="text" name="pWeight" id="pWeight" value=""
+									<input type="text" name="pWeight" id="pWeight" value="00.0"
 									placeholder="00.0" maxlength="5"
 									onkeypress="isNumberKey(event);" onkeyup="delHangle(event);"
 									oninput="numberMaxLength(this);"> <span id="kg">kg</span>
@@ -811,18 +911,56 @@ footer {
 								<li>아이 품종</li>
 							</td>
 							<td><select name="pKindMain" id="pKindMain" class="dropdown">
-									<option value="dog" id="dog">강아지</option>
-									<option value="cat" id="cat">고양이</option>
-									<option value="ect" id="ect">기타 동물</option>
-							</select> <input type="text" name="pKindServe" id="pKindServe" value=""
-								placeholder="상세품종" size="15"></td>
+									<option value="강아지" id="dog" name="강아지">강아지</option>
+									<option value="고양이" id="cat" name="고양이">고양이</option>
+									<option value="기타동물" id="ect" name="기타동물">기타 동물</option>
+							</select> <input type="text" name="pKindServe" id="pKindServe"
+								value="입력해주세요" placeholder="상세품종" size="15"></td>
 						</tr>
 					</table>
-
 				</div>
+				<%break;} }%>
 			</div>
+
 			<button type="reset" id="doReservationBtn">예약</button>
 		</form>
+
+		<script>
+	var a = $('option').attr('name'); //고양이
+	var b = $("option").text();
+	
+	console.log(a); // 고양이
+	console.log(b);
+	// 품종에 대해 value값을 배열로 지정
+	var options = $('#pKindMain').find('option').map(function() {
+	      return $(this).val();
+	}).get()
+
+	
+	for(var i=0;i<options.length;i++){
+		console.log(options[i]); // 강아지, 고양이, 특수동물
+		  if(a == "강아지"){
+			 $('#pKindMain').val('강아지');
+		  }else if(a == "고양이"){
+			  $('#pKindMain').val('고양이');
+		  }else if(a == "기타동물"){
+			  $('#pKindMain').val('기타동물');
+		  } 
+		
+		/* if(options[0] == pKindMainR){
+			$("#pKindMain option[id='강아지']").prop({'selected':'selected'});
+		}else if(options[1] == pKindMainR){
+			$("#pKindMain option[value='고양이']").prop({'selected':'selected'});
+		}else if(options[2] == pKindMainR){
+			$("#pKindMain option[value='특수동물']").prop({'selected':'selected'});
+		} */
+	}
+	
+	/* 		
+			$("#pKindMain option[value='고양이']").prop({'selected':'selected'});
+			$("#pKindMain option[value='특수동물']").prop({'selected':'selected'});
+	 */		
+	</script>
 		<script>
 		 var date = $("#plusDate").val();
 		var time = $("#plusTime").val();
@@ -876,7 +1014,7 @@ footer {
             // 날짜 클릭시 div화면을 가리고(투명도) 날짜를 다시 선택하라는 버튼을 눌렀을시 초기화
             $("#calendar td").click(function () {
                 var dateText = $(this).text();
-                var datePrint = tbCalendarYM.innerHTML + " " + dateText + "일"; // 날짜를 선택한 후에 아래 div에 나오게할 변수
+                var datePrint = tbCalendarYM.innerHTML + dateText + "일"; // 날짜를 선택한 후에 아래 div에 나오게할 변수
 
                 // 캘린더 아래 div에 날짜 출력
                 // $("#plusDate").html("선택하신 날짜는 " + datePrint + " 입니다.");
@@ -912,12 +1050,12 @@ footer {
                 // console.log(time);
                 if (time <= 12) {
                     // $("#plusTime").html("선택하신 시간은 오전 " + timeText + " 입니다.");
-                    $("#plusTime").attr("value",timeText);
+                    $("#plusTime").attr("value","오전 "+timeText);
                 } else {
                     // $("#plusTime").html("선택하신 시간은 오후 " + timeText + " 입니다.");
                     $("#plusTime").attr("value",timeText);
                 } 
-                $("#plusTime").attr("value",timeText);
+                $("#plusTime").attr("value","오후 "+timeText);
                 $(this).css({ "background": "#d0b7b5" });
                 alert("시간을 선택하셨습니다.");
                 $("#removeTime").show();
