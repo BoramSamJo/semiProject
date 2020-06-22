@@ -1088,7 +1088,6 @@
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례용품</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Price.jsp">장례비용</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
-					<li><a href="#">장례예약</a></li>
 				</ul></li>
 			<li><a href="<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp" id='second' class="colorcss">보험서비스</a>
 				<ul>
@@ -1120,7 +1119,7 @@
 					<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-					<a id="moveToMyPage2" class="TextmoveTo" href="/project/first.ch">마이페이지</a>
+					<a id="moveToMyPage2" class="TextmoveTo" href="<%=request.getContextPath() %>/first.ch">마이페이지</a>
 					<%} %>
 					<a class="TextmoveTo">오시는길</a>
 				</div>
@@ -1163,7 +1162,7 @@
 	        </aside>
         <%}else{ %>
 	        <aside id="reservation">         
-	            <p><a href="">예약</a></p>
+	            <p><a onclick="goToReservation();">예약</a></p>
 	        </aside>
         <%}%>
 
@@ -1410,6 +1409,16 @@
 
 	<!-- jsp 관련 스크립트 -->
 	<script>
+		function goToReservation(){
+	    	if(<%=request.getSession().getAttribute("loginUser")%>==null){
+	    		alert('로그인 하셔야 예약가능합니다');
+	    		return;
+	    	}else{
+		    	location.href="<%=request.getContextPath() %>/getMno.re";
+	    	}
+	    	
+	    }		
+	
 		function goLogin(){
 			var userId = $('#userIdLogIn');
 			var userPwd = $('#password');
@@ -1948,6 +1957,8 @@
             var heightAll = $('html').height();
             $('.modal').css('height',heightAll)
         });
+        
+        
     </script>
 
 </body>

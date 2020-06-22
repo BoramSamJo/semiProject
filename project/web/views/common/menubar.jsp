@@ -622,7 +622,7 @@ header * {
 	<%}else{ %>
 	<aside id="reservation">
 		<p>
-			<a href="">예약</a>
+			<a href="<%=request.getContextPath()%>/">예약</a>
 		</p>
 	</aside>
 	<%}%>
