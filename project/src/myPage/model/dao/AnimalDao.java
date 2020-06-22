@@ -42,7 +42,7 @@ public class AnimalDao {
 		Animal a2 = null;
 		
 		String query = "SELECT * FROM ANIMAL WHERE MEMBER_NO=? AND STATUS='N'";
-
+		System.out.println("Dao_a : "+a);
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, a.getMemberNo());
@@ -57,6 +57,7 @@ public class AnimalDao {
 								rs.getString("STATUS"));
 				aList.add(a2);
 			}
+			System.out.println("Dao_a2 : "+a2);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -85,7 +86,7 @@ public class AnimalDao {
 		} finally {
 			close(pstmt);
 		}
-		
+		System.out.println("Dao_change : "+result);
 		return result;
 	}
 

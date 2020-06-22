@@ -19,6 +19,8 @@
 	int pageCount=fpn.getPageCount();
 
     %>
+    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -357,10 +359,11 @@ padding:0px;
                 <div id = 'headline'><span onclick="goNoti()">공지사항</span><span onclick="goFAQ()">FAQ</span><span  onclick="goQNA()" >QnA</span></div>
               
              <select name="selectBox" id="faqselectBox">
+             	<option value="">카테고리 선택</option>
                 <option value="ntitle">제목</option>
                 <option value="ncontent">내용</option>       
             </select> 
-        <input type="text" name="word" value="">&nbsp;
+        <input type="text" id = "forsearch" name="word" value="">&nbsp;
         <button type="button" onclick="searchtest123();" id="searchBtn" style="width:60px; height:30px;">검색</button>
          </form>
 
@@ -398,24 +401,42 @@ padding:0px;
                        
                  </table>
                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <%if(fpn.getListCount()==0){%>
+               
+            <%}else{ %>
+               <%if(isSearch.equals("false")) {%>
+                      <!-- 이전 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=endPage-1 %>'"> < </button>
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                             <button disabled><%=pg %></button>
+                     <%}else{ %>
+                             <button onclick= "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=pg %>'"><%=pg %></button>
+                          <%} %>
+                       <%} %>
+                       <!-- 다음 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
+                    
+   
+               <!-- 검색 후 -->
+                    <%}else{ %> 
+                     <!-- 이전 페이지 -->
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                              <button disabled><%=pg %></button><br><br><br>
+                     <%}else{ %>
+                             <%-- <button onclick="location.href='<%=request.getContextPath() %>/search.bo?currentPage=<%=pg %>&content=<%=word %>&selectBox=<%=selectBox%>';"><%=pg %></button> --%>
+                          <%} %>
+                       <%} %>
+                    <%}%>
+                 <%}%>
+                  <%if(isSearch=="true"){ %>
+           <button onclick="reload();">전체보기</button><br><br>
+           <%} %>
+                 
+                 
                  
    
-             <!-- 페이징 처리 -->
-             
-             <!-- 이전 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=endPage-1 %>'"> < </button>
-            <!-- 페이지 목록 -->
-           <%for(int p=startPage; p<=endPage; p++) {%>
-           		<%if (p==currentPage) {%>
-            	<button disabled><%=p %></button>
-            	<%}else{ %>
-            	<button onclick= "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=p %>'"><%=p %></button>
-            	<%} %>
-            <%} %> 
-           
-            <!-- 다음 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
-            
             <!-- 글 작성하기 insert 관리자만 가능하도록 나중에 추가 -->     
             <button id="insertBtn"onclick="location.href='views/faqBoard/faqBoardInsertForm.jsp'">작성하기</button>
             </div>
@@ -487,9 +508,18 @@ padding:0px;
        <script>
        //검색하기
            function searchtest123(){
-    	<%-- $("#searchformtest").attr("action","<%=request.getContextPath()%>/search.bo"); --%>
+    		if(($("#faqselectBox")).val()=="" || ($("#forsearch")).val()==""){
+    			alert("검색어를 입력하세요");
+    		}else{
     	$("#searchformtest").submit();
+    			
+    		}
     }
+       
+         //검색 후 다시 돌아가기
+           function reload(){
+              location.href="<%=request.getContextPath()%>/list.bo";
+           }
        
        //삭제하기
        <%-- $(function(){

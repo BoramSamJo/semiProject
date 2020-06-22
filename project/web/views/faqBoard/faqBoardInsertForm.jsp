@@ -187,7 +187,7 @@
             }
             /* ----------취소/등록버튼 ---------- */
           
-            #notiSection input[type=submit]{
+            #uploadtn{
                 position: absolute;
                 margin-left:40px;
                 padding: 10px 25px;
@@ -285,8 +285,8 @@
                     <tr>
                     <td class = 'tdCss'><img src="img/service.png">카테고리</td>
                     <td>
-                    <select name="selectBox" >
-                    <!-- <option vale="none "selected disabled>카테고리를 선택해주세요</option>                   -->
+                    <select name="selectBox" id="forselect">
+                   <option value="">카테고리를 선택해주세요</option> 
                 	<option value="first">예약문의</option>
                		<option value="second">가격문의</option>
                  	<option value="third">보험/장례</option>
@@ -312,7 +312,8 @@
                     </table>
                     <div id="btns">
                        
-                        <input type = 'submit' value = '등록' onclick="upload" id = 'upload'>
+                       <!--  <input type = 'submit' value = '등록' onclick="upload" id = 'upload'> -->
+                       <button type="button" onclick="uploadtest12();" id="uploadtn">등록</button>
                     </div>
                 </form>
                  <a href="<%=request.getContextPath()%>/manageFbList.bo;"><input type="reset" value="취소"></a>
@@ -337,6 +338,14 @@
                 //2.첨부파일 값 넘겨주기
                 document.file.select();
                 alert(document).selection.createRange().text();
+            }
+            
+            function uploadtest12(){
+            	if(($("#forselect")).val()==""){
+            		alert("카테고리를 선택해 주세요");
+            	}else{
+            		$("#form").submit();
+            	}
             }
 
             

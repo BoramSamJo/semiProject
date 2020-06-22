@@ -19,6 +19,23 @@
 	int pageCount=fpn.getPageCount();
 
     %>
+        <%
+	String word="";
+ 
+    String isSearch = (String)request.getAttribute("isSearch");
+    if(isSearch==null){
+       isSearch="false";
+    }else{
+       isSearch="true";
+       word=(String)request.getAttribute("word");
+  
+      
+    }
+   System.out.println(isSearch);
+
+    
+    
+    %>
 
 <!DOCTYPE html>
 <html>
@@ -371,7 +388,7 @@
             <form  id="searchformtest"  name="searchform" method="get" action="<%=request.getContextPath()%>/search.fbo">
                 <div id = 'headline'><span onclick="goNoti()">공지사항</span><span onclick="goFAQ()">FAQ</span><span  onclick="goQNA()" >QnA</span></div>
                 <div id="searchArea">
-                    <input type='text'name="word" placeholder="SEARCH">&nbsp;
+                    <input type='text'name="word" id="forsearch" value="" placeholder="SEARCH">&nbsp;
                     <button type="button" onclick="searchtest123();">검색</button>
                 </div>
             </form>
@@ -427,24 +444,42 @@
                        
                  </table>
                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                 <%if(fpn.getListCount()==0){%>
+               
+            <%}else{ %>
+               <%if(isSearch.equals("false")) {%>
+                      <!-- 이전 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=endPage-1 %>'"> < </button>
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                             <button disabled><%=pg %></button>
+                     <%}else{ %>
+                             <button onclick= "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=pg %>'"><%=pg %></button>
+                          <%} %>
+                       <%} %>
+                       <!-- 다음 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
+                    
+   
+               <!-- 검색 후 -->
+                    <%}else{ %> 
+                     <!-- 이전 페이지 -->
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                              <button disabled><%=pg %></button><br><br><br>
+                     <%}else{ %>
+                             <%-- <button onclick="location.href='<%=request.getContextPath() %>/search.bo?currentPage=<%=pg %>&content=<%=word %>&selectBox=<%=selectBox%>';"><%=pg %></button> --%>
+                          <%} %>
+                       <%} %>
+                    <%}%>
+                 <%}%>
+                  <%if(isSearch.equals("true")){ %>
+           <button onclick="reload();">전체보기</button><br><br>
+           <%} %>
+                 
                  
    
-             <!-- 페이징 처리 -->
              
-             <!-- 이전 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=endPage-1 %>'" class="forAjaxBtn"> < </button>
-            <!-- 페이지 목록 -->
-           <%for(int p=startPage; p<=endPage; p++) {%>
-           		<%if (p==currentPage) {%>
-            	<button disabled><%=p %></button>
-            	<%}else{ %>
-            	<button onclick= "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=p %>'"><%=p %></button>
-            	<%} %>
-            <%} %> 
-           
-            <!-- 다음 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=startPage+1 %>'" class="forAjaxBtn"> > </button><br><br>
-            
             <!-- 글 작성하기 insert 관리자만 가능하도록 나중에 추가 -->     
            <!--  <button id="insertBtn"onclick="location.href='views/faqBoard/faqBoardInsertForm.jsp'">작성하기</button> -->
             </div>
@@ -568,7 +603,16 @@
 
             //검색
             function searchtest123(){
+            	if(($("#forsearch")).val()==""){
+            		alert("검색어를 입력하세요");
+            	}else{
+            		
+            	}
             	$("#searchformtest").submit();
+            }
+          //검색 후 다시 돌아가기
+            function reload(){
+               location.href="<%=request.getContextPath()%>/list.fbo";
             }
             
         </script>

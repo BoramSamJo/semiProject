@@ -537,92 +537,101 @@ footer {
 
 /* 풋터 끝 */
 </style>
-<!-- calendar 만들기 -->
 <script>
-        var today = new Date();//내 컴퓨터 로컬을 기준 오늘 날짜
-        var date = new Date();//today의 Date를 세어주는 역할
-        var out = 1; // td태그 클릭시 다음태그의 색깔을 지워줄 변수
+var today = new Date();//내 컴퓨터 로컬을 기준 오늘 날짜
+var date = new Date();//today의 Date를 세어주는 역할
 
-        function prevCalendar() {//이전 달
-            today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()); // ex. 2020년 05월 01일
-            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-            //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
-            buildCalendar(); //달력 cell 만들어 출력 
+function buildCalendar() {//현재 달 달력 만들기
+    //올해 1일을 넣어둘 변수(ex. 이번달 기준 2020년6월1일)
+    var doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    //올해 마지막일을 넣어둘 변수(ex. 이번달 기준 2020년6월30일)
+    var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+    //올해, 2월 0일을 넣어둘 변수(이번달 마지막날), 매달 끝나는 달이 다르기때문에
+
+
+
+    var tbCalendar = document.getElementById("calendar");
+    //??년?월을 찍기위한 변수(ex. 2020년 6월)
+    var tbCalendarYM = document.getElementById("tbCalendarYM");
+    //테이블에 정확한 날짜 찍는 변수(html 태그에 보냄)
+    tbCalendarYM.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월";
+
+    /*while은 이번달이 끝나면 다음달로 넘겨주는 역할*/
+    // 이전달 or 다음달에 나올 tr 2줄까지 고정해주고 나머지는 다 지운다(즉 ??년??월 && (일~토)까지 만 아래 일은 지운다.)
+    while (tbCalendar.rows.length > 2) {
+        tbCalendar.deleteRow(tbCalendar.rows.length - 1);
+        //테이블의 tr 갯수 만큼의 열 묶음은 -1칸 해줘야지(제거시 고정됨)
+        //30일 이후로 담을달에 순서대로 열이 계속 이어진다.
+    }
+    var tr = null;
+    tr = tbCalendar.insertRow();
+    //테이블에 새로운 열 삽입//즉, 초기화
+    var cnt = 0; //셀의 갯수를 세어주는 역할
+
+    // console.log(doMonth.getDay());
+    /* 달마다 1일이 시작하는 요일을 0~6(일~토)로 반환하여 그전까지 공백을 만들어 비워둔다. */
+    for (i = 0; i < doMonth.getDay(); i++) { // getDay : 현재 요일 반환 0~6(일~토), ex. doMonth는 6월1일(월)의 값이 있는데 getDay메소드를 통해서 월요일인 1을 반환한다.
+        td = tr.insertCell();//td 열을 가로로 정렬해서 만들어준다(cell = td)
+        cnt++;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
+    }
+
+    /*달력 출력*/
+    for (i = 1; i <= lastDate.getDate(); i++) {
+
+        //1일부터 마지막 일까지 돌린다(ex. 올해 1일 ~ 30일까지)
+        td = tr.insertCell();//td 열을 가로로 정렬해서 만들어준다(cell = td)
+        td.innerHTML = i;//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
+
+
+
+        cnt++;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
+        // console.log("cnt : " + i); 
+
+        if (cnt % 7 == 0) {
+            // 토요일일 경우 다음 줄로 이동
+            tr = calendar.insertRow();
         }
-
-        function nextCalendar() {//다음 달
-            today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); // ex. 2020년 7월 01일
-            //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
-            //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
-            buildCalendar();//달력 cell 만들어 출력
+        /*오늘의 날짜에 노란색 칠하기*/
+        // 컴퓨터 로컬 날짜와 내가 만든 캘린더의 날짜를 비교하여 오늘날짜 구하기
+        if (today.getFullYear() == date.getFullYear() //getFullYear : 올해 년도를 반환
+            && today.getMonth() == date.getMonth()     // getMonth : 올해 이번달을 반환
+            && i == date.getDate()) {                  // getDate : 오늘날짜를 반환
+            td.bgColor = "#d2c4b9";
         }
-        
-        function buildCalendar() {//현재 달 달력 만들기
-            //올해 1일을 넣어둘 변수(ex. 이번달 기준 2020년6월1일)
-            var doMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-            //올해 마지막일을 넣어둘 변수(ex. 이번달 기준 2020년6월30일)
-            var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-            //올해, 2월 0일을 넣어둘 변수(이번달 마지막날), 매달 끝나는 달이 다르기때문에
-
-
-
-            var tbCalendar = document.getElementById("calendar");
-            //??년?월을 찍기위한 변수(ex. 2020년 6월)
-            var tbCalendarYM = document.getElementById("tbCalendarYM");
-            //테이블에 정확한 날짜 찍는 변수(html 태그에 보냄)
-            tbCalendarYM.innerHTML = today.getFullYear() + "년 " + (today.getMonth() + 1) + "월";
-
-            /*while은 이번달이 끝나면 다음달로 넘겨주는 역할*/
-            // 이전달 or 다음달에 나올 tr 2줄까지 고정해주고 나머지는 다 지운다(즉 ??년??월 && (일~토)까지 만 아래 일은 지운다.)
-            while (tbCalendar.rows.length > 2) {
-                tbCalendar.deleteRow(tbCalendar.rows.length - 1);
-                //테이블의 tr 갯수 만큼의 열 묶음은 -1칸 해줘야지(제거시 고정됨)
-                //30일 이후로 담을달에 순서대로 열이 계속 이어진다.
-            }
-            var tr = null;
-            tr = tbCalendar.insertRow();
-            //테이블에 새로운 열 삽입//즉, 초기화
-            var cnt = 0; //셀의 갯수를 세어주는 역할
-
-            // console.log(doMonth.getDay());
-            /* 달마다 1일이 시작하는 요일을 0~6(일~토)로 반환하여 그전까지 공백을 만들어 비워둔다. */
-            for (i = 0; i < doMonth.getDay(); i++) { // getDay : 현재 요일 반환 0~6(일~토), ex. doMonth는 6월1일(월)의 값이 있는데 getDay메소드를 통해서 월요일인 1을 반환한다.
-                td = tr.insertCell();//td 열을 가로로 정렬해서 만들어준다(cell = td)
-                cnt++;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
-            }
-
-            /*달력 출력*/
-            for (i = 1; i <= lastDate.getDate(); i++) {
-                //1일부터 마지막 일까지 돌린다(ex. 올해 1일 ~ 30일까지)
-                td = tr.insertCell();//td 열을 가로로 정렬해서 만들어준다(cell = td)
-                td.innerHTML = i;//셀을 1부터 마지막 day까지 HTML 문법에 넣어줌
-
-                // day별로 id 만들기(망할코드 No.1)
-                $(td).attr("id", td.innerHTML);
-
-                cnt++;//열의 갯수를 계속 다음으로 위치하게 해주는 역할
-                // console.log("cnt : " + i); 
-
-                if (cnt % 7 == 0) {
-                    // 토요일일 경우 다음 줄로 이동
-                    tr = calendar.insertRow();
-                }
-                /*오늘의 날짜에 노란색 칠하기*/
-                // 컴퓨터 로컬 날짜와 내가 만든 캘린더의 날짜를 비교하여 오늘날짜 구하기
-                if (today.getFullYear() == date.getFullYear() //getFullYear : 올해 년도를 반환
-                    && today.getMonth() == date.getMonth()     // getMonth : 올해 이번달을 반환
-                    && i == date.getDate()) {                  // getDate : 오늘날짜를 반환
-                    td.bgColor = "#d2c4b9";
-                }
-            }
-            
+        // 어제까지 모두  background-color: rgba(000, 000, 000, 0.7);
+        // 이번년,올해,오늘 이전 이번달만 색상변경됨(단점: 이전달은...?)
+        if (today.getFullYear() == date.getFullYear() //getFullYear : 올해 년도를 반환
+            && today.getMonth() == date.getMonth()
+            && i < date.getDate()) {
+            td.bgColor = "lightgray";
+            // var closetd = document.getElementById("#"+i);
+            // 오늘 이전의 날짜 id를 기억할 변수
+            // console.log(cloastd);
+            // closetd.removeEventListener('click',"#calendar td");
+        } else {
+            // 오늘날짜 이후만 id를 가져옴
+            $(td).attr("id", td.innerHTML);
         }
+    }
 
-        
+}
+
+function prevCalendar() {//이전 달
+    today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate()); // ex. 2020년 05월 01일
+    //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+    //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
+    buildCalendar(); //달력 cell 만들어 출력 
+}
+function nextCalendar() {//다음 달
+    today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate()); // ex. 2020년 7월 01일
+    //today.getFullYear() 현재 년도//today.getMonth() 월  //today.getDate() 일 
+    //getMonth()는 0~11을 반환하기때문에 이전달 or 다음달에는 -1/+1을 해줘야한다.
+    buildCalendar();//달력 cell 만들어 출력
+}
 
 
-    </script>
+  </script>
 </head>
 
 <body>
@@ -643,9 +652,9 @@ footer {
 				<div style="position: absolute;">
 					<table id="calendar" align="center" style="border-color: #d2c4b9">
 						<tr>
-							<th><label onclick="prevCalendar()"> << </label></th>
+							<th><label> << </label></th>
 							<th align="center" id="tbCalendarYM" colspan="5">yyyy년 m월</th>
-							<th><label onclick="nextCalendar()"> >> </label></th>
+							<th><label> >> </label></th>
 						</tr>
 						<tr>
 							<th align="center">일</th>
@@ -663,7 +672,7 @@ footer {
 					<p style="font-size: 20px; color: #d0b7b5; margin-top: 170px;">
 						<u>날짜를 선택하셨습니다.</u>
 					</p>
-					<button type="button" id="select_btn_date">▶ 날짜 다시 선택하기</button>
+					<button type="button" id="select_btn_date" onclick="reDate();">▶ 날짜 다시 선택하기</button>
 				</div>
 			</div>
 			<!-- 예약 시간을 띄워줄 div-->
@@ -992,19 +1001,8 @@ footer {
 			  $('#pKindMain').val('기타동물');
 		  } 
 		
-		/* if(options[0] == pKindMainR){
-			$("#pKindMain option[id='강아지']").prop({'selected':'selected'});
-		}else if(options[1] == pKindMainR){
-			$("#pKindMain option[value='고양이']").prop({'selected':'selected'});
-		}else if(options[2] == pKindMainR){
-			$("#pKindMain option[value='특수동물']").prop({'selected':'selected'});
-		} */
 	}
 	
-	/* 		
-			$("#pKindMain option[value='고양이']").prop({'selected':'selected'});
-			$("#pKindMain option[value='특수동물']").prop({'selected':'selected'});
-	 */		
 	</script>
 		<script>
 		 var date = $("#plusDate").val();
@@ -1028,149 +1026,129 @@ footer {
 		});
 			
 			
-			// input태그 값이 있는지 없는지 확인
-            // 이값들을 관리자에 뿌려준다?
-            /* $("#doReservationBtn").click(function () {
-                // 값을 넘겨주고 화면에 새로고침이 필요할경구
-                // window.location.reload(true);
-                if (!$("input").val() && !$("#plusDate").val() && !$("#plusTime").val()) {
-                    alert("모든 값을 입력해주세요");
-                } else {
-                    alert("예약이 접수 되었습니다.");
-                    var userName = $("#userName").val();
-                    var phone = $("#phone").val();
-                    var address = $("#address").val();
-                    console.log("userName : " + userName + " , " + "phone : " + phone + " , " + "address : " + address);
-
-                    var pName = $("#pName").val();
-                    var pWeight = $("#pWeight").val();
-                    var pKindMain = $("#pKindMain option:selected").val();
-                    var pKindServe = $("#pKindServe").val();
-                    console.log("pName : " + pName + " , " + "pWeight : " + pWeight + " , " + "pKindMain : " + pKindMain + " , " + "pKindServe : " + pKindServe);
-
-                    var Date = $("#plusDate").html()
-                    var Time = $("#plusTime").html()
-                    console.log("Date : " + Date + " , " + "Time : " + Time);
-                }
-
-            }); */
 		</script>
 		<!-- 클릭시 색깔입히고, 선택못하게 막는 함수 모음 -->
 		<script>
-            // day 클릭시 요일을 반환
-            // 날짜 클릭시 div화면을 가리고(투명도) 날짜를 다시 선택하라는 버튼을 눌렀을시 초기화
-            $("#calendar td").click(function () {
-                var dateText = $(this).text();
-                var datePrint = tbCalendarYM.innerHTML + dateText + "일"; // 날짜를 선택한 후에 아래 div에 나오게할 변수
+		for (var i = 1; i < 32; i++) {
+            if ($("#" + i).length) {
+                console.log(i); // 23~31
+                $("#" + i).click(function () {
+                    dateText = $(this).text();
+                    // console.log(dateText);
+                    var datePrint = tbCalendarYM.innerHTML + " " + dateText + "일"; // 날짜를 선택한 후에 아래 div에 나오게할 변수
+                    // 캘린더 아래 div에 날짜 출력
+                    // $("#plusDate").html("선택하신 날짜는 " + datePrint + " 입니다.");
+                    $("#plusDate").attr("value", datePrint);
+                    $(this).css({ "background": "#d0b7b5" });
 
-                // 캘린더 아래 div에 날짜 출력
-                // $("#plusDate").html("선택하신 날짜는 " + datePrint + " 입니다.");
-                $("#plusDate").attr("value",datePrint);
-                $(this).css({ "background": "#d0b7b5" });
+                    alert("날짜를 선택하셨습니다.");
 
-                alert("날짜를 선택하셨습니다.");
-
-                $("#removeDate").show();
-                // console.log(today.getDate());
-                if (today.getDate() == $("td:[id ^= '" + today.getDate() + "']").text()) { //today.getDate() = 12 /  td의 값중에서 오늘 날짜가 포함된 값을 출력
+                    $("#removeDate").show();
                     $("#" + today.getDate() + "").css({ "background": "none" });
-                }
-            });
-
-            // select_btn_date 버튼을 클릭시 화면을 reload(새로고침) 해준다.(야매)
-            $("#select_btn_date").click(function () {
-                $("#removeDate").hide();
-                $("#calendar td").css({ "background": "none" });
-
-                if (today.getDate() == $("td:[id ^= '" + today.getDate() + "']").text()) { //today.getDate() = 12 /  td의 값중에서 오늘 날짜가 포함된 값을 출력
-                    $("#" + today.getDate() + "").css({ "background": "#d2c4b9" });
-                }
-                $("#plusDate").attr("value","변경할 날짜를 선택해 주세요.");
                 
-            });
+                }); // click 함수 종료
+            } // if문 종료
+        } //for문 종료
 
-            // time 클릭시 시간을 반환
-            // 시간 클릭시 div화면을 가리고(투명도) 시간을 다시 선택하라는 버튼을 눌렀을시 초기화
-            $("#order td").click(function () {
-                var timeText = $(this).text(); // ex. 13:00
-               var time = timeText.substring(0, 2); //12를 기준으로 오전,오후를 뽑아내기위한 변수 ex. 13:00 => 13
-                // console.log(time);
-                if (time <= 12) {
-                    // $("#plusTime").html("선택하신 시간은 오전 " + timeText + " 입니다.");
-                    $("#plusTime").attr("value","오전 "+timeText);
-                } else {
-                    // $("#plusTime").html("선택하신 시간은 오후 " + timeText + " 입니다.");
-                    $("#plusTime").attr("value",timeText);
-                } 
-                $("#plusTime").attr("value","오후 "+timeText);
-                $(this).css({ "background": "#d0b7b5" });
-                alert("시간을 선택하셨습니다.");
-                $("#removeTime").show();
-            });
-            // select_btn_time 버튼을 클릭시 화면을 reload(새로고침) 해준다.(야매)
-            $("#select_btn_time").click(function () {
-                $("#removeTime").hide();
-                $("#order td").css({ "background": "none" });
-
-                $("#plusTime").attr("value","변경할 시간을 선택해 주세요.");
-            });
-            
-            
-
-             /* 장례서비스 클릭시 div 색상 변경 */
-             $("#showFS div").click(function(){
-                  
-  
-                        	alert("장례 서비스를 선택하셨습니다.")
-                            $(this).css({ "background": "#d0b7b5" });
-                            $("#removeFS").show();
-                            var select = $(this).text();
-                            $("#funeralSelect").attr("value",select);
+        // select_btn_Date 버튼을 클릭시 화면을 reload(새로고침) 해준다.(야매)
+        function reDate() {
+            // $("#select_btn_Date").click(function(){ //이상하게 실행이안됨
+            $("#removeDate").hide();
+            for (var i = 1; i < 32; i++) {
+                if ($("#" + i).length) {
+                    console.log("제거용 " + i);  //23~30
+                    if (i != today.getDate()) { // 23 < 24 25 26 27 28 29 30 
+                        console.log("실행");
+                    	$("#" + i).css({ "background": "none" });
+                        
+                    }else{
+                    	 //today.getDate() = 12 /  td의 값중에서 오늘 날짜가 포함된 값을 출력
+                           $("#" + today.getDate() + "").css({ "background": "#d2c4b9" });
+                    	}
+                    
  
-                    });
+                    $("#plusDate").attr("value", "변경할 날짜를 선택해 주세요.");
+                } // if문 종료
 
-                    /* 장례서비스 다시 선택하기 버튼 클릭시 초기화 */
-                    $("#select_btn_service").click(function(){
-                        $("#removeFS").hide();
-                        $("#showFS div").css({ "background": "none" });
-                        $("#funeralSelect").attr("value","다시선택해주세요.");
-                    });
-					/* 장례용품 선택사항 수의용  */
-                    $("#select1 tr td").click(function(){
-                            $(this).css({ "background": "#d0b7b5" });
-                            $("#removeSelect1").css({"visibility":"visible"});
-                            var select1 = $(this).text();
-                            $("#funeralSelect1").attr("value",select1);
-                        });
-                        $("#select_btn_select1").click(function(){
-                            $("#removeSelect1").css({"visibility":"hidden"});
-                            $("#select1 tr td").css({ "background": "none" });
-                            $("#funeralSelect1").attr("value","다시선택해주세요.");
-                        });
-						/* 장례용품 선택사항 관용 */
-                        $("#select2 tr td").click(function(){
-                            $(this).css({ "background": "#d0b7b5" });
-                            $("#removeSelect2").css({"visibility":"visible"});
-                            var select2 = $(this).text();
-                            $("#funeralSelect2").attr("value",select2);
-                        });
-                        $("#select_btn_select2").click(function(){
-                            $("#removeSelect2").css({"visibility":"hidden"});
-                            $("#select2 tr td").css({ "background": "none" });
-                            $("#funeralSelect2").attr("value","다시선택해주세요.");
-                        });
-						/* 장례용품 선택사항 화장후 선택용 */
-                        $("#select3 tr td").click(function(){
-                            $(this).css({ "background": "#d0b7b5" });
-                            $("#removeSelect3").css({"visibility":"visible"});
-                            var select3 = $(this).text();
-                            $("#funeralSelect3").attr("value",select3);
-                        });
-                        $("#select_btn_select3").click(function(){
-                            $("#removeSelect3").css({"visibility":"hidden"});
-                            $("#select3 tr td").css({ "background": "none" });
-                            $("#funeralSelect3").attr("value","다시선택해주세요.");
-                        });
+            } // for문 종료
+        } //click 이벤트 종료              
+
+
+
+        // time 클릭시 시간을 반환
+        // 시간 클릭시 div화면을 가리고(투명도) 시간을 다시 선택하라는 버튼을 눌렀을시 초기화
+        $("#order td").click(function () {
+            var timeText = $(this).text(); // ex. 13:00
+            var time = timeText.substring(0, 2); //12를 기준으로 오전,오후를 뽑아내기위한 변수 ex. 13:00 => 13
+            // console.log(time);
+            if (time <= 12) {               
+                $("#plusTime").attr("value", "오전 " + timeText);
+            } else {
+                $("#plusTime").attr("value", "오후 " + timeText);
+            }
+            $(this).css({ "background": "#d0b7b5" });
+            alert("시간을 선택하셨습니다.");
+            $("#removeTime").show();
+        });
+        // select_btn_time 버튼을 클릭시 화면을 reload(새로고침) 해준다.(야매)
+        $("#select_btn_time").click(function () {
+            $("#removeTime").hide();
+            $("#order td").css({ "background": "none" });
+
+            $("#plusTime").attr("value", "변경할 시간을 선택해 주세요.");
+        });
+
+        /* 장례서비스 클릭시 div 색상 변경 */
+        $("#showFS div").click(function () {
+            alert("장례 서비스를 선택하셨습니다.")
+            $(this).css({ "background": "#d0b7b5" });
+            $("#removeFS").show();
+            var select = $(this).text();
+            $("#funeralSelect").attr("value", select);
+        });
+
+        /* 장례서비스 다시 선택하기 버튼 클릭시 초기화 */
+        $("#select_btn_service").click(function () {
+            $("#removeFS").hide();
+            $("#showFS div").css({ "background": "none" });
+            $("#funeralSelect").attr("value", "다시선택해주세요.");
+        });
+
+        $("#select1 tr td").click(function () {
+            $(this).css({ "background": "#d0b7b5" });
+            $("#removeSelect1").css({ "visibility": "visible" });
+            var select1 = $(this).text();
+            $("#funeralSelect1").attr("value", select1);
+        });
+        $("#select_btn_select1").click(function () {
+            $("#removeSelect1").css({ "visibility": "hidden" });
+            $("#select1 tr td").css({ "background": "none" });
+            $("#funeralSelect1").attr("value", "다시선택해주세요.");
+        });
+
+        $("#select2 tr td").click(function () {
+            $(this).css({ "background": "#d0b7b5" });
+            $("#removeSelect2").css({ "visibility": "visible" });
+            var select2 = $(this).text();
+            $("#funeralSelect2").attr("value", select2);
+        });
+        $("#select_btn_select2").click(function () {
+            $("#removeSelect2").css({ "visibility": "hidden" });
+            $("#select2 tr td").css({ "background": "none" });
+            $("#funeralSelect2").attr("value", "다시선택해주세요.");
+        });
+
+        $("#select3 tr td").click(function () {
+            $(this).css({ "background": "#d0b7b5" });
+            $("#removeSelect3").css({ "visibility": "visible" });
+            var select3 = $(this).text();
+            $("#funeralSelect3").attr("value", select3);
+        });
+        $("#select_btn_select3").click(function () {
+            $("#removeSelect3").css({ "visibility": "hidden" });
+            $("#select3 tr td").css({ "background": "none" });
+            $("#funeralSelect3").attr("value", "다시선택해주세요.");
+        });
         </script>
 		<script>
             // 숫자외 다른 글자 입력시 바로 지우기            

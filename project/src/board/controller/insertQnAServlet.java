@@ -61,12 +61,12 @@ public class insertQnAServlet extends HttpServlet {
 		int mNo = new QnAService().selectMemberNo(userId);
 		
 		int result = new QnAService().insertQnaAsk(mNo, title, password, category, content);
-		
+		System.out.println(result);
 		RequestDispatcher view = null;
 		if(result>0) {
 			response.sendRedirect("QnAList.bo");
 		}else {
-			request.getRequestDispatcher("views/board/qnaDetailBaord.jsp").forward(request, response);
+			request.getRequestDispatcher("views/board/qnaBoard.jsp").forward(request, response);
 		}
 	}
 

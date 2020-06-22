@@ -469,8 +469,8 @@ footer {
 					</table>
 					<br>
 					<div id="btns">
-						<input type='button' value='취소' onclick="reset" id="reset">
-						<input type='submit' value='등록' onclick="upload" id='upload'>
+						<input type='button' value='취소' id="reset">
+						<input type='submit' value='등록' id='upload'>
 					</div>
 				</form>
 			</table>
@@ -553,7 +553,13 @@ footer {
                 })
                 
             })
-
+			
+            $(function(){
+                $('#upload').click(function(){
+                    location.href = '<%=request.getContextPath()%>/insertQnA.bo?currentPage=1';
+                })
+                
+            })
 
         </script>
 

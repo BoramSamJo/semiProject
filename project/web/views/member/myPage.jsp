@@ -572,7 +572,7 @@ footer p {
 					<tr class="hiddenPetInfo">
 						<td></td>
 						<td colspan="3" style="text-align:center">
-							<input type="hidden" name="animalNo">
+							<input type="hidden" name="animalNo" value="<%=anList.get(i).getaNo()%>">
 							<input type="text" name="changeName">
 							<select name="changeKind" style="height:30px;">
 								<option value="강아지">강아지</option>
@@ -820,19 +820,13 @@ footer p {
             type:"post",
             data:{userNo:userNo,animalNo:animalNo, name:name, kind:kind, detail:detail, weight:weight},
              success:function(data){
-               $(".petDetailInfo").html("");
                $(".petDetailInfo2").html("");
                 for(var key in data){
                    var $tr = $("<tr>");
                    var $name = $("<td>").text(data[key].aName);
                    var $kind = $("<td>").text(data[key].kind)
                    var $weight = $("<td>").text(data[key].weight)
-                   
-                   $(".petDetailInfo").append("<td>");
-                   $(".petDetailInfo").append($name);
-                   $(".petDetailInfo").append($kind);
-                   $(".petDetailInfo").append($weight);
-                   
+
                    $(".petDetailInfo2").append("<td>");
                    $(".petDetailInfo2").append($name);
                    $(".petDetailInfo2").append($kind);
@@ -840,6 +834,7 @@ footer p {
                 }
                    $("#changePetInfo2").css({"display":"none"});
                    $(".hiddenPetInfo").css({"display":"none"});
+                   window.location.reload();
              },
                error:function(request,status,error){
                   alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -960,19 +955,24 @@ footer p {
     <script>
        // 회원탈퇴
        function deleteUser(){
-          var userNo = '<%=m.getmNo()%>';
-          $.ajax({
-            url:"<%=request.getContextPath()%>/del.me",
-            type:"post",
-            data:{userNo:userNo},
-             success:function(data){
-               alert("회원 탈퇴를 성공하였습니다.");
-               location.href = "<%=request.getContextPath()%>/index.jsp";
-             },
-               error:function(request,status,error){
-                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-               }
-         });
+    	   if(confirm("정말 탈퇴하시겠습니까?")){
+    		  if(confirm("정말 탈퇴하시겠습니까?")){
+    			  var userNo = '<%=m.getmNo()%>';
+    	          $.ajax({
+    	            url:"<%=request.getContextPath()%>/del.me",
+    	            type:"post",
+    	            data:{userNo:userNo},
+    	             success:function(data){
+    	               alert("회원 탈퇴를 성공하였습니다.");
+    	               location.href = "<%=request.getContextPath()%>/index.jsp";
+    	             },
+    	               error:function(request,status,error){
+    	                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+    	               }
+    	         });
+    		  }; 
+    	   };
+          
        }
     </script>
     

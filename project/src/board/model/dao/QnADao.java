@@ -275,15 +275,15 @@ public class QnADao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = "INSERT INTO QNABOARD VALUES((SELECT NVL(MAX(Q_NO), 0)+1 FROM QNABOARD), ?, ?, ?, SYSDATE, SYSDATE, DEFAULT, ?, DEFAULT, ?)";
+		String query = "INSERT INTO QNABOARD VALUES((SELECT NVL(MAX(Q_NO), 0)+1 FROM QNABOARD), ?, ?, ?, ?, SYSDATE, SYSDATE, ?, 'N', 'Y')";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, mNo);
-			pstmt.setString(2, title);
-			pstmt.setString(3, content);
-			pstmt.setString(4, password);
-			pstmt.setInt(5, category);
+			pstmt.setInt(1, category);
+			pstmt.setInt(2, mNo);
+			pstmt.setString(3, title);
+			pstmt.setString(4, content);
+			pstmt.setString(5, password);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

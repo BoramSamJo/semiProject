@@ -1,6 +1,6 @@
 package board.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import board.model.vo.Attachment;
+import board.model.vo.Pagination;
 import board.model.vo.SbReply;
 import board.model.vo.SketchBoard;
 
@@ -74,8 +75,8 @@ public class SketchBoardDao {
 		}
 		return list;
 	}
-	
-	//전체 글 사진 불러오기
+
+	// 전체 글 사진 불러오기
 	public ArrayList<Attachment> selectFlist(Connection conn, ArrayList<SketchBoard> list) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -108,7 +109,7 @@ public class SketchBoardDao {
 			close(rs);
 		}
 
-		System.out.println("사진 : " +fList);
+		System.out.println("사진 : " + fList);
 		return fList;
 	}
 
@@ -307,8 +308,7 @@ public class SketchBoardDao {
 		return result;
 
 	}
-	
-	
+
 	// 댓글 작성
 	public int insertReply(Connection conn, SbReply r) {
 		PreparedStatement pstmt = null;
@@ -360,11 +360,10 @@ public class SketchBoardDao {
 			close(pstmt);
 			close(rs);
 		}
-		System.out.println("dao에서 댓글 : " + rList);
+//		System.out.println("dao에서 댓글 : " + rList);
 		return rList;
 	}
 
-	
 	public int selectMemberNo(Connection conn, String userId) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -391,7 +390,7 @@ public class SketchBoardDao {
 	}
 
 	// 게시글 검색
-	public ArrayList<SketchBoard> searchSketchBoard(Connection conn, int currentPage, int limit, String searchText) {
+	public ArrayList<SketchBoard> selectSearchList(Connection conn, int currentPage, int limit, String searchText) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
@@ -400,36 +399,31 @@ public class SketchBoardDao {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = currentPage * limit;
 
-		String query = "SELECT * FROM(SELECT ROWNUM RNUM, S.* FROM SKETCHBOARD S ORDER BY SB_NO DESC) WHERE (SB_TITLE LIKE ? OR SB_CONTENT LIKE ?) AND (RNUM BETWEEN ? AND ?) AND STATUS='Y'";
-        
-		try {	
-		pstmt = conn.prepareStatement(query);
-        pstmt.setString(1, "%"+searchText+"%");
-        pstmt.setString(2, "%"+searchText+"%");
-        pstmt.setInt(3, startRow);
-        pstmt.setInt(4, endRow);
-		
-        rs = pstmt.executeQuery();
-        
-        while(rs.next()) {
-        	SketchBoard sb = new SketchBoard(rs.getInt("SB_NO"),
-        									rs.getInt("MEMBER_NO"),
-        									rs.getString("SB_TITLE"),
-        									rs.getString("SB_CONTENT"),
-        									rs.getDate("CREATE_DATE"),
-        									rs.getDate("MODIFY_DATE"),
-        									rs.getInt("COUNT"),
-        									rs.getString("STATUS"));
-        	list.add(sb);	
-        }
-		}catch(SQLException e) {
-		      e.printStackTrace();
-		   }finally {
-		      close(pstmt);
-		      close(rs);
-		   }
-		   
-		System.out.println("검색 후 리스트 : " + list);
+		String query = "SELECT * FROM(SELECT ROWNUM RNUM, S.* FROM SKETCHBOARD S WHERE STATUS = 'Y' AND ((SB_TITLE LIKE ?) OR (SB_CONTENT LIKE ?)) ORDER BY SB_NO DESC) WHERE RNUM BETWEEN ? AND ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + searchText + "%");
+			pstmt.setString(2, "%" + searchText + "%");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				SketchBoard sb = new SketchBoard(rs.getInt("SB_NO"), rs.getInt("MEMBER_NO"), rs.getString("SB_TITLE"),
+						rs.getString("SB_CONTENT"), rs.getDate("CREATE_DATE"), rs.getDate("MODIFY_DATE"),
+						rs.getInt("COUNT"), rs.getString("STATUS"));
+				list.add(sb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+
+//		System.out.println("검색 후 dao 리스트 : " + list);
 		return list;
 	}
 
@@ -437,23 +431,23 @@ public class SketchBoardDao {
 	public int modifyReply(Connection conn, SbReply sr) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
-		System.out.println("dao에서 수정rNo : " + sr.getrNo());
-		System.out.println("dao에서 댓글수정 : " + sr.getrContent());
-		System.out.println("dao에서 수정mNo : " + sr.getMemberNo());
-		System.out.println("dao에서 수정sbNo : " + sr.getSbNo());
-		
+
+//		System.out.println("dao에서 수정rNo : " + sr.getrNo());
+//		System.out.println("dao에서 댓글수정 : " + sr.getrContent());
+//		System.out.println("dao에서 수정mNo : " + sr.getMemberNo());
+//		System.out.println("dao에서 수정sbNo : " + sr.getSbNo());
+
 		String query = "UPDATE SB_REPLY SET R_CONTENT=?, MODIFY_DATE=SYSDATE WHERE R_NO=? AND SB_NO=? AND MEMBER_NO=?";
-		
+
 		try {
-			
+
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, sr.getrContent());
 			pstmt.setInt(2, sr.getrNo());
 			pstmt.setInt(3, sr.getSbNo());
-			pstmt.setInt(4, sr.getMemberNo()); 
+			pstmt.setInt(4, sr.getMemberNo());
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -461,7 +455,7 @@ public class SketchBoardDao {
 		}
 
 		return result;
-		
+
 	}
 
 	// 댓글 삭제
@@ -469,21 +463,22 @@ public class SketchBoardDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		System.out.println("dao에서 삭제rNo : " + sr.getrNo());
-		System.out.println("dao에서 삭제mNo : " + sr.getMemberNo());
-		System.out.println("dao에서 삭제sbNo : " + sr.getSbNo());
-		
-		String query = "UPDATE SB_REPLY SET STATUS='N' WHERE R_NO=? AND SB_NO=? AND MEMBER_NO=?";
-		
+//		System.out.println("dao에서 삭제rNo : " + sr.getrNo());
+//		System.out.println("dao에서 삭제mNo : " + sr.getMemberNo());
+//		System.out.println("dao에서 삭제sbNo : " + sr.getSbNo());
+
+		String query = "";
+
 		try {
-			
+
+			query = "UPDATE SB_REPLY SET STATUS='N' WHERE R_NO=? AND SB_NO=? AND MEMBER_NO=?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, sr.getrNo());
 			pstmt.setInt(2, sr.getSbNo());
-			pstmt.setInt(3, sr.getMemberNo()); 
-			
+			pstmt.setInt(3, sr.getMemberNo());
+
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -492,32 +487,106 @@ public class SketchBoardDao {
 
 		return result;
 	}
-
 
 	public int manageDeleteReply(Connection conn, SbReply sr) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 
-		System.out.println("dao에서 삭제mNo : " + sr.getMemberNo());
-		System.out.println("dao에서 삭제sbNo : " + sr.getSbNo());
-		
+//		System.out.println("dao에서 rNo : "+sr);
 		String query = "UPDATE SB_REPLY SET STATUS='N' WHERE R_NO=? AND SB_NO=?";
-		
+
 		try {
-			
+
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, sr.getrNo());
 			pstmt.setInt(2, sr.getSbNo());
- 
-			
+
 			result = pstmt.executeUpdate();
-			
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+//		System.out.println(result);
+		return result;
+	}
+
+	public ArrayList<SbReply> selectManageReply(Connection conn, int sbNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<SbReply> rList = new ArrayList<>();
+
+		String query = "SELECT * FROM (SELECT R_NO, S.SB_NO, S.MEMBER_NO, R_CONTENT, CREATE_DATE, S.MODIFY_DATE, S.STATUS, M.MEMBER_NAME FROM SB_REPLY S JOIN MEMBER M ON(S.MEMBER_NO = M.MEMBER_NO) ORDER BY CREATE_DATE DESC) WHERE SB_NO = ? AND STATUS='Y'";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sbNo);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				rList.add(new SbReply(rs.getInt("R_NO"), rs.getInt("SB_NO"), rs.getInt("MEMBER_NO"),
+						rs.getString("R_CONTENT"), rs.getDate("CREATE_DATE"), rs.getDate("MODIFY_DATE"),
+						rs.getString("STATUS"), rs.getString("MEMBER_NAME")));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+//		System.out.println("dao에서 댓글 : " + rList);
+		return rList;
+	}
+
+	public int manageDeleteList(Connection conn, int sbNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		String query = "UPDATE SKETCHBOARD SET STATUS='N' WHERE SB_NO=?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, sbNo);
+
+			result += pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int searchListCount(Connection conn, String searchText) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+
+		String query = "SELECT COUNT(*) FROM(SELECT ROWNUM RNUM, S.* FROM SKETCHBOARD S WHERE STATUS = 'Y' ORDER BY SB_NO DESC) WHERE SB_TITLE LIKE ? OR SB_CONTENT LIKE ?";
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + searchText + "%");
+			pstmt.setString(2, "%" + searchText + "%");
+
+			System.out.println("dao에서 : " + searchText);
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				result += rs.getInt(1);
+			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-
+//		System.out.println("검색 게시글 수 : " + result);
 		return result;
 	}
+
 }

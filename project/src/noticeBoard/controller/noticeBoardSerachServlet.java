@@ -60,6 +60,7 @@ public class noticeBoardSerachServlet extends HttpServlet {
 			request.setAttribute("pn", pn);
 			request.setAttribute("selectBox", selectBox);
 			request.setAttribute("word",word);
+			request.setAttribute("isSearch", "true");
 			view=request.getRequestDispatcher("views/noticeBoard/noticeBoardListView.jsp");
 			
 		}else {

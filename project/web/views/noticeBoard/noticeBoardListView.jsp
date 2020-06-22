@@ -19,6 +19,23 @@
 	
     %>
     
+    <%
+	String word="";
+   String selectBox="";
+   String isSearch = (String)request.getAttribute("isSearch");
+   if(isSearch==null){
+      isSearch="false";
+   }else{
+      isSearch="true";
+      word=(String)request.getAttribute("word");
+      selectBox=(String)request.getAttribute("selectBox");
+   }
+   
+	System.out.println(isSearch);   
+%>
+
+    
+    
 	
 <!DOCTYPE html>
 <html>
@@ -664,13 +681,13 @@
         <div id = 'headline'><span onclick="goNoti()">공지사항</span><span onclick="goFAQ()">FAQ</span><span onclick="goQNA()">QnA</span></div>
 
         <!-- 검색하기 기능 -->
-          <select name="selectBox" >
-                <option selected disabled>카테고리 선택</option>
+          <select name="selectBox" id="forselect" >
+                <option value="">카테고리 선택</option>
                 <option value="ntilte">제목</option>
                 <option value="ncontent">내용</option>
                 <option value="ntitle_content">제목+내용</option>
             </select>
-        <input type="text" name="word" value="">&nbsp;
+        <input type="text" name="word" id="forsearch" value="">&nbsp;
         <button type="button" onclick="searchtest123();">검색</button>
         </form>
          <!--공지사항 테이블-->
@@ -699,20 +716,38 @@
                 	<%} %>
                 <%} %>
             </table><br>
-            <!-- 이전 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=endPage-1 %>'"> < </button>
-            <!-- 페이지 목록 -->
-           <%for(int p=startPage; p<=endPage; p++) {%>
-           		<%if (p==currentPage) {%>
-            	<button disabled><%=p %></button>
-            	<%}else{ %>
-            	<button onclick= "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=p %>'"><%=p %></button>
-            	<%} %>
-            <%} %> 
-           
-            <!-- 다음 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
-
+            <%if(pn.getListCount()==0){%>
+               
+            <%}else{ %>
+               <%if(isSearch.equals("false")) {%>
+                      <!-- 이전 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=endPage-1 %>'"> < </button>
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                             <button disabled><%=pg %></button>
+                     <%}else{ %>
+                             <button onclick= "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=pg %>'"><%=pg %></button>
+                          <%} %>
+                       <%} %>
+                       <!-- 다음 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
+                    
+   
+               <!-- 검색 후 -->
+                    <%}else{ %> 
+                     <!-- 이전 페이지 -->
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                              <button disabled><%=pg %></button><br><br><br>
+                     <%}else{ %>
+                             <%-- <button onclick="location.href='<%=request.getContextPath() %>/search.bo?currentPage=<%=pg %>&content=<%=word %>&selectBox=<%=selectBox%>';"><%=pg %></button> --%>
+                          <%} %>
+                       <%} %>
+                    <%}%>
+                 <%}%>
+                  <%if(isSearch.equals("true")){ %>
+           <button onclick="reload();">전체보기</button><br><br>
+           <%} %>
         </div>
   
    <!-- 잘 뽑아오는 지 확인 -->      
@@ -773,6 +808,7 @@
 
     <!------------------------------------------------------------------------------------------------------------------------------------------>
      <script src = "http://code.jquery.com/jquery-latest.min.js"></script>
+   
     <script>
     //공지사항 세부사항 보는 페이지로 넘어가기
     $(function(){
@@ -788,8 +824,17 @@
     
     //검색
     function searchtest123(){
+    	if(($("#forsearch")).val()=="" ||($("#forselect")).val()==""){
+    		alert("검색어를 입력하세요");
+    	}else{	
     	$("#searchformtest").attr("action","<%=request.getContextPath()%>/search.bo");
     	$("#searchformtest").submit();
+    	}
+    }
+    
+  //검색 후 다시 돌아가기
+    function reload(){
+       location.href="<%=request.getContextPath()%>/list.bo";
     }
     
     //FAQ로 이동

@@ -451,7 +451,7 @@ footer {
 			<form>
 			<textarea rows="5" cols="150" placeholder="댓글을 남겨보세요"
 				id="replyContent"></textarea>
-			<button type="button" id="replySubmit">등록</button>
+			<button type="button" id="replySubmit" value="1">등록</button>
 			</form>
 		</div>
 		<!--글 목록 버튼 클릭 시 화면 전환 필요함-->
@@ -522,10 +522,14 @@ footer {
             var sbNo = <%=sb.getSbNo()%>;
     			           		   
 			// 댓글 작성, 수정, 삭제
-           $("button[type='button']").click(function(){
-				if($(this).text() == "등록"){
+         $("button[type='button']").click(function(){
+       			
+				if(($(this).text() == "등록") && $(this).val() == "1"){
 					/* alert($(this).text()); */
 					var rContent = $("#replyContent").val();
+					if(rContent == ""){
+						alert("댓글을 입력하세요")
+					}else{
   	           		
 					$.ajax({
                			url:"<%=request.getContextPath()%>/insertReply.sb",
@@ -540,12 +544,12 @@ footer {
                					if(i==0){
                						var $tr1 = $("<tr>");
                						/* var inner1="<img src="img/talk.png">&nbsp;<span>댓글</span>" */
-               						var $td1 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/talk.png'>&nbsp;<span>댓글</span>");
+               						var $td1 = $("<td>").attr("colspan","3").html("<img src='img/talk.png'>&nbsp;<span>댓글</span>");
                						$tr1.append($td1);
                						
                						var $tr2 = $("<tr>");
                						/* var inner2="<img src="img/user.png">&nbsp;<span>댓글</span>" */
-               						var $td2 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
+               						var $td2 = $("<td>").attr("colspan","3").html("<img src='img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
                						$tr2.append($td2);
                						
                						var $tr3 = $("<tr>");
@@ -573,7 +577,7 @@ footer {
                							
                							var $tr2 = $("<tr>");
                    						/* var inner2="<img src="img/user.png">&nbsp;<span>댓글</span>" */
-                   						var $td2 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
+                   						var $td2 = $("<td>").attr("colspan","3").html("<img src='img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
                    						$tr2.append($td2);
                    						
                    						var $tr3 = $("<tr>");
@@ -602,18 +606,20 @@ footer {
 			           				$("#replyContent").val("");
 
               					}
+               				location.reload();
   	           			},
   	           			error:function(request,status,error){
   	                           alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
   	                       }
   	           			
   	           		})
-  	           		location.reload();
+				}
 				}
 					
         	   
 				else if($(this).text() == "수정"){
 				/* alert($(this).text()); */
+					$("#replySubmit").attr("value","2");
 					var mNo2 = $(this).parent().parent().children().children().eq(1).val();
 /* 	    			console.log(mNo2);  */
 	    			var rNo = $(this).parent().parent().children().children().eq(0).val();
@@ -651,12 +657,12 @@ footer {
 	               					if(i==0){
 	               						var $tr1 = $("<tr>");
 	               						/* var inner1="<img src="img/talk.png">&nbsp;<span>댓글</span>" */
-	               						var $td1 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/talk.png'>&nbsp;<span>댓글</span>");
+	               						var $td1 = $("<td>").attr("colspan","3").html("<img src='img/talk.png'>&nbsp;<span>댓글</span>");
 	               						$tr1.append($td1);
 	               						
 	               						var $tr2 = $("<tr>");
 	               						/* var inner2="<img src="img/user.png">&nbsp;<span>댓글</span>" */
-	               						var $td2 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
+	               						var $td2 = $("<td>").attr("colspan","3").html("<img src='img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
 	               						$tr2.append($td2);
 	               						
 	               						var $tr3 = $("<tr>");
@@ -684,7 +690,7 @@ footer {
 	               							
 	               							var $tr2 = $("<tr>");
 	                   						/* var inner2="<img src="img/user.png">&nbsp;<span>댓글</span>" */
-	                   						var $td2 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
+	                   						var $td2 = $("<td>").attr("colspan","3").html("<img src='img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
 	                   						$tr2.append($td2);
 	                   						
 	                   						var $tr3 = $("<tr>");
@@ -713,7 +719,7 @@ footer {
 				           				$("#replyContent").val("");
 
 	              					}
-	               				
+	               				location.reload();
 	               			},
 	               			error:function(request,status,error){
 	                               alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -749,12 +755,12 @@ footer {
                					if(i==0){
                						var $tr1 = $("<tr>");
                						/* var inner1="<img src="img/talk.png">&nbsp;<span>댓글</span>" */
-               						var $td1 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/talk.png'>&nbsp;<span>댓글</span>");
+               						var $td1 = $("<td>").attr("colspan","3").html("<img src='img/talk.png'>&nbsp;<span>댓글</span>");
                						$tr1.append($td1);
                						
                						var $tr2 = $("<tr>");
                						/* var inner2="<img src="img/user.png">&nbsp;<span>댓글</span>" */
-               						var $td2 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
+               						var $td2 = $("<td>").attr("colspan","3").html("<img src='img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
                						$tr2.append($td2);
                						
                						var $tr3 = $("<tr>");
@@ -781,7 +787,7 @@ footer {
                						}else{
                							var $tr2 = $("<tr>");
                    						/* var inner2="<img src="img/user.png">&nbsp;<span>댓글</span>" */
-                   						var $td2 = $("<td>").attr("colspan","3").html("<img src='<%=request.getContextPath()%>/img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
+                   						var $td2 = $("<td>").attr("colspan","3").html("<img src='img/user.png'>&nbsp;<span>댓글</span>").text(data[i].memberName);
                    						$tr2.append($td2);
                    						
                    						var $tr3 = $("<tr>");
@@ -814,11 +820,10 @@ footer {
                            }
                		})
         			}else{
+						alert("댓글은 작성자만 삭제가능합니다.");
         				
         			}}else{
-					alert("댓글은 작성자만 삭제가능합니다.");
 				}
-					
            })
           
             

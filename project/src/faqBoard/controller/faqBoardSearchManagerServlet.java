@@ -83,6 +83,9 @@ public class faqBoardSearchManagerServlet extends HttpServlet {
 		if(list!=null) {
 			request.setAttribute("list", list);
 			request.setAttribute("fpn", fpn);
+			  request.setAttribute("selectBox", selectBox);
+		         request.setAttribute("word", word);
+
 			request.getRequestDispatcher("views/manage/manageFaqBoard.jsp").forward(request, response);
 			
 		}else {

@@ -82,6 +82,8 @@ public class faqBoardSercahServlet extends HttpServlet {
 			view = request.getRequestDispatcher("views/faqBoard/faqBoardListView.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("fpn", fpn);
+			request.setAttribute("word", word);
+			 request.setAttribute("isSearch","true");
 		}else {
 			view=request.getRequestDispatcher("views/common/errorPage.jsp");
 		}view.forward(request, response);

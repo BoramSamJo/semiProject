@@ -584,7 +584,7 @@
 		                 <%} %>
 		                 <button onclick="location.href='<%=request.getContextPath() %>/search.ins?currentPage=<%=currentPage+1 %>&content=<%=searchText %>&selectSearch=<%=searchKey%>';" class="pagingBtns" >></button>
 		                 &nbsp;
-		                 <button onclick="location.href='<%=request.getContextPath() %>/search.ins?currentPage=<%=maxPage %>&scontent=<%=searchText %>&selectSearch=<%=searchKey%>';" class="pagingBtns" >>></button>
+		                 <button onclick="location.href='<%=request.getContextPath() %>/search.ins?currentPage=<%=maxPage %>&content=<%=searchText %>&selectSearch=<%=searchKey%>';" class="pagingBtns" >>></button>
 	                 <%}%>
                  <%}%>
         </section>

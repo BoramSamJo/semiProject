@@ -261,13 +261,13 @@
         <div id = 'headline'><span onclick="goNoti()">공지사항</span><span onclick="goFAQ()">FAQ</span><span  onclick="location.href='<%=request.getContextPath()%>/manageQList.bo';">QnA</span></div>
 
         <!-- 검색하기 기능 -->
-          <select name="selectBox" style="border:1px solid #b3a193">
-                <option selected disabled>카테고리 선택</option>
+          <select name="selectBox" id="forselect" style="border:1px solid #b3a193">
+                <option value="">카테고리 선택</option>
                 <option value="ntilte">제목</option>
                 <option value="ncontent">내용</option>
                 <option value="ntitle_content">제목+내용</option>
             </select>
-        <input type="text" name="word" value="">&nbsp;
+        <input type="text" name="word" id="forsearch" value="">&nbsp;
         <button type="button" onclick="searchtest123();" id="searchBtn">검색</button>
         </form>
          <!--공지사항 테이블-->
@@ -347,8 +347,13 @@
     
     //검색
     function searchtest123(){
+    	if(($("#forsearch")).val()=="" || ($("#forselect")).val()==""){
+    		alert("검색어를 입력하세요");
+    	}else{
+    		
     	$("#searchformtest").attr("action","<%=request.getContextPath()%>/managesearch.nbo");
     	$("#searchformtest").submit();
+    	}
     }
     
     

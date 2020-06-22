@@ -37,6 +37,7 @@ public class faqBoardListViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		
+		
 		faqBoardService fService = new faqBoardService();
 		
 	
@@ -99,6 +100,9 @@ public class faqBoardListViewServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("fpn", fpn);
 			request.setAttribute("faqBoard", faqBoard);
+			 
+			  
+
 			request.getRequestDispatcher("views/faqBoard/faqBoardListView.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("views/noticeBoard/noticeBoardListView.jsp").forward(request, response);;
