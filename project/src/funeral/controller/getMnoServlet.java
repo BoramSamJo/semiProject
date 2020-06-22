@@ -1,6 +1,7 @@
 package funeral.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Animal;
 import member.model.vo.Member;
 
 /**
@@ -35,14 +37,21 @@ public class getMnoServlet extends HttpServlet {
 		
 		int mNo = new MemberService().selectMemberNo(userId);
 		
+		// member의 번호,아이디,비번, 전번, 주소
+		Member member = new MemberService().selectMember(mNo);
+		System.out.println(member);
+		
+		ArrayList<Animal> animal = new MemberService().selectAllAnimal();
 		
 		RequestDispatcher view = null;
 		if(mNo!=0) {
-			request.setAttribute("mNo", mNo);
-			view = request.getRequestDispatcher("views/funeral/renovation.jsp");
+			request.setAttribute("member", member);
+			request.setAttribute("animal", animal);
+			view = request.getRequestDispatcher("views/funeral/reservation.jsp");
 		}else {
-			request.setAttribute("mNo", mNo);
-			view = request.getRequestDispatcher("views/funeral/renovation.jsp");
+			request.setAttribute("member", member);
+			request.setAttribute("animal", animal);
+			view = request.getRequestDispatcher("views/funeral/reservation.jsp");
 		}
 		view.forward(request, response);
 	}

@@ -22,6 +22,18 @@ public class Member implements Serializable{
 	
 	public Member() {
 	}
+	
+	
+	public Member(int mNo, String mId, String mPwd, String mName, String phone, String address) {
+		this.mNo = mNo;
+		this.mId = mId;
+		this.mPwd = mPwd;
+		this.mName = mName;
+		this.phone = phone;
+		this.address = address;
+	}
+
+
 	public Member(int mNo,  String mId, String mPwd, String mName, String phone, String email,
 			String address, String enrollDate, String modifyDate, String status) {
 		this.mNo = mNo;

@@ -28,6 +28,8 @@ public class Animal implements Serializable{
 	}
 	
 	
+
+
 	public String getaNo() {
 		return aNo;
 	}

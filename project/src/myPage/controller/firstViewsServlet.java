@@ -41,14 +41,15 @@ public class firstViewsServlet extends HttpServlet {
 		ArrayList<CalendarViews> rList = new ArrayList<>();	// 장례예약정보 리스트
 		ArrayList<IList> iList = new ArrayList<>();		// 보험가입정보 리스트
 		
-		Member m = (Member)session.getAttribute("loginUser");
+		Member m2 = (Member)session.getAttribute("loginUser");
 		
 		RequestDispatcher view = null;
 		
-		if(m != null) {
-			rList = MemberService.reservationUpdate(m.getmNo());
-			aList = MemberService.animalUpdate(m.getmNo());
-			iList = MemberService.insuranceUpdate(m.getmNo());
+		if(m2 != null) {
+			Member m = MemberService.searchMember(m2.getmNo());
+			rList = MemberService.reservationUpdate(m2.getmNo());
+			aList = MemberService.animalUpdate(m2.getmNo());
+			iList = MemberService.insuranceUpdate(m2.getmNo());
 			System.out.println("iList : "+iList);
 			System.out.println("rList : "+rList);
 			System.out.println("aList : "+aList);
@@ -57,6 +58,7 @@ public class firstViewsServlet extends HttpServlet {
 			request.setAttribute("rList", rList);
 			request.setAttribute("aList", aList);
 			request.setAttribute("iList", iList);
+			System.out.println(m);
 		}else {
 			view = request.getRequestDispatcher("index.jsp");
 			request.setAttribute("msg", "로그인을 해주세요");

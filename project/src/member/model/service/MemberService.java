@@ -182,5 +182,25 @@ public class MemberService {
 		return member;
 	}
 
+	public Member selectMember(int mNo) {
+		Connection conn = getConnection();
+		
+		Member member = new MemberDao().selectMember(conn, mNo);
+		
+		close(conn);
+		
+		return member;
+	}
+
+	public Member memberdata(String phone) {
+			Connection conn = getConnection();
+			Member member = new MemberDao().memberdata(conn,phone);
+			close(conn);
+			return member;
+	
+	}
+
+	
+
 
 }

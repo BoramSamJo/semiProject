@@ -18,7 +18,7 @@ public class SketchBoardDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String query = "SELECT COUNT(*) FROM SKETCHBOARD";
+		String query = "SELECT COUNT(*) FROM SKETCHBOARD WHERE STATUS = 'Y'";
 
 		int listCount = 0;
 
@@ -50,7 +50,7 @@ public class SketchBoardDao {
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow = currentPage * limit;
 
-		String query = "SELECT * FROM(SELECT ROWNUM RNUM, S.* FROM SKETCHBOARD S ORDER BY SB_NO DESC) WHERE (RNUM BETWEEN ? AND ?) AND STATUS = 'Y'";
+		String query = "SELECT * FROM(SELECT ROWNUM RNUM, S.* FROM SKETCHBOARD S WHERE STATUS = 'Y' ORDER BY SB_NO DESC) WHERE RNUM BETWEEN ? AND ?";
 
 		try {
 			pstmt = conn.prepareStatement(query);

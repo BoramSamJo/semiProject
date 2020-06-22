@@ -29,7 +29,7 @@
 	      events: [
 	      <%for(int i=0; i<clist.size(); i++){ %>
 	          {
-	            title: '<%=clist.get(i).getProductName()%>장례'+'<%=clist.get(i).getReservationTime()%>시',
+	            title: '<%=clist.get(i).getProductName()%>장례 '+' <%=clist.get(i).getReservationTime()%>',
 	            start: '<%=clist.get(i).getReservationDate()%>',
 				id: '<%=clist.get(i).getReservationNo()%>'
 	          },
@@ -72,7 +72,7 @@
     			$("#hiddenRName").text("<%=clist.get(i).getProductName()%>");
     			$("#hiddenRDate").text("<%=clist.get(i).getReservationDate().substring(0,10)%>");
     			$("#hiddenRPrice").text("<%=clist.get(i).getPrice()%>");
-    			$("#hiddenRTime").text("<%=clist.get(i).getReservationTime()%>시");
+    			$("#hiddenRTime").text("<%=clist.get(i).getReservationTime()%>");
     			$("#hiddenAKind").text("<%=clist.get(i).getKind()%>");
     			$("#hiddenAWeight").text("<%=clist.get(i).getWeight()%>kg");
     			$("[name=deleteRNo]").val(<%=clist.get(i).getReservationNo()%>);
@@ -1486,6 +1486,9 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 {
 	border:none;
 }
+.fc-time{
+   display : none;
+}
 </style>
 </head>
 <body>
@@ -1573,15 +1576,16 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 			                	<td>예약 시간</td>
 			                	<td>
 				                	<select name="changeRTime">
-				                		<option value="11">오전 11시</option>
-				                		<option value="12">오후 12시</option>
-				                		<option value="1">오후 1시</option>
-				                		<option value="2">오후 2시</option>
-				                		<option value="3">오후 3시</option>
-				                		<option value="4">오후 4시</option>
-				                		<option value="5">오후 5시</option>
-				                		<option value="6">오후 6시</option>
-				                	</select>
+	                                  <option value="오전 9시 30분">오전 9시 30분</option>
+	                                  <option value="오전 10시 30분">오전 10시 30분</option>
+	                                  <option value="오전 11시 30분">오전 11시 30분</option>
+	                                  <option value="오후  1시">오후 1시</option>
+	                                  <option value="오후  2시">오후 2시</option>
+	                                  <option value="오후  3시">오후 3시</option>
+	                                  <option value="오후  4시">오후 4시</option>
+	                                  <option value="오후  5시">오후 5시</option>
+	                                  <option value="오후  6시">오후 6시</option>
+	                               </select>
 				                </td>
 			                </tr>
 			                <input type="hidden" id="hiddenRNo">

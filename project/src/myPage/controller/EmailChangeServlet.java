@@ -37,9 +37,9 @@ public class EmailChangeServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		
 		Member m = new Member(userId, email);
-		
+		System.out.println(m);
 		Member m2 = MemberService.changeEmail(m);
-		
+		System.out.println(m2);
 		PrintWriter out = response.getWriter();
 		out.print(m2.getEmail());
 		

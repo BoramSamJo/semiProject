@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import myPage.model.service.MemberService;
 
@@ -34,7 +35,8 @@ public class DeleteMemberServlet extends HttpServlet {
 		int userNo = Integer.valueOf(request.getParameter("userNo"));
 		
 		int result = MemberService.deleteUser(userNo);
-		
+		HttpSession session = request.getSession();
+		session.invalidate();
 		if(result>0) {
 			request.getSession().invalidate();
 			//로그인 유지역할하던 쿠키까지 삭제

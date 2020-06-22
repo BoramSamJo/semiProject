@@ -48,7 +48,7 @@ public class MemberDao {
 		ResultSet rs = null;
 		Member member = null;
 		
-		String query = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ?";
+		String query = "SELECT * FROM MEMBER WHERE MEMBER_ID = ? AND MEMBER_PWD = ? AND STATUS='Y'";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -476,6 +476,79 @@ public class MemberDao {
 		
 		return member;
 	}
+
+	public Member selectMember(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member member = null;
+		
+		String query = "SELECT * FROM MEMBER WHERE MEMBER_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				member = new Member(rs.getInt("MEMBER_NO"),
+									rs.getString("MEMBER_ID"),
+									rs.getString("MEMBER_PWD"),
+									rs.getString("MEMBER_NAME"),
+									rs.getString("PHONE"),
+									rs.getString("ADDRESS"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		
+		return member;
+	}
+
+	public Member memberdata(Connection conn, String phone) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member member = null;
+		
+		String query = "SELECT * FROM MEMBER WHERE PHONE=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, phone);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {							
+				member = new Member(rs.getInt("MEMBER_NO")
+						, rs.getString("MEMBER_ID")
+						, rs.getString("MEMBER_PWD")
+						, rs.getString("MEMBER_NAME")
+						, rs.getString("PHONE")
+						, rs.getString("EMAIL")
+						, rs.getString("ADDRESS")
+						, rs.getString("ENROLL_DATE")
+						, rs.getString("MODIFY_DATE")
+						, rs.getString("STATUS")
+						, rs.getString("MAIL_SERVICE"));		
+			
+			
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return member;
+	}
+
+
 
 
 

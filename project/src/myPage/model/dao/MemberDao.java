@@ -293,6 +293,40 @@ public class MemberDao {
 		return result;
 	}
 
+	public static Member searchMember(Connection conn, int mNo) {
+	      PreparedStatement pstmt = null;
+	      ResultSet rs = null;
+	      Member m = null;
+	      
+	      String query = "SELECT * FROM MEMBER WHERE MEMBER_NO=? AND STATUS='Y'";
+	      
+	      try {
+	         pstmt = conn.prepareStatement(query);
+	         pstmt.setInt(1, mNo);
+	         rs = pstmt.executeQuery();
+	         while(rs.next()) {
+	            m = new Member(rs.getInt("MEMBER_NO"),
+	                        rs.getString("MEMBER_ID"),
+	                        rs.getString("MEMBER_PWD"),
+	                        rs.getString("MEMBER_NAME"),
+	                        rs.getString("PHONE"),
+	                        rs.getString("EMAIL"),
+	                        rs.getString("ADDRESS"),
+	                        rs.getString("ENROLL_DATE"),
+	                        rs.getString("MODIFY_DATE"),
+	                        rs.getString("STATUS")
+	                        );
+	         }
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(pstmt);
+	         close(rs);
+	      }
+	      
+	      return m;
+	   }
+
 	
 
 }
