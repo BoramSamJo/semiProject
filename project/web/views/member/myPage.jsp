@@ -418,7 +418,7 @@ footer p {
 				<tr class="tablehover">
 					<td scope="row"><%=i+1 %></td>
 					<td><%=m.getmName() %></td>
-					<td><%=anList.get(i).getaName() %></td>
+					<td><%=iList.get(i).getaName() %></td>
 					<td><%=iList.get(i).getEnrollDate().substring(0,10)%></td>
 					<td><%=iList.get(i).getInsName() %></td>
 				</tr>
@@ -472,23 +472,24 @@ footer p {
 					<tr>
 						<td><span class="square"></span>&nbsp;&nbsp;<label>이메일</label></td>
 						<td colspan="3"><label id="emailShow"><%=m.getEmail()%></label></td>
-						<td><button type="button" id="emailChangeBtn">수정</button></td>
+						<td><button type="button" onclick="emailChangeBtn();">수정</button></td>
 					</tr>
 					<tr class="secretEmail">
 						<td class="fixTdTitle">변경할 이메일</td>
 						<td colspan="3"><input type="email" name="userEmail" required>
 							&nbsp;
-							<button type="reset" class="cancel">취소</button></td>
-						<td><button type="button" id="certification" onclick="checkEmail();">인증메일 받기</button></td>
+							<button type="reset" class="cancel">취소</button>
+							<br><br><p id="resultEmail"></td>
+						<td><button type="button" onclick="checkEmail();">인증메일 받기</button></td>
 					</tr>
 					<tr class="certificationshow">
 						<td class="fixTdTitle">인증번호 입력</td>
 						<td colspan="3"><input type="email" name="certificationCheck">
 							<button type="button" onclick="certificationMail();">확인</button>
 							<br><br>
-							<p id="resultEmail"></p>
+							<p id="resultEmail2"></p>
 						</td>
-						<td><button type="button" onclick="changeEmail2();">변경</button></td>
+						<td><button type="button" onclick="changeEmail();">변경</button></td>
 					</tr>
 				</form>
 
@@ -539,6 +540,9 @@ footer p {
 				</form>
 				<form>
 					<%if(anList.isEmpty()){ %>
+					<tr class="petDetailInfo">
+						<td colspan="5">반려 동물 정보가 없습니다</td>
+					</tr>
 					<tr class="hiddenPetInfo">
 						<td></td>
 						<td colspan="3" style="text-align:center">
@@ -659,22 +663,12 @@ footer p {
 		</p>
 	</footer>
 </body>
-<script>
+ <script>
         // 비밀번호 수정하기 버튼 클릭
         $(function(){
             $("#pwdChangeBtn").click(function(){
                 $(".secretPwd").css({"display":"table-row"});
                 // console.log("버튼누름");
-            });
-        });
-
-        // 이메일 수정하기버튼 클릭
-        $(function(){
-            $("#emailChangeBtn").click(function(){
-                $(".secretEmail").css({"display":"table-row"});
-            });
-            $("#certification").click(function(){
-                $(".certificationshow").css({"display":"table-row"});
             });
         });
 
@@ -707,8 +701,8 @@ footer p {
 
     </script>
 
-<!-- 다음 주소찾기 API -->
-<script type="text/javascript">
+    <!-- 다음 주소찾기 API -->
+    <script type="text/javascript">
         function openDaumZipAddress() {
             new daum.Postcode({
                 oncomplete:function(data) {
@@ -722,177 +716,192 @@ footer p {
             }).open();
         }
     </script>
+    
+    <!-- 변경할 데이터 체크 -->
+    <script>
+    
+       // 비밀번호 변경
+       function checkPwd(){
+          var userId="<%=m.getmId()%>";
+          var pwd1 = $("[name=changePwd1]").val();
+          var pwd2 = $("[name=changePwd2]").val();
+          
+          if(pwd1==pwd2){
+             $.ajax({
+                url:"<%=request.getContextPath()%>/pwd.ch",
+                type:"post",
+                data:{userId:userId, pwd:pwd1},
+                success:function(data){
+                   if(data=="permit"){
+                      alert("비밀번호가 변경되었습니다.");
+                      $("[name=changePwd1]").text("");
+                      $("[name=changePwd2]").text("");
+                  }else{
+                     alert("비밀번호 변경이 실패하였습니다.");
+                  }
+                      $(".secretPwd").css({"display":"none"});
+                },
+                  error:function(request,status,error){
+                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                  }
+             });
+          }else{
+             alert("비밀번호를 다시 확인해주세요.");
+          }
+       }
+      
+       // 연락처 변경
+       function checkPhone(){
+          var userId="<%=m.getmId()%>";
+          var phone=$("[name=phoneChange]").val();
+          
+          $.ajax({
+            url:"<%=request.getContextPath()%>/phone.ch",
+            type:"post",
+            data:{userId:userId, phone:phone},
+             success:function(data){
+                $("#phoneShow").text("");
+                $("#phoneShow").text(data);
+                   $(".secretPhone").css({"display":"none"});
+                   $("[name=phoneChange]").val("");
+             },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               }
+         });
+       }
+       
+       // 주소 변경
+       function checkAddress(){
+          var userId="<%=m.getmId()%>";
+          var zoneCode = $("#zonecode").val();
+          var address = $("#address").val();
+          var address2 = $("#address_etc").val();
+          
+          $.ajax({
+            url:"<%=request.getContextPath()%>/address.ch",
+            type:"post",
+            data:{userId:userId, zoneCode:zoneCode, address:address, address2:address2},
+             success:function(data){
+                $("#addressShow").text("");
+                $("#addressShow").text(data);
+                   $(".secretMap").css({"display":"none"});
+             },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               }
+         });
+       }
+       
+       function canclePetInsert(){
+          $(".secretPet").css("display","none");
+          $("#petInsertBtn").css("display","table-row");
+          $(".petDetailInfo").css("display","table-row");
+          $("#changePetInfo").css("display","table-row");
+       }
 
-<!-- 변경할 데이터 체크 -->
-<script>
-    	// 비밀번호 변경
-    	function checkPwd(){
-    		var userId="<%=m.getmId()%>"
-    		var pwd1 = $("[name=changePwd1]").val();
-    		var pwd2 = $("[name=changePwd2]").val();
-    		
-    		if(pwd1==pwd2){
-    			$.ajax({
-    				url:"<%=request.getContextPath()%>/pwd.ch",
-    				type:"post",
-    				data:{userId:userId, pwd:pwd1},
-	    			success:function(data){
-	    				if(data=="permit"){
-	    					alert("비밀번호가 변경되었습니다.");
-	    					$("[name=changePwd1]").text("");
-	    					$("[name=changePwd2]").text("");
-						}else{
-							alert("비밀번호 변경이 실패하였습니다.");
-						}
-	    	            $(".secretPwd").css({"display":"none"});
-	    			},
-	   				error:function(request,status,error){
-		            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		            }
-    			});
-    		}else{
-    			alert("비밀번호를 다시 확인해주세요.");
-    		}
-    	}
-
-    	// 연락처 변경
-    	function checkPhone(){
-    		var userId="<%=m.getmId()%>"
-    		var phone=$("[name=phoneChange]").val();
-    		
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/phone.ch",
-				type:"post",
-				data:{userId:userId, phone:phone},
-    			success:function(data){
-    				$("#phoneShow").text("");
-    				$("#phoneShow").text(data);
-    	            $(".secretPhone").css({"display":"none"});
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
-    	
-    	// 주소 변경
-    	function checkAddress(){
-    		var userId="<%=m.getmId()%>"
-    		var zoneCode = $("#zonecode").val();
-    		var address = $("#address").val();
-    		var address2 = $("#address_etc").val();
-    		
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/address.ch",
-				type:"post",
-				data:{userId:userId, zoneCode:zoneCode, address:address, address2:address2},
-    			success:function(data){
-    				$("#addressShow").text("");
-    				$("#addressShow").text(data);
-    	            $(".secretMap").css({"display":"none"});
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
-    	
-    	function canclePetInsert(){
-    		$(".secretPet").css("display","none");
-    		$("#petInsertBtn").css("display","table-row");
-    		$(".petDetailInfo").css("display","table-row");
-    		$("#changePetInfo").css("display","table-row");
-    	}
-
-    	function petChangeBtn(){
-    		$(".hiddenPetInfo").css("display","table-row");
-    		$("#changePetInfo2").css("display","table-row");
-    		
-    	}
-    	
-    	// 반려동물 정보 추가/변경
-    	function petChangeBtn2(){
-    		var userNo = '<%=m.getmNo()%>';
-    		var animalNo = $("[name=animalNo]").val();
-    		var name = $("[name=changeName]").val();
-    		var kind = $("[name=changeKind]").val();
-    		var detail = $("[name=changeDetail]").val();
-    		var weight = $("[name=changeWeight]").val();
-	    		
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/change.an",
-				type:"post",
-				data:{userNo:userNo,animalNo:animalNo, name:name, kind:kind, detail:detail, weight:weight},
-    			success:function(data){
-					$(".petDetailInfo2").html("");
-    				
-    				for(var key in data){
-    					var $tr = $("<tr>");
-    					var $name = $("<td>").text(data[key].aName);
-    					var $kind = $("<td>").text(data[key].kind)
-    					var $weight = $("<td>").text(data[key].weight)
-    					
-    					$(".petDetailInfo2").append("<td>");
-    					$(".petDetailInfo2").append($name);
-    					$(".petDetailInfo2").append($kind);
-    					$(".petDetailInfo2").append($weight);
-    				}
-    	            $("#changePetInfo2").css({"display":"none"});
-    	            $(".hiddenPetInfo").css({"display":"none"});
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
-    	
-    	// 반려동물 사망
-    	function deleteAnimal(){
-    		var userNo = '<%=m.getmNo()%>';
-    		var animalNo = $("[name=animalNo]").val();
-    		
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/del.an",
-				type:"post",
-				data:{animalNo:animalNo, userNo:userNo},
-    			success:function(data){
-					$(".petDetailInfo2").html("");
-    				
-    				for(var key in data){
-    					var $tr = $("<tr>");
-    					var $name = $("<td>").text(data[key].aName);
-    					var $kind = $("<td>").text(data[key].kind)
-    					var $weight = $("<td>").text(data[key].weight+"kg")
-    					
-    					$tr.append("<td>");
-    					$tr.append($name);
-    					$tr.append($kind);
-    					$tr.append($weight);
-    					$("#memberFixTable").append($tr);
-    				}
-    	            $("#changePetInfo2").css({"display":"none"});
-    	            $(".hiddenPetInfo").css({"display":"none"});
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
-    	
+       function petChangeBtn(){
+          $(".petDetailInfo").css("display","none");
+          $(".hiddenPetInfo").css("display","table-row");
+          $("#changePetInfo2").css("display","table-row");
+       }
+       
+       // 반려동물 정보 추가/변경
+       function petChangeBtn2(){
+          var userNo = '<%=m.getmNo()%>';
+          var animalNo = $("[name=animalNo]").val();
+          var name = $("[name=changeName]").val();
+          var kind = $("[name=changeKind]").val();
+          var detail = $("[name=changeDetail]").val();
+          var weight = $("[name=changeWeight]").val();
+             
+          $.ajax({
+            url:"<%=request.getContextPath()%>/change.an",
+            type:"post",
+            data:{userNo:userNo,animalNo:animalNo, name:name, kind:kind, detail:detail, weight:weight},
+             success:function(data){
+               $(".petDetailInfo").html("");
+               $(".petDetailInfo2").html("");
+                for(var key in data){
+                   var $tr = $("<tr>");
+                   var $name = $("<td>").text(data[key].aName);
+                   var $kind = $("<td>").text(data[key].kind)
+                   var $weight = $("<td>").text(data[key].weight)
+                   
+                   $(".petDetailInfo").append("<td>");
+                   $(".petDetailInfo").append($name);
+                   $(".petDetailInfo").append($kind);
+                   $(".petDetailInfo").append($weight);
+                   
+                   $(".petDetailInfo2").append("<td>");
+                   $(".petDetailInfo2").append($name);
+                   $(".petDetailInfo2").append($kind);
+                   $(".petDetailInfo2").append($weight);
+                }
+                   $("#changePetInfo2").css({"display":"none"});
+                   $(".hiddenPetInfo").css({"display":"none"});
+             },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               }
+         });
+       }
+       
+       // 반려동물 사망
+       function deleteAnimal(){
+          var userNo = '<%=m.getmNo()%>';
+          var animalNo = $("[name=animalNo]").val();
+          
+          $.ajax({
+            url:"<%=request.getContextPath()%>/del.an",
+            type:"post",
+            data:{animalNo:animalNo, userNo:userNo},
+             success:function(data){
+               $(".petDetailInfo2").html("");
+                if(data!=null){
+                   for(var key in data){
+                       var $tr = $("<tr>");
+                       var $name = $("<td>").text(data[key].aName);
+                       var $kind = $("<td>").text(data[key].kind)
+                       var $weight = $("<td>").text(data[key].weight+"kg")
+                       
+                       $tr.append("<td>");
+                       $tr.append($name);
+                       $tr.append($kind);
+                       $tr.append($weight);
+                       $("#memberFixTable").append($tr);
+                    }
+                } else{
+                   $("#memberFixTable").append("<tr><td colsapn='4'>등록된 반려동물이 없습니다.</td></tr>");
+                }
+                
+                   $("#changePetInfo2").css({"display":"none"});
+                   $(".hiddenPetInfo").css({"display":"none"});
+             },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               }
+         });
+       }
+       
     </script>
 
-
-
-<!-- 사용자 입력 제약조건 -->
-<script>
-    	$("#petWeight").keyup(function(evnet){
-    		var input = $(this).val();
-    		$(this).val(input.replace(/[^0-9/g]/,''));
-    	});
+    <!-- 사용자 입력 제약조건 -->
+    <script>
+       $(".changeWeight").keyup(function(evnet){
+          var input = $(this).val();
+          console.log(input);
+          $(this).val(input.replace(/[^0-9/g]/,''));
+       });
+       $("[name=phoneChange]").keyup(function(evnet){
+          var input = $(this).val();
+          console.log(input);
+          $(this).val(input.replace(/[^0-9/g]/,''));
+       });
     </script>
-<!-- 동적제어 시작(script 영역) -->
-<!-- 1. 회원가입 필수 입력란 관련 기능(정규표현식, 비밀번호 일치확인, 아이디와 비밀번호 중복여부 확인) -->
-<script>
+     <!-- 동적제어 시작(script 영역) -->
+    <!-- 1. 회원가입 필수 입력란 관련 기능(정규표현식, 비밀번호 일치확인, 아이디와 비밀번호 중복여부 확인) -->
+    <script>
         $(function(){
             var styleFalse = {'color': 'red', 'font-size':'11px'};
             var styleTrue = {'color': '#b3a193', 'font-size':'11px'};
@@ -945,163 +954,118 @@ footer p {
                     $(this).prop('value', '');
                 }
             }); 
-  
-            //이메일 정규표현식 및 이메일 확인(현재는 양식만 확인)
-            $('[name=userEmail]').change(function(){
-                // var regEx = /^[\S]{1,}@[\S]{1,}$/;//드롭다운 활용하므로 안씀
-                var regEx = /^[\S]{1,}@[\S]{1,}$/;
-                if(!regEx.test($(this).val())||$(this).val()==''){
-                    $('#resultEmail').html('<abbr class="RegExplainHover" title="공백이거나 공백이 들어갔는지 확인해보세요">이메일 입력 안될때</abbr>').css(styleFalse)
-                    $(this).prop('value', '').focus();
-                }else{
-                    $('#resultEmail').prop('value', '');
-                }
-            })
-            $('[name=userEmail]').blur(function(){
-                if($('[name=userEmail]').val()==''){
-                    $(this).prop('value', '').focus();
-                    $('#resultEmail').html('메일 아이디를 입력해주세요').css('font-size', '10px').css(styleFalse);
-                }else{
-                    $('#resultEmail').prop('value', '');
-                }
-                if($('[name=userEmail]').val()!=''
-                &&!($('#siteName').children('option:selected').val() == 'choice'
-                ||$('#siteName').children('option:selected').val() == 'direct')){
-                }
-            });
-            //전화번호 정규표현식
-            $('#tel2').blur(function(){
-                var regEx = /^[\d]{4}$/;
-                if(!regEx.test($(this).val())){
-                    $('#resultTel').html('4자리의 숫자를 입력하세요.').css(styleFalse)
-                    $(this).prop('value', '').focus();
-                }else{
-                    $('#resultTel').html('');
-                }
-            });
-            $('#tel3').blur(function(){
-                var regEx = /^[\d]{4}$/;
-                if(!regEx.test($(this).val())){
-                    $('#resultTel').html('4자리의 숫자를 입력하세요.').css(styleFalse)
-                    $(this).prop('value', '').focus();
-                }else{
-                    $('#resultTel').html('');
-                }
-            });
-        })
+        });
     </script>
-
-<script>
-    	// 회원탈퇴
-    	function deleteUser(){
-    		var userNo = '<%=m.getmNo()%>';
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/del.me",
-				type:"post",
-				data:{userNo:userNo},
-    			success:function(data){
-					alert("회원 탈퇴를 성공하였습니다.");
-					location.href = "<%=request.getContextPath()%>/index.jsp";
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
+    
+    <script>
+       // 회원탈퇴
+       function deleteUser(){
+          var userNo = '<%=m.getmNo()%>';
+          $.ajax({
+            url:"<%=request.getContextPath()%>/del.me",
+            type:"post",
+            data:{userNo:userNo},
+             success:function(data){
+               alert("회원 탈퇴를 성공하였습니다.");
+               location.href = "<%=request.getContextPath()%>/index.jsp";
+             },
+               error:function(request,status,error){
+                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+               }
+         });
+       }
     </script>
-
-<script>
+    
+    <script>
     var gloCheck;
-    var checkAfter;
-    	function checkEmail(){
-    		var email = $("[name=userEmail]").val();
-    		$.ajax({
-				url:"<%=request.getContextPath()%>/checkEmail.me",
-				type:"post",
-				data:{email:email},
-    			success:function(data){
-    				console.log(data);
-    				checkAfter = data;
-    				gloCheck = 1;
-    			},
-   				error:function(request,status,error){
-	            	alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	            }
-			});
-    	}
-    	
-    	function certificationMail(){
-    		if(checkAfter==$("[name=certificationCheck]").val()){
-    			$("#resultEmail").text("인증번호가 확인되었습니다.");
-    			gloCheck = 2
-    		}else{
-    			$("#resultEmail").text("인증번호가 틀립니다.");
-    		}
-    	}
-    	}
-    	</script>
-    	
-    	
-    	<script>
-    	// 이메일 변경
-	    var gloCheck;
-	    var checkAfter;
-	       function checkEmail(){
-	          var email = $("[name=userEmail]").val();
-	          $.ajax({
-	            url:"<%=request.getContextPath()%>/checkEmail.me",
-	            type:"post",
-	            data:{email:email},
-	             success:function(data){
-	                console.log(data);
-	                checkAfter = data;
-	                gloCheck=1;
-	             },
-	               error:function(request,status,error){
-	                  alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	               }
-	         });
-	       }
-	       
-	       function certificationMail(){
-		          if(checkAfter==$("[name=certificationCheck]").val()){
-		             $("#resultEmail").text("인증번호가 확인되었습니다.");
-		             gloCheck = 2;
-		          }else{
-		             $("#resultEmail").text("인증번호가 틀립니다.");
-		          }
-		          
-	       }
-	       
-	       // 이메일 변경
-	       function changeEmail2(){
-	          var userId = '<%=m.getmId()%>';
-	          var email = $("[name=userEmail]").val();
-	          if(gloCheck==2){
-	             $.ajax({
-	                url:"<%=request.getContextPath()%>/email.ch",
-	                type:"post",
-	                data:{userId:userId, email:email},
-	                 success:function(data){
-	                    $("#emailShow").text("");
-	                    $("#emailShow").text(data);
-	                    $(".secretEmail").css("display","none");
-	                    $(".certificationshow").css("display","none");
-	                    $("[name=userEmail]").val("");
-	                    $("[name=certificationCheck]").val("");
-	                    $("#resultEmail").text("");
-	                    gloCheck=0;
-	                 },
-	                   error:function(request,status,error){
-	                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-	                   }
-	             });
-	          }else{
-	             alert("이메일변경 실패");
-	          }
-	       }
-    	function goHome(){
-    		location.href="<%=request.getContextPath()%>/index.jsp";
-    	}
+
+     //이메일 정규표현식 및 이메일 확인(현재는 양식만 확인)
+       $('[name=userEmail]').change(function(){
+           var regEx = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+           if(!regEx.test($(this).val())||$(this).val()==''){
+               $('#resultEmail').text("이메일 주소형태가 아닙니다.")
+               $(this).prop('value', '').focus();
+           }else{
+               $('#resultEmail').prop('value', '');
+           }
+       })
+       $('[name=userEmail]').blur(function(){
+           if($('[name=userEmail]').val()==''){
+              gloCheck=1;
+               $(this).prop('value', '').focus();
+               $('#resultEmail').text('이메일 주소형태로 적어주세요')
+           }else{
+               $('#resultEmail').prop('value', '');
+               gloCheck=0;
+               console.log(gloCheck);
+           }
+       });
+     
+       // 이메일 수정하기버튼 클릭
+       function emailChangeBtn(){
+          $(".secretEmail").css({"display":"table-row"});
+       }
+
+       var checkAfter;
+          // 메일보내기
+          function checkEmail(){
+             if(gloCheck==0){
+             $(".certificationshow").css({"display":"table-row"});
+             $('#resultEmail').prop('value', '');
+             var email = $("[name=userEmail]").val();
+             $.ajax({
+               url:"<%=request.getContextPath()%>/checkEmail.me",
+               type:"post",
+               data:{email:email},
+                success:function(data){
+                   console.log(data);
+                   checkAfter = data;
+                   gloCheck = 2;
+                },
+                  error:function(request,status,error){
+                     alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                  }
+             });
+          }
+       }
+       
+       function certificationMail(){
+          if(checkAfter==$("[name=certificationCheck]").val()){
+             $("#resultEmail2").text("인증번호가 확인되었습니다.");
+             gloCheck = 3;
+          }else{
+             $("#resultEmail2").text("인증번호가 틀립니다.");
+          }
+       }
+       
+       // 이메일 변경
+       function changeEmail(){
+          var userId = '<%=m.getmId()%>';
+          var email = $("[name=userEmail]").val();
+          if(gloCheck==3){
+             $.ajax({
+                url:"<%=request.getContextPath()%>/email.ch",
+                type:"post",
+                data:{userId:userId, email:email},
+                 success:function(data){
+                    $("#emailShow").text("");
+                    $("#emailShow").text(data);
+                    $(".secretEmail").css("display","none");
+                    $(".certificationshow").css("display","none");
+                    $("[name=userEmail]").val("");
+                    $("[name=certificationCheck]").val("");
+                    $("#resultEmail2").text("");
+                 },
+                   error:function(request,status,error){
+                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                   }
+             });
+          }else{
+             alert("이메일변경 실패");
+          }
+       }
+       function goHome(){
+          location.href="<%=request.getContextPath()%>/index.jsp";
+       }
     </script>
 </html>

@@ -17,12 +17,13 @@ public class IList implements Serializable {
 	private String kind;
 	private String age;
 	private int price;
+	private String aName;
 	
 	public IList() {
 	}
 
 	public IList(int insNo, String insCode, int memberNo, String enrollDate, String status, String insName,
-			String insContent, String kind, String age, int price) {
+			String insContent, String kind, String age, int price, String aName) {
 		this.insNo = insNo;
 		this.insCode = insCode;
 		this.memberNo = memberNo;
@@ -33,6 +34,7 @@ public class IList implements Serializable {
 		this.kind = kind;
 		this.age = age;
 		this.price = price;
+		this.aName = aName;
 	}
 
 	public int getInsNo() {
@@ -115,12 +117,21 @@ public class IList implements Serializable {
 		this.price = price;
 	}
 
+	public String getaName() {
+		return aName;
+	}
+
+	public void setaName(String aName) {
+		this.aName = aName;
+	}
+
 	@Override
 	public String toString() {
 		return "IList [insNo=" + insNo + ", insCode=" + insCode + ", memberNo=" + memberNo + ", enrollDate="
 				+ enrollDate + ", status=" + status + ", insName=" + insName + ", insContent=" + insContent + ", kind="
-				+ kind + ", age=" + age + ", price=" + price + "]";
+				+ kind + ", age=" + age + ", price=" + price + ", aName=" + aName + "]";
 	}
+	
 
 	
 	

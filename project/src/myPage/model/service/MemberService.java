@@ -149,19 +149,19 @@ public class MemberService {
 	}
 
 	public static Member searchMember(int mNo) {
-	      Connection conn = getConnection();
-	      
-	      Member m = MemberDao.searchMember(conn, mNo);
-	      
-	      if(m==null) {
-	         rollback(conn);
-	      }else {
-	         commit(conn);
-	      }
-	      
-	      close(conn);
-	      return m;
-	   }
+		Connection conn = getConnection();
+		
+		Member m = MemberDao.searchMember(conn, mNo);
+		
+		if(m==null) {
+			rollback(conn);
+		}else {
+			commit(conn);
+		}
+		
+		close(conn);
+		return m;
+	}
 
 
 

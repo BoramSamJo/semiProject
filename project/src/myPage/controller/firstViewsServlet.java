@@ -47,9 +47,9 @@ public class firstViewsServlet extends HttpServlet {
 		
 		if(m2 != null) {
 			Member m = MemberService.searchMember(m2.getmNo());
-			rList = MemberService.reservationUpdate(m2.getmNo());
-			aList = MemberService.animalUpdate(m2.getmNo());
-			iList = MemberService.insuranceUpdate(m2.getmNo());
+			rList = MemberService.reservationUpdate(m.getmNo());
+			aList = MemberService.animalUpdate(m.getmNo());
+			iList = MemberService.insuranceUpdate(m.getmNo());
 			System.out.println("iList : "+iList);
 			System.out.println("rList : "+rList);
 			System.out.println("aList : "+aList);
@@ -58,7 +58,6 @@ public class firstViewsServlet extends HttpServlet {
 			request.setAttribute("rList", rList);
 			request.setAttribute("aList", aList);
 			request.setAttribute("iList", iList);
-			System.out.println(m);
 		}else {
 			view = request.getRequestDispatcher("index.jsp");
 			request.setAttribute("msg", "로그인을 해주세요");

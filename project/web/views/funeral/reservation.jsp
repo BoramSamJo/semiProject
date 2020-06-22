@@ -15,39 +15,7 @@
 	
 	
  	ArrayList<Animal> animal = (ArrayList<Animal>)(request.getAttribute("animal"));
- 	System.out.println("servlet에서 가져온 animal 객체 : "+animal);
- 	
- 	 /* for(int i=0;i<animal.size();i++){
- 		if(member.getmNo() == animal.get(i).getmNo()){
- 			String aName = animal.get(i).getaName();
- 			String aN = animal.get(i).getaName();
- 		 	System.out.println(i + "번쨰 aName 객체 : "+aName);
- 			String pKindMain = animal.get(i).getKind(); //패턴으로 ()안에 값을 추출한다.
- 			
- 			String pKindMainR = ""; //  group(0) : 전체, group(1) : ()안의 값  참고 사이트 :https://enterkey.tistory.com/353
- 			Pattern p = Pattern.compile("[(](.*?)[)]");
- 			Matcher m = p.matcher(pKindMain);
-
- 				while(m.find()){
- 					pKindMainR = m.group(1);
- 					System.out.println("패턴으로뽑아낸 값 : " +pKindMainR); 
- 					System.out.println(i + "번쨰 pKindMainR 객체 : "+pKindMainR);
- 					}   // kind에서 ()를 제외한 나머지 값을 추출 String 
- 			String pKindServe = animal.get(i).getKind();
- 			int text = pKindServe.indexOf(")");
- 			String pKindServeR = pKindServe.substring(text+1);
- 			System.out.println("패턴으로 뽑아낸 값 : "+pKindServeR);
- 			Double weight = animal.get(i).getWeight();
- 		}else{
- 			String aName = "입력해주세요.";
- 			String pKindMainR = "강아지";
- 			String pKindServeR ="입력해주세요.";
- 			double weight = (double)00.0;
- 			
- 		} 
- 			
- 	}  */
-	
+ 	System.out.println("servlet에서 가져온 animal 객체 : "+animal);	
 
  	
 %>
@@ -115,7 +83,7 @@ body * {
 	border: 1px solid #b3a193;
 	height: 40px;
 	width: 200px;
-	text-indent: 10px;
+/* 	text-indent: 10px; */
 }
 
 #reservationSection select {
@@ -311,18 +279,38 @@ body * {
 	border-radius: 10px;
 }
 
-div {
-	text-align: center;
+div{
+ 	text-align: center;
+	/* border: 1px solid red; */
+}
+
+#selectInputT td{
+ 	text-align: left;
 	/* border: 1px solid red; */
 }
 
 #informWrap div {
-	text-align: left;
+/* 	text-align: left; */
+}
+
+#removeDate{
+	border-radius:5px;
+}
+#wrapChoice1{
+	width:1350px;
+	margin:auto;
+	text-align:center;
+	margin-top:20px;
+	border-radius:5px;
+	height:100px;
+	background-color:#b3a193;
 }
 
 /* 선택한 날짜/시간 나오게 하기 */
 #plusContent {
 	display: inline-block;
+	margin:auto;
+	margin-top:27px;
 }
 
 #plusContent input {
@@ -330,7 +318,16 @@ div {
 	background-color: #d2c4b9;
 	width: 250px;
 	border-radius: 10px;
-	font-size: 20px
+	font-size: 20px;
+	font-weight:500;
+	outline-style:none;
+	font-weight:550;
+}
+#plusContent label {
+	font-weight:550;
+	font-size:17px;
+	margin-right:10px;
+	color:white;
 }
 
 /* 날짜/시간을 선택할시 클릭을 못하도록 가려줄 div */
@@ -371,8 +368,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 #funeralService {
 	width: 800px;
 	height: 100px;
-	margin-left: 300px;
-	font-size: 35px;
+/* 	margin-left: 200px; */
+	font-size: 30px;
 	border: 5px solid #b3a193;
 	border-radius: 10px;
 	margin: auto;
@@ -381,14 +378,21 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 #showFS, #removeFS {
 	position: absolute;
 }
+#showFS{
+/* 	position: relative; */
+/* 	background:#b3a193; */
+	width:805px;
+	height: 100px;
+}
 /* 각 장례서비스에 대한 크기 div */
 #showFS div {
 	width: 150px;
 	display: inline-block;
 	margin-left: 30px;
-	margin-top: 30px;
+	margin-top: 25px;
 	border-radius: 15px;
-	border: 1px solid #b3a193;
+	border: 1.5px solid #242424;
+	background-color:#b3a193;
 }
 /* 장례서비스 선택한 후 가려줄 div*/
 #removeFS {
@@ -396,6 +400,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	display: none;
 	width: 800px;
 	height: 100px;
+	border-radius:3px;
 }
 /* 장례용품 선택 div */
 #optionalGoods {
@@ -414,8 +419,19 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	/* margin-left: 20px; */
 }
 /* 장례용품 선택사항 table */
+.select {
+/* 	background-color:gray; */
+	position:relative;
+	top:-10px;
+	left:55px;
+}
+#select3 {
+	top:-35px;
+	left:50px;
+}
 .select tr td {
-	font-size: 30px;
+	font-size: 20px;
+	padding:8px;
 	border: 2px solid #b3a193;
 	border-radius: 10px;
 	text-align: center;
@@ -424,25 +440,45 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .select tr th {
 	background-color: #242424;
 	color: #b3a193;
-	font-size: 30px;
+	font-size: 28px;
 	border: 2px solid #b3a193;
 	border-radius: 10px;
-}
-/* 장례 서비스를 선택한 후 출력 값*/
-#contentView {
-	width: 1100px;
-	height: 40px;
-	margin: auto;
-	border: 2px solid #b3a193;
-	border-radius: 10px;
-	font-size: 20px;
 }
 
-#contentView input {
-	background-color: #d2c4b9;
-	border: none;
-	font-size: 20px;
+
+/* 장례 서비스를 선택한 후 출력 값*/
+#contentView {
+	width:1350px;
+	margin:auto;
+	text-align:center;
+	margin-top:20px;
+	border-radius:5px;
+	height:100px;
+	background-color:#b3a193;
+}
+
+#funeralVeiw{
+	margin:auto;
+	margin-top:25px;
+}
+
+#funeralVeiw label{
+	font-size:18px;
+	color:white;
+	font-weight:550;
+	margin-right:10px;
+}
+
+#contentView input{
+	text-align: center;
+	background-color: #b1a193;
 	width: 150px;
+	border-radius: 10px;
+	font-size: 20px;
+	font-weight:500;
+	outline-style:none;
+	font-weight:550;
+	margin-right:20px;
 }
 
 /* -----------------footerCSS 시작------------------------ */
@@ -590,8 +626,8 @@ footer {
 </head>
 
 <body>
-	<%-- <%@ include file="../login.jsp" %>	 --%>
-	<header></header>
+	<%@include file="../common/menubar.jsp" %>
+	
 	<section id="reservationSection">
 		<!-- 예약페이지 공통 상단 -->
 		<div id='Backarea'>
@@ -603,7 +639,7 @@ footer {
 		<h5>예약을 원하시는 일자와 시간을 선택해주세요</h5>
 		<div id="calendarWrap">
 			<div id="reload_calendar"
-				style="display: inline-block; width: 415px; height: 415px; margin-top: 20px;">
+				style="display: inline-block; width: 415px; height: 415px; margin-top: 45px;">
 				<div style="position: absolute;">
 					<table id="calendar" align="center" style="border-color: #d2c4b9">
 						<tr>
@@ -634,29 +670,39 @@ footer {
 			<div
 				style="display: inline-block; width: 415px; height: 415px; margin-left: 30px;">
 				<div id="reload_order" style="position: absolute;">
-					<table id="order" style="margin-top: 80px; margin-left: 30px;">
+					<table id="order" style="margin-top: 60px; margin-left: 30px;">
 						<tr>
-							<th id="time">오전</th>
-							<td>9:30</td>
-							<td>10:30</td>
-							<td>11:30</td>
-						</tr>
-						<!-- 오전 과 오후의 간격을 벌어줄 td -->
-						<tr>
-							<td colspan="5" style="border: none;"></td>
-						</tr>
-						<tr>
-							<th id="time">오후</th>
-							<td>13:00</td>
-							<td>14:00</td>
-							<td>15:00</td>
-						</tr>
-						<tr>
-							<th></th>
-							<td>16:00</td>
-							<td>17:00</td>
-							<td>18:00</td>
-						</tr>
+                            <th id="time">오전</th>
+                            <td>10:00</td>
+                            <td>10:30</td>
+                            <td>11:00</td>
+                            <td>11:30</td>
+                        </tr>
+                        <!-- 오전 과 오후의 간격을 벌어줄 td -->
+                        <tr>
+                            <td colspan="5" style="border: none;"></td>
+                        </tr>
+                        <tr>
+                            <th id="time">오후</th>
+                            <td>13:00</td>
+                            <td>13:30</td>
+                            <td>14:00</td>
+                            <td>14:30</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>15:00</td>
+                            <td>15:30</td>
+                            <td>16:00</td>
+                            <td>16:30</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td>17:00</td>
+                            <td>17:30</td>
+                            <td>18:00</td>
+                            <th></th>
+                        </tr>
 					</table>
 				</div>
 				<!-- 날짜를 선택할시 클릭을 못하도록 가려줄 div-->
@@ -674,7 +720,7 @@ footer {
 		<!-- insertlist.f -->
 		<form id="joinForm" action="<%=request.getContextPath()%>/view.f"
 			method="get">
-			<div style="margin-left: 10px;">
+			<div style=";" id="wrapChoice1">
 				<div id="plusContent" style="margin-right: 30px;">
 					<label>선택하신 날짜 : </label> <input type="text" id="plusDate"
 						name="plusDate" value="" readonly>
@@ -728,7 +774,7 @@ footer {
 							</table>
 						</div>
 						<div id="removeSelect1"
-							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; width: 130px; height: 194px; visibility: hidden;">
+							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; top:-10px; left:187px;  border-radius:3px; width: 130px; height: 205px; visibility: hidden;">
 							<button type="button" id="select_btn_select1"
 								style="margin-top: 70px;">
 								수의 다시<br>선택하기
@@ -750,7 +796,7 @@ footer {
 							</table>
 						</div>
 						<div id="removeSelect2"
-							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; width: 160px; height: 194px; visibility: hidden;">
+							style="background-color: rgba(000, 000, 000, 0.7); position: absolute;  top:-10px; left:233px;  border-radius:3px; width: 160px; height: 205px; visibility: hidden;">
 							<button type="button" id="select_btn_select2"
 								style="margin-top: 80px;">
 								관 다시<br>선택하기
@@ -777,7 +823,7 @@ footer {
 							</table>
 						</div>
 						<div id="removeSelect3"
-							style="background-color: rgba(000, 000, 000, 0.7); position: absolute; width: 314px; height: 194px; visibility: hidden;">
+							style="background-color: rgba(000, 000, 000, 0.7); position: absolute;  top:-35px; left:370px; border-radius:3px;  width: 280px; height: 205px; visibility: hidden;">
 							<button type="button" id="select_btn_select3"
 								style="margin-top: 70px;">화장후 다시 선택하기</button>
 						</div>
@@ -830,7 +876,6 @@ footer {
 				</div>
 				<% for(int i=0;i<animal.size();i++){%>
 				<% if(member.getmNo() == animal.get(i).getmNo()){%>
-				2
 				<%System.out.println(member.getmNo()); %>
 				<%System.out.println(i + "번쨰 객체 : "+animal.get(i).getmNo()); %>
 				<% String aName = animal.get(i).getaName();  %>
@@ -851,9 +896,10 @@ footer {
 				<% String pKindServeR = pKindServe.substring(text+1); %>
 				<%System.out.println("패턴으로 뽑아낸 값 : "+pKindServeR); %>
 				<%String weight = animal.get(i).getWeight(); %>
+				
 				<div id="petInfo" class="informEachWrap">
-					<table id="selectInputT" align="center">
-						<tr>
+					<table id="selectInputT" style="text-align:left">
+						<tr >
 							<td>
 								<li>아이 이름</li>
 							</td>
