@@ -472,7 +472,7 @@ header * {
 			<a id="moveToLogIn" class="TextmoveTo">로그인</a> <a class="TextmoveTo" href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
 			<%}else{ %>
 			<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-			<a class="TextmoveTo" id="moveToMyPage" href="#">마이페이지</a>
+			<a class="TextmoveTo" id="moveToMyPage" href="<%=request.getContextPath()%>/first.ch">마이페이지</a>
 			<%} %>
 			<a class="TextmoveTo" href="<%=request.getContextPath() %>/index.jsp">오시는길</a>
 		</div>
@@ -545,14 +545,12 @@ header * {
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례용품</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Price.jsp">장례비용</a></li>
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
-					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Goods.jsp">장례예약</a></li>
 				</ul>
 			</li>
-			<li><a href="#" id='second' class="colorcss">보험서비스</a>
+			<li><a href="<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp" id='second' class="colorcss">보험서비스</a>
 				<ul>
-					<li><a href='#'>보험소개</a></li>
-					<li><a href='#'>보장내용</a></li>
-					<li><a href='#'>가입안내</a></li>
+					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
+					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 				</ul></li>
 			<li><a href="#" id='third' class="colorcss">혜윰스케치북</a></li>
 			<li><a href="<%=request.getContextPath()%>/list.bo" id='forth' class="colorcss">고객센터</a>
@@ -579,7 +577,7 @@ header * {
 						class="TextmoveTo" href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-					<a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
+					<a id="moveToMyPage2" class="TextmoveTo" href="/project/first.ch">마이페이지</a>
 					<%} %>
 					<a class="TextmoveTo" href="<%=request.getContextPath() %>/index.jsp">오시는길</a>
 				</div>
@@ -597,17 +595,16 @@ header * {
 				<li id="serve2"><a href="#">보험서비스</a>
 					<hr>
 					<ul>
-						<li><a href='#'>보험소개</a></li>
-						<li><a href='#'>보장내용</a></li>
-						<li><a href='#'>가입안내</a></li>
+						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
+						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 					</ul></li>
 				<li><a href="#"><a>혜윰스케치북</a>
 						<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>
 					<ul>
-						<li><a href='#'>공지사항</a></li>
-						<li><a href='#'>FAQ</a></li>
+						<li><a href="<%=request.getContextPath()%>/list.bo">공지사항</a></li>
+						<li><a href='<%=request.getContextPath()%>/list.fbo'>FAQ</a></li>
 						<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 					</ul></li>
 				<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp">For Member</a>
@@ -857,7 +854,14 @@ header * {
         $(window).resize(function () { 
             var heightAll = $('html').height();
             $('.modal').css('height',heightAll);
-        });
+        })
+        
+        $('#navLogo').click(function(){
+        	location.href="<%=request.getContextPath()%>/index.jsp";
+        })
+        $('#serveLogo').click(function(){
+        	location.href="<%=request.getContextPath()%>/index.jsp";
+        })
     </script>
 </body>
 </html>

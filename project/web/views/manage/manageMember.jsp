@@ -309,7 +309,7 @@ white
 					<input type="checkbox" name="selectAll" id="selectAll" style="width:20px;margin-top:10px">
 				</th>
 			</tr>
-			<%if(mList.size()<1){ %>
+			<%if(mList==null||mList.isEmpty()){ %>
 			<tr>
 				<td colspan="13">조회할 회원이 없습니다</td>
 			</tr>
@@ -603,7 +603,6 @@ white
         	
         	//경과일을 담을 변수 생성
         	var passDate = <%=sendCompleteDate%>;
-			
         	//서블릿 가기
         	$.ajax({
   				 url:'<%=request.getContextPath()%>/sendManyEmail.me'
@@ -612,6 +611,7 @@ white
   				, data:{usersEmail:usersEmail, sendMailText:sendMailText, passDate:passDate}
   				, success:function(data){
   					alert(data);
+					alert(passDate);
   				}
   				, error:function(request, status, error){
            			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

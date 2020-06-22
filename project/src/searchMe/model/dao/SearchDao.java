@@ -29,7 +29,6 @@ public class SearchDao {
 			
 			while(rs.next()) {
 				m2 = new Member(rs.getInt("MEMBER_NO"),
-								rs.getInt("INS_CODE"),
 								rs.getString("MEMBER_ID"),
 								rs.getString("MEMBER_PWD"),
 								rs.getString("MEMBER_NAME"),
@@ -69,7 +68,6 @@ public class SearchDao {
 			
 			while(rs.next()) {
 				m2 = new Member(rs.getInt("MEMBER_NO"),
-								rs.getInt("INS_CODE"),
 								rs.getString("MEMBER_ID"),
 								rs.getString("MEMBER_PWD"),
 								rs.getString("MEMBER_NAME"),

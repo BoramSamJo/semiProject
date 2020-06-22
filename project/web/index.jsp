@@ -1012,7 +1012,7 @@
 			<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a>
 			<%}else{ %>
 			<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-			<a class="TextmoveTo" id="moveToMyPage">마이페이지</a>
+			<a class="TextmoveTo" id="moveToMyPage" href="<%=request.getContextPath()%>/first.ch">마이페이지</a>
 			<%} %>
 			<a class="TextmoveTo" href="#">오시는길</a>
 		</div>
@@ -1061,7 +1061,7 @@
 							<tr>
 								<td>
 									<div id="smallInform" align='center'>
-										<a href="views/member/mySearch.jsp" id="#">아이디 찾기 |</a> <a href="views/member/mySearch.jsp" id="#"><b>비밀번호
+										<a href="views/member/mySearch.jsp" id="views/member/mySearch.jsp">아이디 찾기 |</a> <a href="views/member/mySearch.jsp" id="#"><b>비밀번호
 												찾기</b></a><span style="font-size: 10px; font-weight: lighter;">
 											|</span> <a href="semi_Join.html">회원가입</a>
 									</div>
@@ -1090,11 +1090,10 @@
 					<li><a href="<%=request.getContextPath()%>/views/funeral/funeral_Lucete.jsp">LUCETTE</a></li>
 					<li><a href="#">장례예약</a></li>
 				</ul></li>
-			<li><a href="#" id='second' class="colorcss">보험서비스</a>
+			<li><a href="<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp" id='second' class="colorcss">보험서비스</a>
 				<ul>
-					<li><a href='#'>보험소개</a></li>
-					<li><a href='#'>보장내용</a></li>
-					<li><a href='#'>가입안내</a></li>
+					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
+					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 				</ul></li>
 			<li><a href="#" id='third' class="colorcss">혜윰스케치북</a></li>
 			<li><a href="<%=request.getContextPath()%>/list.bo" id='forth' class="colorcss">고객센터</a>
@@ -1121,7 +1120,7 @@
 					<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-					<a id="moveToMyPage2" class="TextmoveTo">마이페이지</a>
+					<a id="moveToMyPage2" class="TextmoveTo" href="/project/first.ch">마이페이지</a>
 					<%} %>
 					<a class="TextmoveTo">오시는길</a>
 				</div>
@@ -1139,17 +1138,16 @@
 				<li id="serve2"><a href="#">보험서비스</a>
 					<hr>
 					<ul>
-						<li><a href='#'>보험소개</a></li>
-						<li><a href='#'>보장내용</a></li>
-						<li><a href='#'>가입안내</a></li>
+						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
+						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 					</ul></li>
 				<li><a href="#"><a>혜윰스케치북</a>
 					<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>
 					<ul>
-						<li><a href='#'>공지사항</a></li>
-						<li><a href='#'>FAQ</a></li>
+						<li><a href="<%=request.getContextPath()%>/list.bo">공지사항</a></li>
+						<li><a href='<%=request.getContextPath()%>/list.fbo'>FAQ</a></li>
 						<li><a href='<%=request.getContextPath()%>/QnAList.bo'>QnA</a></li>
 					</ul></li>
 				<li><a href="<%=request.getContextPath()%>/views/member/forMember.jsp">For Member</a>
@@ -1242,14 +1240,14 @@
                         <p>장례절차 안내</p>
                         <p>반려동물 장례, 이것만은<br> 꼭 알아두세요</p>
                         <br>
-                        <button>자세히 보기</button>
+                        <button onclick="location.href='<%=request.getContextPath()%>/views/funeral/funeral_Order.jsp'">자세히 보기</button>
                     </div>
                     <div id="">
                         <img src="img/mainFuneral/noun_hugging dog_2388354.png" width="110" height="110">
                         <p>혜윰 이야기</p>
                         <p>우리가 반려동물 장례서비스를<br> 시작한 이유</p>
                         <br>
-                        <button>자세히 보기</button>
+                        <button onclick="location.href='<%=request.getContextPath()%>/views/member/forMember.jsp'">자세히 보기</button>
                     </div>
                     <div id="">
                         <img src="img/mainFuneral/noun_Question_1246106.png" width="110" height="110">
@@ -1283,7 +1281,7 @@
                         <p>혜윰 보험소개</p>
                         <p>보험서비스,<br>어떻게 구성되어있나요?</p>
                         <br>
-                        <button>자세히 보기</button>
+                        <button onclick="location.href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'">자세히 보기</button>
                     </div>
                     <div id="">
                         <img src="img/mainIns/noun_Pet_2697322.png" width="110" height="110">

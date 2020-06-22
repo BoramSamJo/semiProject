@@ -49,7 +49,7 @@ public class SendManyEmailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String host = "smtp.naver.com";
 		String user = "potter3786@naver.com";
-		String password="P8513589!@";
+		String password="p8513589!@";
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);
@@ -108,7 +108,8 @@ public class SendManyEmailServlet extends HttpServlet {
 			String mailContentForm = request.getParameter("sendMailText");
 			//경과일은 처음 전체목록에있을때는 null이나 false이고(서치할때 생기니까) 그걸 처리
 			String passDate = request.getParameter("passDate");
-			if(passDate==null||passDate.equals("flase")) {
+			System.out.println("passDate : " + passDate);
+			if(passDate==null||passDate.equals("false")) {
 				passDate="수";
 			}
 			
