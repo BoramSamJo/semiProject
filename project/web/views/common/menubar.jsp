@@ -612,20 +612,20 @@ header * {
 		</div>
 	</header>
 
-	<!-- 예약 fixed 사이드바 와 관리자 바-->
-	<%if(loginUser!=null&&((request.getSession().getAttribute("userId")!=null&&request.getSession().getAttribute("userId").equals("admin"))||((Member)request.getSession().getAttribute("loginUser")).getmId().equals("admin"))){%>
-	<aside id="reservation">
-		<p>
-			<a href="<%=request.getContextPath() %>/views/common/managebar.jsp">관리</a>
-		</p>
-	</aside>
-	<%}else{ %>
-	<aside id="reservation">
-		<p>
-			<a href="<%=request.getContextPath()%>/">예약</a>
-		</p>
-	</aside>
-	<%}%>
+	    <!-- 예약 fixed 사이드바 와 관리자 바-->
+      <%if(loginUser!=null&&((request.getSession().getAttribute("userId")!=null&&request.getSession().getAttribute("userId").equals("admin"))||((Member)request.getSession().getAttribute("loginUser")).getmId().equals("admin"))){%>
+	        <aside id="reservation">         
+	            <p><a href="<%=request.getContextPath() %>/views/common/managebar.jsp">관리</a></p>
+	        </aside>
+        <%}else if(loginUser!=null){ %>
+	        <aside id="reservation">         
+	            <p><a href='<%=request.getContextPath()%>/getMno.re'>예약</a></p>
+	        </aside>
+        <%}else {%>
+        	<aside id="reservation">         
+	            <p><a onclick="alert('로그인하셔야 예약가능합니다')">예약</a></p>
+	        </aside>
+        <%}%>
 
 	<!-- jsp 관련 스크립트 -->
 	<script>

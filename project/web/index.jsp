@@ -1119,7 +1119,7 @@
 					<a class="TextmoveTo" href="views/member/memberJoin.jsp">회원가입</a> 
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
-					<a id="moveToMyPage2" class="TextmoveTo" href="<%=request.getContextPath() %>/first.ch">마이페이지</a>
+					<a id="moveToMyPage2" class="TextmoveTo" href="/project/first.ch">마이페이지</a>
 					<%} %>
 					<a class="TextmoveTo">오시는길</a>
 				</div>
@@ -1160,9 +1160,13 @@
 	        <aside id="reservation">         
 	            <p><a href="<%=request.getContextPath() %>/views/common/managebar.jsp">관리</a></p>
 	        </aside>
-        <%}else{ %>
+        <%}else if(loginUser!=null){ %>
 	        <aside id="reservation">         
-	            <p><a onclick="goToReservation();">예약</a></p>
+	            <p><a href='<%=request.getContextPath()%>/getMno.re'>예약</a></p>
+	        </aside>
+        <%}else {%>
+        	<aside id="reservation">         
+	            <p><a onclick="alert('로그인하셔야 예약가능합니다')">예약</a></p>
 	        </aside>
         <%}%>
 
@@ -1409,16 +1413,16 @@
 
 	<!-- jsp 관련 스크립트 -->
 	<script>
-		function goToReservation(){
-	    	if(<%=request.getSession().getAttribute("loginUser")%>==null){
-	    		alert('로그인 하셔야 예약가능합니다');
-	    		return;
-	    	}else{
-		    	location.href="<%=request.getContextPath() %>/getMno.re";
-	    	}
-	    	
-	    }		
-	
+	function goToR(){
+		if(<%=request.getSession().getAttribute("loginUser")%>==null){
+			alert('로그인하셔야 예약 가능합니다');
+			return;
+		}else if(<%=request.getSession().getAttribute("loginUser")%>!=null||<%=request.getSession().getAttribute("userId")%>!=null){
+			location.href="<%=request.getContextPath() %>/getMno.re";
+		}
+	}
+	</script>
+	<script>
 		function goLogin(){
 			var userId = $('#userIdLogIn');
 			var userPwd = $('#password');
@@ -1471,6 +1475,8 @@
 	</script>
 	<!------------------------------------------------------------------------------------------------------------------------------------------>
     <script>
+    	
+    
         function currentDiv(){
             console.log($(".scene").prop("display",true));
         };
@@ -1957,8 +1963,6 @@
             var heightAll = $('html').height();
             $('.modal').css('height',heightAll)
         });
-        
-        
     </script>
 
 </body>
