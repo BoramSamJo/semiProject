@@ -1095,7 +1095,7 @@
 					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
 					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 				</ul></li>
-			<li><a href="#" id='third' class="colorcss">혜윰스케치북</a></li>
+			<li><a href="<%=request.getContextPath() %>/list.sb" id='third' class="colorcss">혜윰스케치북</a></li>
 			<li><a href="<%=request.getContextPath()%>/list.bo" id='forth' class="colorcss">고객센터</a>
 				<ul>
 					<li><a href='<%=request.getContextPath()%>/list.bo'>공지사항</a></li>
@@ -1141,7 +1141,7 @@
 						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
 						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 					</ul></li>
-				<li><a href="#"><a>혜윰스케치북</a>
+				<li><a href="<%=request.getContextPath() %>/list.sb">혜윰스케치북</a>
 					<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>
@@ -1326,7 +1326,7 @@
                 <button id="nM" onclick="location.href='http://land.mahru.co.kr/naver'"><b>네이버 Map 바로가기</b></button>
                 <button id="gM" onclick="location.href='https://www.google.co.kr/maps/place/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B4%80%EC%95%85%EA%B5%AC+%EC%8B%A0%EB%A6%BC%EB%8F%99+%EB%8C%80%ED%95%9918%EA%B8%B8+26/@37.4647108,126.9347188,17z/data=!3m1!4b1!4m5!3m4!1s0x357c9fe16a0d8a0d:0x2ff104f7c7117906!8m2!3d37.4647108!4d126.9369075?hl=ko'"><b>구글 Map 바로가기</b></button>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3166.8310500738476!2d126.93471881516473!3d37.464710779817054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357c9fe16a0d8a0d%3A0x2ff104f7c7117906!2z7ISc7Jq47Yq567OE7IucIOq0gOyVheq1rCDsi6Drprzrj5kg64yA7ZWZMTjquLggMjY!5e0!3m2!1sko!2skr!4v1589025212441!5m2!1sko!2skr" 
-                width="40%" height="90%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                width="40%" height="90%" style="border:0;" aria-hidden="false" tabindex="0"></iframe>
             </div>
 
             <!-- 풋터를 마지막 영역 안에 위치 -->
@@ -1797,7 +1797,7 @@
                         }
                         layer.addClass('show');
                         layer.addClass('hide')
-                    },
+                    }
                 )
             })
             btn.click(function(){

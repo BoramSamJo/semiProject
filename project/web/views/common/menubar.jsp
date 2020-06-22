@@ -536,8 +536,7 @@ header * {
 		</div>
 		<!--상단바-->
 		<ul id='navMenu'>
-			<img id="navLogo" src="<%=request.getContextPath()%>/LOGO/LOGO1.png" width="130" alt="로고이미지"
-				id='bigwindow_logo'>
+			<img id="navLogo" src="<%=request.getContextPath()%>/LOGO/LOGO1.png" width="130" alt="로고이미지" id='bigwindow_logo'>
 			<!-- <img src="img/logo1.png" alt="로고이미지" id = 'smallwindow_logo'> -->
 			<li><a href="#" id='first' class="colorcss">장례서비스</a>
 				<ul>
@@ -552,7 +551,7 @@ header * {
 					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
 					<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 				</ul></li>
-			<li><a href="#" id='third' class="colorcss">혜윰스케치북</a></li>
+			<li><a href="<%=request.getContextPath() %>/list.sb" id='third' class="colorcss">혜윰스케치북</a></li>
 			<li><a href="<%=request.getContextPath()%>/list.bo" id='forth' class="colorcss">고객센터</a>
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/list.bo">공지사항</a></li>
@@ -573,8 +572,8 @@ header * {
 			<ul id="serveMenu">
 				<div id="serveSmallLink">
 					<%if(loginUser==null){ %>
-					<a id="moveToLogIn2" class="TextmoveTo">로그인</a> <a
-						class="TextmoveTo" href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
+					<a id="moveToLogIn2" class="TextmoveTo">로그인</a>
+					<a>class="TextmoveTo" href="<%=request.getContextPath()%>/views/member/memberJoin.jsp">회원가입</a>
 					<%}else{ %>
 					<a id="moveToLogOut2" class="TextmoveTo" onclick="goLogout();">로그아웃</a>
 					<a id="moveToMyPage2" class="TextmoveTo" href="/project/first.ch">마이페이지</a>
@@ -598,7 +597,7 @@ header * {
 						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceMain.jsp'>보험소개</a></li>
 						<li><a href='<%=request.getContextPath() %>/views/insurance/insuranceContent.jsp'>보장내용</a></li>
 					</ul></li>
-				<li><a href="#"><a>혜윰스케치북</a>
+				<li><a href="<%=request.getContextPath() %>/list.sb">혜윰스케치북</a>
 						<hr></li>
 				<li id="serve3"><a href="#">고객센터</a>
 					<hr>
@@ -704,7 +703,7 @@ header * {
                         }
                         layer.addClass('show');
                         layer.addClass('hide')
-                    },
+                    }
                 )
             })
             btn.click(function(){
