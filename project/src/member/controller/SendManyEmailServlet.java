@@ -49,7 +49,7 @@ public class SendManyEmailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String host = "smtp.naver.com";
 		String user = "potter3786@naver.com";
-		String password="p8513589!@";
+		String password="8513589!@";
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", host);

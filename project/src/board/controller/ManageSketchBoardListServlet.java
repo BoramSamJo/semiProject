@@ -49,23 +49,25 @@ public class ManageSketchBoardListServlet extends HttpServlet {
 		
 
 		currentPage = 1;
-		if(request.getParameter("currentPage")!=null)
-		{		
+		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.valueOf(request.getParameter("currentPage"));
+			if(currentPage<1) {
+				currentPage=1;
+			}
 		}
 		
-		limit = 9;
+		System.out.println("서블릿에서 현재페이지 : " + currentPage);
+		limit=9;
 		
-
 		maxPage = (int)((double)listCount/limit + 0.9);
+		if(currentPage > maxPage) {
+			currentPage = maxPage;
+		}
 		
-
-		startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit +1;
+		startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit+1;
 		
-
 		endPage = startPage + limit - 1;
 		
-
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}

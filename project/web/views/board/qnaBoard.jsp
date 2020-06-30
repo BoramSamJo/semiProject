@@ -526,12 +526,14 @@
 				                        </td>
 				                    	<td></td>
 				                    </tr>
-				                    <%}else{ %>
-				                    <tr class="A">
-				                    	<td><img src="/project/img/answerImg3.png" width="35px"></td>
-			                    		<td colspan="5" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
-				                    	<td></td>
-			                    	</tr>
+				                    <%break;}else{ %>
+					                    <%if(j==qAList.size()-1){ %>
+					                    <tr class="A">
+					                    	<td><img src="/project/img/answerImg3.png" width="35px"></td>
+				                    		<td colspan="5" style="text-align:left">아직 답변이 없습니다. 급히 상담이 필요한 경우 1588-5177로 문의주세요</td>
+					                    	<td></td>
+				                    	</tr>
+				                    	<%} %>
 				                    <%}%>
 			                    <%} %>
 	                    	<%}else if(qAList.isEmpty()){%>
@@ -692,7 +694,7 @@
         		$(boardClicked).next().slideUp();
         		$(boardClicked).next().next().slideUp();
         		$(boardClicked).css('background', 'white');
-        		alert(pwd);
+        		
         		//클릭한 게시글 비번과 객체를 담음
         		originBoardPwd = pwd;
         		boardClicked = object;
@@ -761,7 +763,6 @@
         		return true;
         	}
         	
-        	alert(<%=isSearch%>);
         	//전체보기 버튼 함수
         	function reloadForWhole(){
         		location.href="<%=request.getContextPath()%>/QnAList.bo";

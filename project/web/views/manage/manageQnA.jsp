@@ -880,7 +880,7 @@
         	//게시글 조회(가져온걸가지고 다른걸 선택하면 가져온 조회된 게시물 그 안에서 또 조회하고 이런식으로 할거임.)
         	//카테고리별 조회
         	givenQuery = $('#hiddenQuery').val();
-       		alert(givenQuery);
+//        		alert(givenQuery);
         		
         	function selectC(t){
         		if($(t).val()=='all'){

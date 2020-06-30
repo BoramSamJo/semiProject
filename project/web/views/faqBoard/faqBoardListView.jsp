@@ -19,23 +19,7 @@
 	int pageCount=fpn.getPageCount();
 
     %>
-        <%
-	String word="";
- 
-    String isSearch = (String)request.getAttribute("isSearch");
-    if(isSearch==null){
-       isSearch="false";
-    }else{
-       isSearch="true";
-       word=(String)request.getAttribute("word");
   
-      
-    }
-   System.out.println(isSearch);
-
-    
-    
-    %>
 
 <!DOCTYPE html>
 <html>
@@ -444,44 +428,24 @@
                        
                  </table>
                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                 <%if(fpn.getListCount()==0){%>
-               
-            <%}else{ %>
-               <%if(isSearch.equals("false")) {%>
-                      <!-- 이전 페이지 -->
-                     <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=endPage-1 %>'"> < </button>
-                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
-                          <%if(pg == currentPage){ %>
-                             <button disabled><%=pg %></button>
-                     <%}else{ %>
-                             <button onclick= "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=pg %>'"><%=pg %></button>
-                          <%} %>
-                       <%} %>
-                       <!-- 다음 페이지 -->
-                     <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
-                    
-   
-               <!-- 검색 후 -->
-                    <%}else{ %> 
-                     <!-- 이전 페이지 -->
-                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
-                          <%if(pg == currentPage){ %>
-                              <button disabled><%=pg %></button><br><br><br>
-                     <%}else{ %>
-                             <%-- <button onclick="location.href='<%=request.getContextPath() %>/search.bo?currentPage=<%=pg %>&content=<%=word %>&selectBox=<%=selectBox%>';"><%=pg %></button> --%>
-                          <%} %>
-                       <%} %>
-                    <%}%>
-                 <%}%>
-                  <%if(isSearch.equals("true")){ %>
-           <button onclick="reload();">전체보기</button><br><br>
-           <%} %>
-                 
+         	<!-- 이전 페이지 -->
+            <button onclick = "location.href='<%=request.getContextPath() %>/list.bo?currentPage=<%=endPage-1 %>'"> < </button>
+            <!-- 페이지 목록 -->
+           <%for(int p=startPage; p<=endPage; p++) {%>
+                 <%if (p==currentPage) {%>
+               <button disabled><%=p %></button>
+               <%}else{ %>
+               <button onclick= "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=p %>'"><%=p %></button>
+               <%} %>
+            <%} %> 
+           
+            <!-- 다음 페이지 -->
+            <button onclick = "location.href='<%=request.getContextPath() %>/list.fbo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
+         	
                  
    
              
-            <!-- 글 작성하기 insert 관리자만 가능하도록 나중에 추가 -->     
-           <!--  <button id="insertBtn"onclick="location.href='views/faqBoard/faqBoardInsertForm.jsp'">작성하기</button> -->
+          
             </div>
            
         </section>
@@ -541,15 +505,12 @@
        $(document).ready(function(){
        });
            $(document).on("click","#FAQTable tr:nth-of-type(2n-1)",function(event){
-              	alert('1');
   	 
                if($(this).next().css('display')=='none'){
-               		alert('2');
                    $(this).next().slideDown();
 					return;
                }else {
                	
-               	alert('3');
                   	$(this).next().slideUp();
                   	return;
                }

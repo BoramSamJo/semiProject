@@ -19,6 +19,7 @@
 	int pageCount=fpn.getPageCount();
 
     %>
+
     
 
 <!DOCTYPE html>
@@ -379,68 +380,42 @@ padding:0px;
 					</tr>
                 	<%if(list.isEmpty()){ %>
                 		<tr>
-                			<td colspan="4" style="background:white" onclick="noList();">조회된 리스트가 없습니다.</td>
+                			<td colspan="4">조회된 리스트가 없습니다.</td>
                 		</tr>
                 	<%}else{ %>
                 		<%for(int i=0; i<list.size();i++) {%>
                   
-                    <tr onclick="goDetail(<%=((faqBoard)list.get(i)).getFno() %>, <%=((faqBoard)list.get(i)).getCno() %>);">
-<%--                     <input type="hidden" value="<%=((faqBoard)list.get(i)).getFno() %>" name="fno" id="fnotest1"><!-- 넘길 FAQ글 번호 -->   --%>
-<%--                     <input type="hidden" value="<%=((faqBoard)list.get(i)).getCno() %>" name="cno" id="cnotest"><!-- 넘길 카테고리  번호 -->   --%>
-                    
-                     
+                    <tr>
+ 					<input type="hidden" value="<%=((faqBoard)list.get(i)).getFno() %>" name="fno" id="fnotest1"><!-- 넘길 FAQ글 번호 --> 
+					<input type="hidden" value="<%=((faqBoard)list.get(i)).getCno() %>" name="cno" id="cnotest"><!-- 넘길 카테고리  번호 --> 
                         <td class='init'>Q</td>       
-                        <td class="second" colspan="2" style="text-align:left;"><%=((faqBoard)list.get(i)).getfTitle() %></td><!-- 제목 -->
+                        <td class="second"><%=((faqBoard)list.get(i)).getfTitle() %></td><!-- 제목 -->
+                        <td></td>
                         <td><%=((faqBoard)list.get(i)).getCreateDate() %></td>
-            
-                      
-                    </tr>
-                    
+                    </tr> 
                     <%} %>
                     <%} %>
                        
                  </table>
                  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                <%if(fpn.getListCount()==0){%>
-               
-            <%}else{ %>
-               <%if(isSearch.equals("false")) {%>
-                      <!-- 이전 페이지 -->
-                     <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=endPage-1 %>'"> < </button>
-                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
-                          <%if(pg == currentPage){ %>
-                             <button disabled><%=pg %></button>
-                     <%}else{ %>
-                             <button onclick= "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=pg %>'"><%=pg %></button>
-                          <%} %>
-                       <%} %>
-                       <!-- 다음 페이지 -->
-                     <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
-                    
-   
-               <!-- 검색 후 -->
-                    <%}else{ %> 
-                     <!-- 이전 페이지 -->
-                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
-                          <%if(pg == currentPage){ %>
-                              <button disabled><%=pg %></button><br><br><br>
-                     <%}else{ %>
-                             <%-- <button onclick="location.href='<%=request.getContextPath() %>/search.bo?currentPage=<%=pg %>&content=<%=word %>&selectBox=<%=selectBox%>';"><%=pg %></button> --%>
-                          <%} %>
-                       <%} %>
-                    <%}%>
-                 <%}%>
-                  <%if(isSearch=="true"){ %>
-           <button onclick="reload();">전체보기</button><br><br>
-           <%} %>
-                 
-                 
-                 
-   
+                
+                 <!-- 이전 페이지 -->
+            <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=endPage-1 %>'"> < </button>
+            <!-- 페이지 목록 -->
+           <%for(int p=startPage; p<=endPage; p++) {%>
+                 <%if (p==currentPage) {%>
+               <button disabled><%=p %></button>
+               <%}else{ %>
+               <button onclick= "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=p %>'"><%=p %></button>
+               <%} %>
+            <%} %> 
+           
+            <!-- 다음 페이지 -->
+            <button onclick = "location.href='<%=request.getContextPath() %>/manageFbList.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
+            
             <!-- 글 작성하기 insert 관리자만 가능하도록 나중에 추가 -->     
             <button id="insertBtn"onclick="location.href='views/faqBoard/faqBoardInsertForm.jsp'">작성하기</button>
             </div>
-           
         </section>
         <br><br><br><br><br><br><br>
 
@@ -462,6 +437,11 @@ padding:0px;
 				$(this).parent().css({"background":"lightgray","cursor":"pointer"});
 			}).mouseout(function(){
 				$(this).parent().css({"background":"white"});
+			}).click(function(){
+				 var fno = $("#fnotest1").val();
+		         var cno = $("#cnotest").val();
+		         location.href="<%=request.getContextPath()%>/managedetail.fbo?fno=" + fno +"&cno="+cno; 
+				
 			})
 		})
 		
@@ -475,32 +455,7 @@ padding:0px;
        }
        </script>
        <script>
-       //수정하기 
-       
-/*      	$(".updatetest123").each(function(index,item){
-     		$(this).click(function(){
-     			alert("수정뜨는지");
-     			
-     			$(this).next().val();
-     			
-     			
-     		
-     		})
-     	}) */
-     <%--  $(function(){
-    	 $(".updatetest123").click(function(){
-    		 alert("수정뜨는지");
-    	 	/* var bool = confirm("게시글을 수정하시겠습니까?");
-    		 var fno = $("#fnotest1").val();
-			 var cno = $("#cnotest").val(); */
-			 
-			 if(bool){
-				 location.href="<%=request.getContextPath()%>/update.fbo?fno=" + fno +"&cno="+cno; 
-				 alert("게시글이 수정되었습니다.");
-			 } 
-    		
-    	 })  
-       })  --%>
+
        
        
        </script>
@@ -516,25 +471,8 @@ padding:0px;
     		}
     }
        
-         //검색 후 다시 돌아가기
-           function reload(){
-              location.href="<%=request.getContextPath()%>/list.bo";
-           }
-       
-       //삭제하기
-       <%-- $(function(){
-			$("#deletetest123").click(function(){
-				var bool = confirm("게시글을 삭제하시겠습니까?");
-				var fno = $("#fnotest1").val();
-				var cno = $("#cnotest").val();
-				
-				if(bool){
-				location.href="<%=request.getContextPath()%>/delete.fbo?fno=" + fno +"&cno="+cno; 
-				location.href="<%=request.getContextPath()%>/delete.fbo?fno=" + fno+"&cno="+cno";
-				alert("게시글이 삭제되었습니다.");
-				}
-			})
-		})    --%> 
+
+     
        </script>
        
        <script>
@@ -550,23 +488,6 @@ padding:0px;
                 })
             })
 
-            //수정
-          <%--   function updatetest123(){
-            	var bool = confirm("게시글을 수정하시겠습니까?");
-            	
-            	if(bool){
-            		$("#deletetest").submit();
-         			$("#deletetest").attr("action","<%=request.getContextPath()%>/update.fbo");
-            		alert("게시글이 수정 되었습니다.");
-            	}
-            } --%>
-            
-            //검색
-            function searchtest123(){
-            	$("#searchformtest").submit();
-            }
-	
-            
         </script>
         
 

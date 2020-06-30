@@ -51,20 +51,15 @@ public class faqBoardListManagerServlet extends HttpServlet {
 		
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.valueOf(request.getParameter("currentPage"));
-			if(currentPage<1) {
-				currentPage=1;
-			}
+		
 		}
 		
 	
 		
 		//한페이지 글 개수
-		limit = 10;
+		limit = 5;
 		
 		maxPage=(int)((double)listCount/limit+0.8);
-		if(currentPage > maxPage) {
-			currentPage = maxPage;
-		}
 		
 		
 		pageCount = listCount/limit +(listCount%limit==0?0:1);
@@ -74,10 +69,7 @@ public class faqBoardListManagerServlet extends HttpServlet {
 		
 		startPage =((((int)((double)currentPage/pageBlock+0.8))-1)*pageBlock)+1;
 		endPage=startPage + pageBlock -1;
-		if(maxPage < endPage) {
-			endPage = maxPage;
-		}
-		
+	
 		//마지막 페이지
 		if(endPage<pageCount) {
 			endPage=pageCount;

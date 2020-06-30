@@ -32,6 +32,8 @@ public class noticeBoardSerachServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("가지말아야 하는놈");
+		
 		String selectBox=request.getParameter("selectBox");
 		String word =request.getParameter("word");
 	

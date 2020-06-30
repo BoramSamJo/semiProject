@@ -64,11 +64,8 @@
     	<%for(int i=0; i<clist.size(); i++){%>
     		if(rId==<%=clist.get(i).getReservationNo()%>){
     			$("#hiddenMName").text("<%=clist.get(i).getMemberName()%>");
-    			if(<%=clist.get(i).getaName()%>==null){
-    				$("#hiddenAName").text("미입력");
-    			}else{
-	    			$("#hiddenAName").text("<%=clist.get(i).getaName()%>");
-    			}
+	    		$("#hiddenAName").text("<%=clist.get(i).getaName()%>");
+    		
     			$("#hiddenRName").text("<%=clist.get(i).getProductName()%>");
     			$("#hiddenRDate").text("<%=clist.get(i).getReservationDate().substring(0,10)%>");
     			$("#hiddenRPrice").text("<%=clist.get(i).getPrice()%>");
@@ -83,7 +80,8 @@
       
       // 이벤트 드래그 시작 할때
 		eventDragStart: function(info){
-			$("#inputDate").val(info.event.start.toISOString().slice(0,10));	// 옮기기전 날짜 표시                                                                                                                                                                                           
+			var day = Number(info.event.start.toISOString().slice(8,10))+1;
+			$("#inputDate").val(info.event.start.toISOString().slice(0,8)+day);	// 옮기기전 날짜 표시                                                                                                                                                                                           
 		}, 	
       // 이벤트 옮기기(일정 변경)
       eventDrop: function(info) {
@@ -94,7 +92,6 @@
     	<%for(int i=0; i<clist.size(); i++){%>
 	  		if(rId==<%=clist.get(i).getReservationNo()%>){
 	  			var day = Number(info.event.start.toISOString().slice(8,10))+1;
-				console.log(info.event.start.toISOString().slice(0,8)+day);
 	  			
 		       	$("[name=changeInputDate]").val(info.event.start.toISOString().slice(0,8)+day);	// 변경할 날짜
 		       	$("#hiddenRNo").val(rId);
@@ -1580,10 +1577,15 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 	                                  <option value="오전 10시 30분">오전 10시 30분</option>
 	                                  <option value="오전 11시 30분">오전 11시 30분</option>
 	                                  <option value="오후  1시">오후 1시</option>
+	                                  <option value="오후  1시 30분">오후 1시 30분</option>
 	                                  <option value="오후  2시">오후 2시</option>
+	                                  <option value="오후  2시 30분">오후 2시 30분</option>
 	                                  <option value="오후  3시">오후 3시</option>
+	                                  <option value="오후  3시 30분">오후 3시 30분</option>
 	                                  <option value="오후  4시">오후 4시</option>
+	                                  <option value="오후  4시 30분">오후 4시 30분</option>
 	                                  <option value="오후  5시">오후 5시</option>
+	                                  <option value="오후  5시 30분">오후 5시 30분</option>
 	                                  <option value="오후  6시">오후 6시</option>
 	                               </select>
 				                </td>

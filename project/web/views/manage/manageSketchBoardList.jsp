@@ -371,8 +371,8 @@ footer {
 				onclick="location.href='<%=request.getContextPath() %>/manageList.ms?currentPage=<%=maxPage %>'"> >> </button>
 		
 		 	<%}else{ %>
-			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/searchBoard?currentPage=<%=1%>&searchText=<%=searchText%>';"> << </button>
-			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/searchBoard?currentPage=<%=currentPage-1 %>&searchText=<%=searchText%>';"> < </button>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/searchBoard.ms?currentPage=<%=1%>&searchText=<%=searchText%>';"> << </button>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/searchBoard.ms?currentPage=<%=currentPage-1 %>&searchText=<%=searchText%>';"> < </button>
 
 			<% for(int p = startPage ; p <= endPage ; p ++) {%>
 			<%if(p == currentPage) {%>
@@ -386,7 +386,7 @@ footer {
 		<% } %>
 		</div>
 
-		<button id="allBtn">전체보기</button>
+		<button id="allBtn" onclick="location.href='<%=request.getContextPath() %>/manageList.ms'">전체보기</button>
 	</section>
 
 	<!--풋터 시작-->

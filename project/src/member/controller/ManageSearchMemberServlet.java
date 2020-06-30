@@ -52,7 +52,10 @@ public class ManageSearchMemberServlet extends HttpServlet {
 			break;
 		}
 		
-		System.out.println(colName);
+		System.out.println(selectFind);
+		System.out.println(searchText);
+		System.out.println(completeDate);
+		System.out.println();
 		
 		
 		if(completeDate==null) {//일반적인 서치하러 감

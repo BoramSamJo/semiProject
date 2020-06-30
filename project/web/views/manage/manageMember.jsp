@@ -504,7 +504,6 @@ white
 		
 		// 카테고리 선택해야 조회가능하게
 		$('#findBtn').click(function(){
-			alert('asdf');
 			if($('#selectFind').val()==''||$('#selectFind').val()==null){
 				alert('카테고리를 선택해주세요');
 				return false;
@@ -611,7 +610,6 @@ white
   				, data:{usersEmail:usersEmail, sendMailText:sendMailText, passDate:passDate}
   				, success:function(data){
   					alert(data);
-					alert(passDate);
   				}
   				, error:function(request, status, error){
            			alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);

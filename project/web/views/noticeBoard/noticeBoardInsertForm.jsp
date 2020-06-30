@@ -310,13 +310,12 @@
                 
                 for(var i = 0; i<radiobtn.lenght; i++){
                     if(radiobtn[i].checked==true){
-                        alert(radiobtn[i].value);
                         radiobtn_check++;
                     }
                 }
                 //2.첨부파일 값 넘겨주기
                 document.file.select();
-                alert(document).selection.createRange().text();
+
             }
 
             

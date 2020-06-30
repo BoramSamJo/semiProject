@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="member.model.vo.Member, javax.servlet.http.Cookie"%>
 <%
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+// 	Member loginUser = new Member();
+// 	if((Member)request.getSession().getAttribute("loginUser")!=null){
+	 Member	loginUser = (Member)request.getSession().getAttribute("loginUser");
+// 	}
 	
 	Cookie[] cookies = request.getCookies();
 	if(cookies!=null&&cookies.length>0){
@@ -43,7 +46,428 @@
         <!-- 섹션구분 원형의 css -->
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
         <!-- endbuild -->
+        <!-- 노토산스kr 폰트 가져오기 -->
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+        <!-- 나눔명조 폰트 가져오기 -->
+    	<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
         <style>
+        
+        @font-face {
+  font-family: 'open_sansbold';
+  src: url("../fonts/OpenSans-Bold-webfont.eot");
+  src: url("../fonts/OpenSans-Bold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/OpenSans-Bold-webfont.woff") format("woff"), url("../fonts/OpenSans-Bold-webfont.ttf") format("truetype"), url("../fonts/OpenSans-Bold-webfont.svg#open_sansbold") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* line 19, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  /* font: inherit; */
+  vertical-align: baseline;
+}
+
+/* line 30, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block;
+}
+
+/* line 35, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+ol, ul {
+  /* list-style: none; */
+  list-style: disc;
+  font-size: 35px;
+  line-height: 25px;
+  margin-top: 10px;;
+  margin-left: 46.5px;
+  color: gray;
+}
+
+/* line 40, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+a {
+  text-decoration: none;
+}
+
+/* line 45, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+/* blockquote, q {
+  quotes: none;
+} */
+
+/* line 51, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 57, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 63, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 497, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+body {
+  line-height: 1.5;
+}
+
+/* line 503, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+h1 {
+  font-size: 62px;
+  font-size: 3.875rem;
+}
+
+/* line 507, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+h2 {
+  font-size: 54px;
+  font-size: 3.375rem;
+}
+
+/* line 511, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+h3 {
+  font-size: 47px;
+  font-size: 2.9375rem;
+}
+
+/* line 515, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+h4 {
+  font-size: 41px;
+  font-size: 2.5625rem;
+}
+
+/* line 519, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+h5 {
+  font-size: 36px;
+  font-size: 2.25rem;
+}
+
+/* line 523, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+h6 {
+  font-size: 32px;
+  font-size: 2rem;
+}
+
+/* line 527, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+p {
+  font-size: 28px;
+  font-size: 1.75rem;
+}
+
+@media (max-width: 767px) {
+  /* line 497, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  body {
+    line-height: 1.5;
+  }
+
+  /* line 503, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  h1 {
+    font-size: 40px;
+    font-size: 2.5rem;
+  }
+
+  /* line 507, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  h2 {
+    font-size: 35px;
+    font-size: 2.1875rem;
+  }
+
+  /* line 511, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  h3 {
+    font-size: 31px;
+    font-size: 1.9375rem;
+  }
+
+  /* line 515, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  h4 {
+    font-size: 27px;
+    font-size: 1.6875rem;
+  }
+
+  /* line 519, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  h5 {
+    font-size: 24px;
+    font-size: 1.5rem;
+  }
+
+  /* line 523, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  h6 {
+    font-size: 21px;
+    font-size: 1.3125rem;
+  }
+
+  /* line 527, ../../../../../../Library/Ruby/Gems/2.0.0/gems/guff-compass-1.0.1/lib/stylesheets/_guff.scss */
+  p {
+    font-size: 18px;
+    font-size: 1.125rem;
+  }
+}
+/* line 46, ../sass/screen.scss */
+html, body {
+  height: 100%;
+  overflow: hidden;
+  -webkit-perspective: 200;
+  -moz-perspective: 200;
+  perspective: 200;
+  background: black;
+}
+
+/* line 55, ../sass/screen.scss */
+body {
+  font-family: 'open_sansbold',san-serif;
+}
+
+/* line 59, ../sass/screen.scss */
+main {
+  display: block;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+@-webkit-keyframes pulse {
+  /* line 68, ../sass/screen.scss */
+  0% {
+    opacity: 1;
+  }
+
+  /* line 69, ../sass/screen.scss */
+  50% {
+    opacity: 0.25;
+  }
+
+  /* line 70, ../sass/screen.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes pulse {
+  /* line 74, ../sass/screen.scss */
+  0% {
+    opacity: 1;
+  }
+
+  /* line 75, ../sass/screen.scss */
+  50% {
+    opacity: 0.25;
+  }
+
+  /* line 76, ../sass/screen.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  /* line 80, ../sass/screen.scss */
+  0% {
+    opacity: 1;
+  }
+
+  /* line 81, ../sass/screen.scss */
+  50% {
+    opacity: 0.25;
+  }
+
+  /* line 82, ../sass/screen.scss */
+  100% {
+    opacity: 1;
+  }
+}
+
+/* line 85, ../sass/screen.scss */
+section.scene {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: all .35s ease-out;
+  -moz-transition: all .35s ease-out;
+  transition: all .35s ease-out;
+}
+/* line 93, ../sass/screen.scss */
+section.scene.one {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 98, ../sass/screen.scss */
+section.scene.one.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 103, ../sass/screen.scss */
+section.scene.one.after {
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+/* line 108, ../sass/screen.scss */
+/* 이거는 처음에 밑에 표시된 화살표 표시css */
+section.scene.one span.scroll-indicator {
+  font-size: 15px;
+  font-size: 0.9375rem;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  margin: auto;
+  color: white;
+  display: inline-block;
+  font-weight: normal;
+  -webkit-transform: scaleX(2.5) translate3d(-50%, 0, 0);
+  -moz-transform: scaleX(2.5) translate3d(-50%, 0, 0);
+  transform: scaleX(2.5) translate3d(-50%, 0, 0);
+  font-family: Helvetica, Arial, san-serif;
+  -webkit-animation: pulse 1s infinite;
+  -moz-animation: pulse 1s infinite;
+  animation: pulse 1s infinite;
+}
+/* line 126, ../sass/screen.scss */
+section.scene.two {
+  -webkit-transform: translate3d(0, 100%, 0);
+  -moz-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+/* line 131, ../sass/screen.scss */
+section.scene.two.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 136, ../sass/screen.scss */
+section.scene.two.after {
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+/* line 141, ../sass/screen.scss */
+section.scene.two iframe {
+  margin-top: 20px;
+}
+/* line 145, ../sass/screen.scss */
+section.scene.three {
+  -webkit-transform: translate3d(0, 100%, 0);
+  -moz-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+/* line 150, ../sass/screen.scss */
+section.scene.three.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 155, ../sass/screen.scss */
+section.scene.three.after {
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+
+/* line 164, ../sass/screen.scss */
+section.scene.four {
+  -webkit-transform: translate3d(0, 100%, 0);
+  -moz-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+/* line 168, ../sass/screen.scss */
+section.scene.four.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 174, ../sass/screen.scss */
+section.scene.four.after {
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+/* line 183, ../sass/screen.scss */
+section.scene.five {
+  -webkit-transform: translate3d(0, 100%, 0);
+  -moz-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+
+}
+/* line 189, ../sass/screen.scss */
+section.scene.five.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+}
+/* line 195, ../sass/screen.scss */
+section.scene.five.after {
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+/* line 202, ../sass/screen.scss */
+section.scene.six {
+  -webkit-transform: translate3d(0, 100%, 0);
+  -moz-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+/* line 207, ../sass/screen.scss */
+section.scene.six.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+section.scene.six.after {
+  -webkit-transform: translate3d(0, -100%, 0);
+  -moz-transform: translate3d(0, -100%, 0);
+  transform: translate3d(0, -100%, 0);
+}
+/* line 211, ../sass/screen.scss */
+/* section.scene.six.active .the-end {
+  -webkit-transform: translate3d(-50%, 0, 0);
+  -moz-transform: translate3d(-50%, 0, 0);
+  transform: translate3d(-50%, 0, 0);
+} */
+
+section.scene h1 {
+  text-align: center;
+  -webkit-transition: all .35s ease-out;
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+/* line 248, ../sass/screen.scss */
+section.scene a {
+  text-decoration: underline;
+  color: white;
+}
+
+/* line 254, ../sass/screen.scss */
+section {
+  height: 100%;
+  width: 100%;
+  background: #242424;
+}
+        
              /* 전체 설정 */
         body{
             margin: 0px;
@@ -251,6 +675,7 @@
             font-weight: 600;
             color: #242424;
             margin: 0px;
+            font-size:30px;
            }
            
            /* 시설안내 슬라이드부분 전체설정 */
@@ -315,6 +740,7 @@
                 box-sizing: border-box;
                 color: #695f58;
                 font-weight: 500;
+                 font-size:20px;
             }
            @media only screen and (max-width: 1100px) {
             /* 시설안내 큰 이미지들 크기 조정 */
@@ -389,6 +815,7 @@
            #s3Title{
                color:#b3a193;
                font-weight: 600;
+                font-size:32px;
            }
            #s3Background>div{
                display: flex;
@@ -415,6 +842,7 @@
             }
             #s3Content>div>p:nth-of-type(1){
                 font-weight: 500;
+                font-size:26px;
             }
             #s3Content>div>p:nth-of-type(2){
                 font-size: 14px;
@@ -456,6 +884,7 @@
            #s4Title{
                font-weight: 600;
                color: #b3a193;
+               font-size:32px;
            }
            #s4Background>div{
                display: flex;
@@ -482,6 +911,7 @@
             }
             #s4Content>div>p:nth-of-type(1){
                 font-weight: 500;
+                font-size:26px;
             }
             #s4Content>div>p:nth-of-type(2){
                 font-size: 14px;
@@ -996,10 +1426,10 @@
             
         /* ------------------------로그인 css 끝-------------------------- */
         </style>
-        <!-- 노토산스kr 폰트 가져오기 -->
+                        <!-- 노토산스kr 폰트 가져오기 -->
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
         <!-- 나눔명조 폰트 가져오기 -->
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
+    	<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     </head>
     <body>
       	<!-- <헤더(상단 메뉴바) 시작> -->
@@ -1427,7 +1857,6 @@
 			var userId = $('#userIdLogIn');
 			var userPwd = $('#password');
 			var maintainCheck = $('#forMaintainCheck');
-				alert('asdf');
 
 			$.ajax({
 				url:"<%=request.getContextPath()%>/login.me"

@@ -93,7 +93,7 @@ public class noticeBoardSearchManagerServlet extends HttpServlet {
 	      
 	      RequestDispatcher view = null;
 	      if(list!=null) {
-	         view=request.getRequestDispatcher("views/noticeBoard/noticeBoardListView.jsp");
+	         view=request.getRequestDispatcher("views/manage/manageNotiBoard.jsp");
 	         request.setAttribute("list", list);
 	         request.setAttribute("pn", pn);
 	         request.setAttribute("isSearch", "true");

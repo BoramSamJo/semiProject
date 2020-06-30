@@ -546,7 +546,7 @@
 		                    	<td style="text-align:left"><%=iList.get(i).getPhone()%></td>
 		                    	<td class='init'><%=iList.get(i).getEmail()%></td>
 		                    	<td ></td>
-		                    	<td></td>
+		                    	<td></td><input type="hidden" name="insNo" value="<%=iList.get(i).getInsNo()%>">
 		                    	<td><button type="submit" class="deleteInsBtn" onclick="confirm('정말 해지하시겠습니까?')">해지</button></td>
 		                    </tr>
 	                    </form>

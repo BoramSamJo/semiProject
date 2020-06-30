@@ -1637,7 +1637,6 @@
 
             //가입완료단게 로그인으로 폼
             function memberCompleteGoLog(){
-            	alert('adf');
             	if($('#moveToLogIn').css('display')=='none'){
 	            	$('#moveToLogIn2').click();            		
             	}else{
@@ -1646,7 +1645,6 @@
             }
             //홈으로
             function memberCompleteGoHome(){
-            	alert('adf');
             	location.replace('<%=request.getContextPath()%>/index.jsp');
             }
     </script>

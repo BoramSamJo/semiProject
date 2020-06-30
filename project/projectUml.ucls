@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="board.controller.ModifyReplyServlet" project="project" 
+    file="/project/src/board/controller/ModifyReplyServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="136" width="229" x="35" y="-81"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="board.controller.ManageSketchBoardDetailServlet" project="project" 
+    file="/project/src/board/controller/ManageSketchBoardDetailServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="164" width="265" x="458" y="-28"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="board.controller.SketchBoardWriteServlet" project="project" 
+    file="/project/src/board/controller/SketchBoardWriteServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="161" width="211" x="701" y="33"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="board.controller.ManageQDeleteServlet" project="project" 
+    file="/project/src/board/controller/ManageQDeleteServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="180" width="224" x="961" y="-56"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="board.controller.SketchBoardListServlet" project="project" 
+    file="/project/src/board/controller/SketchBoardListServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="100" width="230" x="1028" y="146"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="board.controller.ManageQCSearchServlet" project="project" 
+    file="/project/src/board/controller/ManageQCSearchServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="175" width="205" x="1401" y="295"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="board.controller.InsertReplyServlet" project="project" 
+    file="/project/src/board/controller/InsertReplyServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="2343" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="board.controller.ManageSketchBoardDeleteServlet" project="project" 
+    file="/project/src/board/controller/ManageSketchBoardDeleteServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="2720" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="board.controller.SketchBoardDetailServlet" project="project" 
+    file="/project/src/board/controller/SketchBoardDetailServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="3097" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="board.controller.DeleteReplyServlet" project="project" 
+    file="/project/src/board/controller/DeleteReplyServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="3474" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="board.controller.ManageQASearchServlet" project="project" 
+    file="/project/src/board/controller/ManageQASearchServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="3851" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="board.controller.ManageSketchBoardListServlet" project="project" 
+    file="/project/src/board/controller/ManageSketchBoardListServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="4228" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="board.controller.QnAListServlet" project="project" 
+    file="/project/src/board/controller/QnAListServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="4605" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="board.controller.ManageQWriteAnswerServlet" project="project" 
+    file="/project/src/board/controller/ManageQWriteAnswerServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="4982" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="board.controller.ManageQSSearchServlet" project="project" 
+    file="/project/src/board/controller/ManageQSSearchServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="5359" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="board.controller.SearchSketchBoardServlet" project="project" 
+    file="/project/src/board/controller/SearchSketchBoardServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="5736" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="board.controller.insertQnAServlet" project="project" 
+    file="/project/src/board/controller/insertQnAServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="6113" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="board.controller.SearchQnABoardServlet" project="project" 
+    file="/project/src/board/controller/SearchQnABoardServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="6490" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="board.controller.ManageSketchBoardDeleteReplyServlet" project="project" 
+    file="/project/src/board/controller/ManageSketchBoardDeleteReplyServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="6867" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="board.controller.ManageQnAListServlet" project="project" 
+    file="/project/src/board/controller/ManageQnAListServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="7244" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="board.controller.ManageSketchBoardSearchServlet" project="project" 
+    file="/project/src/board/controller/ManageSketchBoardSearchServlet.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="142" width="337" x="7621" y="-6"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="board.model.dao.QnADao" project="project" 
+    file="/project/src/board/model/dao/QnADao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="237" width="199" x="62" y="115"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="board.model.dao.SketchBoardDao" project="project" 
+    file="/project/src/board/model/dao/SketchBoardDao.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="221" width="206" x="547" y="260"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="board.model.service.QnAService" project="project" 
+    file="/project/src/board/model/service/QnAService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="252" width="256" x="203" y="385"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="board.model.service.SketchBoardService" project="project" 
+    file="/project/src/board/model/service/SketchBoardService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="206" width="219" x="502" y="544"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="board.model.vo.Pagination" project="project" 
+    file="/project/src/board/model/vo/Pagination.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="205" width="199" x="946" y="89"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="27" language="java" name="board.model.vo.QnABoard" project="project" 
+    file="/project/src/board/model/vo/QnABoard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="210" width="181" x="1000" y="317"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="28" language="java" name="board.model.vo.SbReply" project="project" 
+    file="/project/src/board/model/vo/SbReply.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="228" width="221" x="1307" y="-97"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="29" language="java" name="board.model.vo.SketchBoard" project="project" 
+    file="/project/src/board/model/vo/SketchBoard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="216" width="176" x="1575" y="-15"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="board.model.vo.QAnswer" project="project" 
+    file="/project/src/board/model/vo/QAnswer.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="538" width="289" x="2596" y="-128"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="board.model.vo.Attachment" project="project" 
+    file="/project/src/board/model/vo/Attachment.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="466" width="278" x="2925" y="-128"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

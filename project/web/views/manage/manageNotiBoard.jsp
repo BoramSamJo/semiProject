@@ -15,7 +15,22 @@
 	int endPage = pn.getEndPage(); 
 	int pageBlock =pn.getPageBlock();
 	int pageCount=pn.getPageCount();
+
     %>
+    
+    <%
+String word="";
+   String selectBox="";
+   String isSearch = (String)request.getAttribute("isSearch");
+   if(isSearch==null){
+      isSearch="false";
+   }else{
+      isSearch="true";
+      word=(String)request.getAttribute("word");
+      selectBox=(String)request.getAttribute("selectBox");
+   }
+%>
+    
     
 <!DOCTYPE html>
 <html>
@@ -185,7 +200,7 @@
                 background: rgb(228, 227, 227);
             }
          
-            #notiSection button:not([id=insertBtn]):not([id=searchBtn]){
+            #notiSection button:not([id=insertBtn]):not([id=searchBtn]):not([id=forallBtn]){
                 background: -webkit-linear-gradient(top, #e0ccbb, #b3a193);
                 color: #242424;
                 border:none;
@@ -239,6 +254,16 @@
                 #notiSection button[type=submit]{
                     display: none;
                 }
+            }
+            
+            #forallBtn{
+ 				border: none;
+                border-radius: 4px;
+                background: -webkit-linear-gradient(top, #e0ccbb, #b3a193);
+                color: #242424;
+                width:100px;
+                height:40px;
+                font-weight:600;
             }
 
 </style>
@@ -299,22 +324,40 @@
                 	<%} %>
                 <%} %>
             </table><br>
-            <!-- 이전 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/manageNbList.bo?currentPage=<%=endPage-1 %>'"> < </button>
-            <!-- 페이지 목록 -->
-           <%for(int p=startPage; p<=endPage; p++) {%>
-           		<%if (p==currentPage) {%>
-            	<button disabled><%=p %></button>
-            	<%}else{ %>
-            	<button onclick= "location.href='<%=request.getContextPath() %>/manageNbList.bo?currentPage=<%=p %>'"><%=p %></button>
-            	<%} %>
-            <%} %> 
-           
-            <!-- 다음 페이지 -->
-            <button onclick = "location.href='<%=request.getContextPath() %>/manageNbList.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
-            
+       <%if(pn.getListCount()==0){%>
+               
+            <%}else{ %>
+               <%if(isSearch.equals("false")) {%>
+                      <!-- 이전 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/manageNbList.bo?currentPage=<%=endPage-1 %>'"> < </button>
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                             <button disabled><%=pg %></button>
+                     <%}else{ %>
+                             <button onclick= "location.href='<%=request.getContextPath() %>/manageNbList.bo?currentPage=<%=pg %>'"><%=pg %></button>
+                          <%} %>
+                       <%} %>
+                       <!-- 다음 페이지 -->
+                     <button onclick = "location.href='<%=request.getContextPath() %>/manageNbList.bo?currentPage=<%=startPage+1 %>'"> > </button><br><br>
+                    
+   
+               <!-- 검색 후 -->
+                    <%}else{ %> 
+                     <!-- 이전 페이지 -->
+                       <%for(int pg = startPage; pg<=endPage; pg++){ %>
+                          <%if(pg == currentPage){ %>
+                              <button disabled><%=pg %></button><br><br><br>
+                     <%}else{ %>
+                             <%-- <button onclick="location.href='<%=request.getContextPath() %>/search.bo?currentPage=<%=pg %>&content=<%=word %>&selectBox=<%=selectBox%>';"><%=pg %></button> --%>
+                          <%} %>
+                       <%} %>
+                    <%}%>
+                 <%}%>
+                  <%if(isSearch.equals("true")){ %>
+ 		          <button onclick="reload();" id="forallBtn">전체보기</button>
+           <%} %>
+       
              <!-- 글 작성하기 insert-->
-            
 			<button id="insertBtn"onclick="location.href='views/noticeBoard/noticeBoardInsertForm.jsp'">작성하기</button>
 			
 			
@@ -350,11 +393,15 @@
     	if(($("#forsearch")).val()=="" || ($("#forselect")).val()==""){
     		alert("검색어를 입력하세요");
     	}else{
-    		
     	$("#searchformtest").attr("action","<%=request.getContextPath()%>/managesearch.nbo");
     	$("#searchformtest").submit();
     	}
     }
+  //검색 후 다시 돌아가기
+    function reload(){
+       location.href="<%=request.getContextPath()%>/manageNbList.bo";
+    }
+
     
     
 
@@ -390,6 +437,7 @@
         $(window).resize(function(){
             $('#serveLogo').css('position', 'absolute').css('left', $('html').width()/2 - $('#servelogo').width()/2-65);
         })
+        </script>
 
 </body>
 </html>

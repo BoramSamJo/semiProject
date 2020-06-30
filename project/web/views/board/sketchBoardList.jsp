@@ -1,20 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
-	import="board.model.vo.Pagination, java.util.ArrayList, board.model.vo.SketchBoard, board.model.vo.Attachment"%>
+	import="board.model.vo.Pagination, java.util.ArrayList, board.model.vo.SketchBoard, board.model.vo.Attachment, member.model.vo.Member"%>
 <%
-	Pagination pn = (Pagination)request.getAttribute("pn");
-	ArrayList<SketchBoard> list = (ArrayList<SketchBoard>)request.getAttribute("list");
-	ArrayList<Attachment> fList = (ArrayList<Attachment>)request.getAttribute("fList");
-	Member user = (Member) request.getSession().getAttribute("loginUser");
-	
-	int listCount = pn.getListCount();
-	int currentPage = pn.getCurrentPage();
-	int	limit = pn.getLimit();
-	int	maxPage = pn.getMaxPage();
-	int	startPage = pn.getStartPage();
-	int	endPage = pn.getEndPage();
+Pagination pn = (Pagination)request.getAttribute("pn");
+ArrayList<SketchBoard> list = (ArrayList<SketchBoard>)request.getAttribute("list");
+ArrayList<Attachment> fList = (ArrayList<Attachment>)request.getAttribute("fList");
+Member user = (Member) request.getSession().getAttribute("loginUser");
 
-	
+int listCount =0;
+int currentPage=0;
+int limit=0;		
+int maxPage=0;	
+int startPage=0;	
+int endPage=0;
+
+if(pn.getListCount()==0){
+
+}else{		
+	listCount = pn.getListCount();
+	currentPage = pn.getCurrentPage();
+	limit = pn.getLimit();
+	maxPage = pn.getMaxPage();
+	startPage = pn.getStartPage();
+	endPage = pn.getEndPage();
+}
+
+String isSearch = (String)request.getAttribute("isSearch");//서치서블릿의 결과인지 어쩐지 판단 초기값 true
+String searchText = "";
+if(isSearch==null){
+	isSearch="false";
+}else{
+	isSearch="true";
+	searchText = (String)request.getAttribute("searchText");
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -315,28 +333,36 @@ footer {
 
 		<!--페이지 변환되는 작업 해야 됨-->
 		<div class="pagingArea" align="center">
-			<button class="pagingBtns"
-				onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=1'">
-				<<</button>
-			<button class="pagingBtns"
-				onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=currentPage-1 %>'">
-				<</button>
+			<%if(isSearch.equals("false")) {%>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=1'"> << </button>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=currentPage-1 %>'"> < </button>
 
 			<% for(int p = startPage ; p <= endPage ; p ++) {%>
 			<%if(p == currentPage) {%>
 			<button class="pagingBtns" disabled><%=p %></button>
 			<%}else{ %>
-			<button class="pagingBtns"
-				onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=p %>'"><%=p %></button>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=p %>'"><%=p %></button>
 			<% } %>
 			<% } %>
 
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=currentPage+1 %>'"> > </button>
 			<button class="pagingBtns"
-				onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=currentPage+1 %>'">
-				></button>
-			<button class="pagingBtns"
-				onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=maxPage %>'">
-				>></button>
+				onclick="location.href='<%=request.getContextPath() %>/list.sb?currentPage=<%=maxPage %>'"> >> </button>
+		
+		 	<%}else{ %>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/search.sb?currentPage=<%=1%>&searchText=<%=searchText%>';"> << </button>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/search.sb?currentPage=<%=currentPage-1 %>&searchText=<%=searchText%>';"> < </button>
+
+			<% for(int p = startPage ; p <= endPage ; p ++) {%>
+			<%if(p == currentPage) {%>
+			<button class="pagingBtns" disabled><%=p %></button>
+			<%}else{ %>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/search.sb?currentPage=<%=p %>&searchText=<%=searchText%>';"><%=p %></button>
+			<% } %>
+			<% } %>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/search.sb?currentPage=<%=currentPage+1 %>&searchText=<%=searchText%>';"> > </button>
+			<button class="pagingBtns" onclick="location.href='<%=request.getContextPath() %>/search.sb?currentPage=<%=maxPage %>&searchText=<%=searchText%>';"> >> </button>
+		<% } %>
 		</div>
 
 

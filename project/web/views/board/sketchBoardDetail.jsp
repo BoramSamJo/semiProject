@@ -522,7 +522,7 @@ footer {
             var sbNo = <%=sb.getSbNo()%>;
     			           		   
 			// 댓글 작성, 수정, 삭제
-         $("button[type='button']").click(function(){
+        $("button[type='button']").click(function(){
        			
 				if(($(this).text() == "등록") && $(this).val() == "1"){
 					/* alert($(this).text()); */

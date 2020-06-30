@@ -50,36 +50,25 @@ public class SketchBoardListServlet extends HttpServlet {
 		// 기본적으로 게시판은 1페이지부터 시작함
 		currentPage = 1;
 		// 하지만 페이지 전환시 전달받은 현재 페이지가 있을 시 해당 페이지를 currentPage로 적용
-		if(request.getParameter("currentPage")!=null)
-		{		
+		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.valueOf(request.getParameter("currentPage"));
-			// 현재페이지와 전체 게시글 수로 여러가지 연산 처리를 하기 위해서 int형으로 받아준다.
+			if(currentPage<1) {
+				currentPage=1;
+			}
 		}
 		
-		limit = 9;
+		System.out.println("서블릿에서 현재페이지 : " + currentPage);
+		limit=9;
 		
-
 		maxPage = (int)((double)listCount/limit + 0.9);
+		if(currentPage > maxPage) {
+			currentPage = maxPage;
+		}
 		
-		/*
-		 * startPage - 현재 페이지에 보여질 시작 페이지 수
-		 * 아래쪽에 페이지 수가 10개씩 보여지게 할 경우
-		 * 1, 11, 21, 31, ...
-		 */
-		startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit +1;
+		startPage = (((int)((double)currentPage/limit + 0.9))-1)*limit+1;
 		
-		/*
-		 * endPage - 현재 페이지에서 보여질 마지막 페이지 수
-		 * 아래쪽에 페이지 수가 10개씩 보여지게 할 경우
-		 * 10, 20, 30, 40, ...
-		 */
 		endPage = startPage + limit - 1;
 		
-		/*
-		 * 하지만!! 마지막 페이지(endPage) 수가 총 페이지(maxPage) 수보다 클 경우
-		 * maxPage가 13페이지고 endPage가 20페이지면
-		 * endPage도 13페이지가 되어야 한다.
-		 */
 		if(maxPage < endPage) {
 			endPage = maxPage;
 		}

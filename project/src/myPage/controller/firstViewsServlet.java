@@ -50,9 +50,7 @@ public class firstViewsServlet extends HttpServlet {
 			rList = MemberService.reservationUpdate(m.getmNo());
 			aList = MemberService.animalUpdate(m.getmNo());
 			iList = MemberService.insuranceUpdate(m.getmNo());
-			System.out.println("iList : "+iList);
-			System.out.println("rList : "+rList);
-			System.out.println("aList : "+aList);
+
 			view = request.getRequestDispatcher("views/member/myPage.jsp");
 			request.setAttribute("m", m);
 			request.setAttribute("rList", rList);

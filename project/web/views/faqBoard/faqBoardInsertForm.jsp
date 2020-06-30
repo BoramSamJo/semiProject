@@ -90,21 +90,22 @@
                 font-size: 35;
             }
             #notiSection p:nth-of-type(3){
-                font-size: 11;
+                font-size: 20;
                 color: lightgrey;
             }
             #notiSection span{
+             font-size: 20;
                 color: #d2c4b9;;
             }
             #smalltext{
                 color: lightgrey;
-                font-size: 12;
+                font-size: 20;
             }
             /* 문단 오른쪽 큰 이미지 */
             #img2{
                 width: 25%;
                 height: 38%;
-                margin-left: 20%;
+                margin-left: 55%;
             }
            #middleTitle{
                display: flex;
@@ -258,17 +259,14 @@
                 <h1 id="notiTitle1">FAQ MANAGE</h1><h3 id="notiTitle2">고객센터 관리</h3>
             </div>
            <div id="smallTitles">
-                <img src="img/CS_icon3.png" id = 'img1'>
+                <img src="../../img/CS_icon3.png" id = 'img1'>
                 <h3 id="smallTitle">자주묻는 질문 글 작성</h3>
            </div>
            <div id="middleTitle">
                <div id="middleTitleContent">
                    <p><span><b>혜윰</b></span><span id="think" style="color: #242424;"> : 생각하다</span></p>
-                   <p>
-           
-                    </p>
                </div>
-                <img src="img/please.PNG" id = 'img2'>
+                <img src="../../img/please.PNG" id = 'img2'>
            </div>
         
             <div id="wrapTable">
@@ -283,7 +281,7 @@
 
                     <table>
                     <tr>
-                    <td class = 'tdCss'><img src="img/service.png">카테고리</td>
+                    <td class = 'tdCss'><img src="../../img/service.png">카테고리</td>
                     <td>
                     <select name="selectBox" id="forselect">
                    <option value="">카테고리를 선택해주세요</option> 
@@ -297,7 +295,7 @@
             		</tr>
                        
                         <tr>
-                        <td class = 'tdCss'><img src="img/service.png">제목</td>
+                        <td class = 'tdCss'><img src="../../img/service.png">제목</td>
                         <td>
                             <input type = 'text' placeholder="게시글 제목을 입력하세요"  id = 'title' name = "title" required></td>
                         </tr>
@@ -331,13 +329,11 @@
                 
                 for(var i = 0; i<radiobtn.lenght; i++){
                     if(radiobtn[i].checked==true){
-                        alert(radiobtn[i].value);
                         radiobtn_check++;
                     }
                 }
                 //2.첨부파일 값 넘겨주기
                 document.file.select();
-                alert(document).selection.createRange().text();
             }
             
             function uploadtest12(){
